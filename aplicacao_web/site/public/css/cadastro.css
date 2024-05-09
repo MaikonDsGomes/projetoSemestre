@@ -1,0 +1,22 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 65px;
+    background-color: #29292f;
+    border-radius: 15px;
+    border: 3px white solid;
+}
+.modal h2{
+  text-align: center;
+}
+.close{
+  color: white;
+    float: right;
+    padding: 0px 10px;
+    cursor: pointer;
+}
