@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Jiu Connect | Cadastro</title>
+
+  <!-- <script src="./js/sessao.js"></script> -->
+
+
+  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/cadastro.css">
+</head>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3 id="mensagem_erro">Ops! Algo de errado verifique o campo <span id="alerta_modal"></span></h3>
+  </div>
+</div>
+
+<body>
+  <section class="cadastro_sec">
+    <div class="login-container">
+      <h2 style="margin-bottom: 10%;">Cadastro</h2>
+      <form class="login-form">
+
+        <label for="username">Nome:</label>
+        <input placeholder="Insira seu nome:" type="text" id="input_nome" required>
+
+        <label for="password">Sobrenome:</label>
+        <input placeholder="Insira seu Sobrenome:" id="" type="text" id="input_sobrenome" required>
+
+        <label for="username">E-mail do Usuário:</label>
+        <input placeholder="Insira seu E-mail:" type="text" id="input_usermail" required>
+
+        <label for="password">Senha:</label>
+        <input placeholder="Insira sua senha:" type="password" id="input_senha1" required>
+
+        <label for="password">Repita a senha:</label>
+        <input placeholder="Insira sua senha novamente:" type="password" id="input_senha2" required>
+
+        <label for="password">Telefone:</label>
+        <input placeholder="Insira seu telefone:" type="text" id="input_telefone" required>
+
+        <label for="password">Data de nascimento:</label>
+        <input placeholder="Insira sua data de nascimento:" type="date" id="input_dtNasc" required>
+
+        <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button"
+          onclick="cadastrar()">Cadastrar</button>
+
+        <a class="se-cadastre" href="login.html">
+          <span>Ja tenho login</span>
+        </a>
+      </form>
+    </div>
+  </section>
+</body>
+
+</html>
+
+<script>
+
+  var testeFinal = true;
+
+  function verificar() {
+    var inputEmail = input_usermail.value;
+    var senha1 = input_senha1.value;
+    var senha2 = input_senha2.value;
+
+    var indice_arroba = inputEmail.indexOf('@');
+    var indice_ponto = inputEmail.lastIndexOf('.');
+
+    if (indice_arroba < 0 || indice_ponto < 0 || indice_ponto < indice_arroba + 2 || indice_ponto === inputEmail.length - 1) {
+      modal.style.display = 'block';
+      alerta_modal.innerHTML = `email`;
+
+      testeFinal = false;
+
+    }
+    if (senha1 != senha2) {
+      modal.style.display = 'block';
+      alerta_modal.innerHTML = `senha`;
+
+      testeFinal = false;
+    }
+
+    if (testeFinal == true) {
+      cadastrar();
+    }
+
+    document.querySelector('.close').addEventListener('click', function () {
+      document.getElementById('modal').style.display = 'none';
+      document.querySelector('.conteudo').style.display = 'block'; // Mostra a div conteudo novamente
+    });
+
+  }
+
+  function cadastrar() {
+
+    verificar();
+
+    nomeVar = input_nome.value;
+    sobrenomeVar = input_sobrenome.value;
+    emailVar = input_usermail.value;
+    senhaVar = input_senha1.value;
+    telefoneVar = input_telefone.value;
+    dtNascimentoVar = input_dtNasc.value;
+
+      // Enviando o valor da nova input
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          nomeServer: nomeVar,
+          sobrenomeServer: sobrenomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+          telefoneServer: telefoneVar,
+          dtNascimentoServer: dtNascimentoVar
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+
+          if (resposta.ok) {
+            modal.style.display = "block";
+
+            mensagem_erro.innerHTML =
+              "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+            setTimeout(() => {
+              window.location = "login.html";
+            }, "2000");
+
+            limparFormulario();
+            finalizarAguardar();
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+          finalizarAguardar();
+        });
+
+    return false;
+  }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+</script>
