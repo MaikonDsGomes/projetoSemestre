@@ -11,23 +11,58 @@
   <!-- <script src="./js/sessao.js"></script> -->
 
 
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="icon" href="assets/logo.ico" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 
   <link rel="stylesheet" href="css/login.css">
   <link rel="stylesheet" href="css/cadastro.css">
 </head>
 
+
+
+<style>
+
+
+</style>
+
+
+
+
 <div id="modal" class="modal">
+
+  <div class="notifications-container">
+    <div class="error-alert">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <span class="close">&times;</span>
+
+        </div>
+
+        <div class="error-prompt-container">
+          <p class="error-prompt-heading">Algo deu errado
+          </p>
+          <div class="error-prompt-wrap">
+            <ul class="error-prompt-list" role="list">
+              <li id="mensagem_erro">Ops! Algo de errado verifique o campo <span id="alerta_modal"></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- <div id="modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
     <h3 id="mensagem_erro">Ops! Algo de errado verifique o campo <span id="alerta_modal"></span></h3>
   </div>
-</div>
+</div> -->
 
 <body>
   <section class="cadastro_sec">
-    <div class="login-container">
+    <div id="tela_inicial" class="login-container">
       <h2 style="margin-bottom: 10%;">Cadastro</h2>
       <form class="login-form">
 
@@ -53,13 +88,70 @@
         <input placeholder="Insira sua data de nascimento:" type="date" id="input_dtNasc" required>
 
         <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button"
-          onclick="cadastrar()">Cadastrar</button>
+          onclick="verificar()">Avançar</button>
 
         <a class="se-cadastre" href="login.html">
           <span>Ja tenho login</span>
         </a>
       </form>
     </div>
+
+
+    <div style="display: none;" id="tela_final" class="login-container">
+      <h2 style="margin-bottom: 10%;">Perfil</h2>
+      <form class="login-form">
+
+        <label for="username">Team:</label>
+        <input placeholder="Insira o nome da sua academia:" type="text" id="input_team" required>
+
+        <label for="password">Faixa:</label>
+        <select id="select_faixa">
+
+          <option selected disabled value="#">Selecione sua faixa</option>
+          <option value="branca">Faixa Branca</option>
+          <option value="cinza_branca">Faixa Cinza e Branca</option>
+          <option value="cinza">Faixa Cinza</option>
+          <option value="cinza_preta">Faixa Cinza e Preta</option>
+          <option value="amarela_branca">Faixa Amarela e Branca</option>
+          <option value="amarela">Faixa Amarela</option>
+          <option value="amarela_preta">Faixa Amarela e Preta</option>
+          <option value="laranja_branca">Faixa Laranja e Branca</option>
+          <option value="laranja">Faixa Laranja</option>
+          <option value="laranja_preta">Faixa Laranja e Preta</option>
+          <option value="verde_branca">Faixa Verde e Branca</option>
+          <option value="verde">Faixa Verde</option>
+          <option value="verde_preta">Faixa Verde e Preta</option>
+          <option value="azul">Faixa Azul</option>
+          <option value="roxa">Faixa Roxa</option>
+          <option value="marrom">Faixa Marrom</option>
+          <option value="preta">Faixa Preta</option>
+        </select>
+
+        </select>
+
+        <label for="username">Grau da sua faixa:</label>
+        <select id="select_grau">
+
+          <option disabled selected value="#">Selecione o grau da sua faixa</option>
+          <option value="0°">0°</option>
+          <option value="1°">1°</option>
+          <option value="2°">2°</option>
+          <option value="3°">3°</option>
+          <option value="4°">4°</option>
+          <option value="5°">5°</option>
+          <option value="6°">6°</option>
+          <option value="7°">7°</option>
+          <option value="8°">8°</option>
+          <option value="9°">9°</option>
+
+        </select>
+
+        <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button"
+          onclick="cadastrar()">cadastrar</button>
+
+      </form>
+    </div>
+
   </section>
 </body>
 
@@ -67,16 +159,25 @@
 
 <script>
 
-  var testeFinal = true;
+
 
   function verificar() {
+    var testeFinal = true;
     var inputEmail = input_usermail.value;
     var senha1 = input_senha1.value;
     var senha2 = input_senha2.value;
-
     var indice_arroba = inputEmail.indexOf('@');
     var indice_ponto = inputEmail.lastIndexOf('.');
+    var dataNascimento = new Date(document.getElementById('input_dtNasc').value);
+    var dataAtual = new Date();
+    var validarIdade = dataAtual.getFullYear() - dataNascimento.getFullYear();
 
+    if (validarIdade < 18 || dataNascimento == null) {
+      modal.style.display = 'block';
+      alerta_modal.innerHTML = `idade, você precisa ser maior de idade`;
+
+      testeFinal = false;
+    } 
     if (indice_arroba < 0 || indice_ponto < 0 || indice_ponto < indice_arroba + 2 || indice_ponto === inputEmail.length - 1) {
       modal.style.display = 'block';
       alerta_modal.innerHTML = `email`;
@@ -86,25 +187,35 @@
     }
     if (senha1 != senha2) {
       modal.style.display = 'block';
-      alerta_modal.innerHTML = `senha`;
+      alerta_modal.innerHTML = `senha, as senhas devem ser iguais`;
+
+      testeFinal = false;
+    }
+    if (senha1.length <= 8 || senha2.length <= 8) {
+      modal.style.display = 'block';
+      alerta_modal.innerHTML = `senha, deve ter mais de 8 caracteres`;
 
       testeFinal = false;
     }
 
     if (testeFinal == true) {
-      cadastrar();
+      tela_inicial.style.display = 'none';
+      tela_final.style.display = 'block';
     }
 
     document.querySelector('.close').addEventListener('click', function () {
       document.getElementById('modal').style.display = 'none';
-      document.querySelector('.conteudo').style.display = 'block'; // Mostra a div conteudo novamente
+      document.querySelector('.conteudo').style.display = 'block'; 
+
+      
+
     });
 
   }
 
   function cadastrar() {
 
-    verificar();
+    
 
     nomeVar = input_nome.value;
     sobrenomeVar = input_sobrenome.value;
@@ -113,46 +224,46 @@
     telefoneVar = input_telefone.value;
     dtNascimentoVar = input_dtNasc.value;
 
-      // Enviando o valor da nova input
-      fetch("/usuarios/cadastrar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
-          nomeServer: nomeVar,
-          sobrenomeServer: sobrenomeVar,
-          emailServer: emailVar,
-          senhaServer: senhaVar,
-          telefoneServer: telefoneVar,
-          dtNascimentoServer: dtNascimentoVar
-        }),
-      })
-        .then(function (resposta) {
-          console.log("resposta: ", resposta);
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        sobrenomeServer: sobrenomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        telefoneServer: telefoneVar,
+        dtNascimentoServer: dtNascimentoVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
 
-          if (resposta.ok) {
-            modal.style.display = "block";
+        if (resposta.ok) {
+          modal.style.display = "block";
 
-            mensagem_erro.innerHTML =
-              "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
-            setTimeout(() => {
-              window.location = "login.html";
-            }, "2000");
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
 
-            limparFormulario();
-            finalizarAguardar();
-          } else {
-            throw "Houve um erro ao tentar realizar o cadastro!";
-          }
-        })
-        .catch(function (resposta) {
-          console.log(`#ERRO: ${resposta}`);
+          limparFormulario();
           finalizarAguardar();
-        });
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
 
     return false;
   }

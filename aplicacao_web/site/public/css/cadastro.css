@@ -5,18 +5,70 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
-    height: 65px;
-    background-color: #29292f;
-    border-radius: 15px;
-    border: 3px white solid;
+    
 }
-.modal h2{
-  text-align: center;
+.notifications-container {
+  width: 320px;
+  height: auto;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
+
+.flex {
+  display: flex;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.error-alert {
+  border-radius: 0.375rem;
+  padding: 1rem;
+  background-color: rgb(254 242 242);
+}
+
+.error-svg {
+  color: #F87171;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.error-prompt-heading {
+  color: #991B1B;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: bold;
+}
+
+.error-prompt-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.25rem;
+}
+
+.error-prompt-wrap {
+  margin-top: 0.5rem;
+  color: #B91C1C;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.error-prompt-list {
+  padding-left: 1.25rem;
+  margin-top: 0.25rem;
+  list-style-type: disc;
+}
+
 .close{
-  color: white;
+  color: rgb(0, 0, 0);
     float: right;
     padding: 0px 10px;
     cursor: pointer;
+}
+select{
+  margin-bottom: 1%;
 }
