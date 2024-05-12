@@ -14,6 +14,52 @@
 
 </head>
 
+
+
+<div id="modal" class="modal">
+    <div class="flex">
+
+        <div class="">
+            <h2 class="">faça uma simulação</h2>
+            <div class="txt_informativo_box">
+
+                <p>
+                    <span><i class="fa-regular fa-clipboard"></i></span> Preencha seus Dados: Comece inserindo o
+                    nome da sua empresa e o e-mail do
+                    representante responsável
+                    pelo patrocínio. Isso nos ajudará a entrar em contato com você com os resultados da sua análise.
+                </p>
+                <p>
+                    <span><i class="fa-solid fa-bullseye"></i></span> Defina seu Orçamento: Em seguida, indique
+                    quanto deseja gastar em patrocínio
+                    esportivo. Você pode
+                    inserir um valor específico ou definir um limite máximo para o seu investimento.
+                </p>
+
+                <p>
+                    <span><i class="fa-solid fa-check"></i></span> Escolha seu Alcance: Selecione o nível de alcance
+                    desejado para sua campanha
+                    de
+                    patrocínio:
+                    nacional, estadual ou internacional. Isso nos ajudará a calcular o potencial de exposição e
+                    impacto
+                    da sua marca.
+                </p>
+                <p>
+                    <span><i class="fa-solid fa-hand-holding-heart"></i></span> Receba seus Resultados: Após
+                    preencher essas informações, nossa calculadora
+                    fornecerá uma análise
+                    personalizada do potencial de retorno sobre o investimento.
+                </p>
+
+            </div>
+            <button class="close">Fechar</button>
+        </div>
+    </div>
+</div>
+
+
+
 <body>
 
     <section class="menu_sec">
@@ -35,56 +81,9 @@
         </header>
     </section>
 
-    <section class="simulador_sec">
+    <section id="simulador_sec" class="simulador_sec">
         <h1>Faça uma simulação</h1>
         <div class="centro">
-
-            <div class="txt_informativo_box">
-
-                <div>
-                    <h3>
-                        Nossa Calculadora de Patrocínio é uma ferramenta simples e eficaz para ajudar sua empresa a
-                        planejar
-                        e
-                        gerenciar seus investimentos em patrocínio esportivo. Basta seguir estes passos fáceis:
-                    </h3>
-                </div>
-
-                <div class="txt_cards_informativo_box">
-
-
-                    <p>
-                        <span><i class="fa-regular fa-clipboard"></i></span> Preencha seus Dados: Comece inserindo o
-                        nome da sua empresa e o e-mail do
-                        representante responsável
-                        pelo patrocínio. Isso nos ajudará a entrar em contato com você com os resultados da sua análise.
-                    </p>
-                    <p>
-                        <span><i class="fa-solid fa-bullseye"></i></span> Defina seu Orçamento: Em seguida, indique
-                        quanto deseja gastar em patrocínio
-                        esportivo. Você pode
-                        inserir um valor específico ou definir um limite máximo para o seu investimento.
-                    </p>
-
-                    <p>
-                        <span><i class="fa-solid fa-check"></i></span> Escolha seu Alcance: Selecione o nível de alcance
-                        desejado para sua campanha
-                        de
-                        patrocínio:
-                        nacional, estadual ou internacional. Isso nos ajudará a calcular o potencial de exposição e
-                        impacto
-                        da sua marca.
-                    </p>
-                    <p>
-                        <span><i class="fa-solid fa-hand-holding-heart"></i></span> Receba seus Resultados: Após
-                        preencher essas informações, nossa calculadora
-                        fornecerá uma análise
-                        personalizada do potencial de retorno sobre o investimento.
-                    </p>
-
-                </div>
-            </div>
-
             <div class="calculadora_box">
                 <div class="form_box">
                     <form>
@@ -92,13 +91,7 @@
                         <input type="text" placeholder="Digite o nome da empresa interessada em patrocinar">
 
                         <label>Ramo da empresa</label>
-                        <select id="select_ramo">
-                            <option value="alimento">Alimento</option>
-                            <option value="vestimenta">Vestimenta</option>
-                            <option value="clinica">Clinica</option>
-                            <option value="servico">Serviço esportivo</option>
-                            <option value="outro">Outro</option>
-                        </select>
+                        <input placeholder="Digite o ramo da empresa" type="text" id="input_ramo">
 
                         <label>Email do representante</label>
                         <input type="text" placeholder="Digite o email do representante da empresa ">
@@ -123,7 +116,7 @@
                         <input placeholder="R$" type="number" id="input_orcamento">
 
 
-                        <label>Nivel de alcance do atleta</label>
+                        <label>Nivel profissional do atleta</label>
                         <select id="select_alcance">
                             <option value="estadual">Estadual</option>
                             <option value="nacional">Nacional</option>
@@ -134,26 +127,15 @@
                     </form>
                     <button onclick="simular()">Simular</button>
                 </div>
-                <div class="resultados_box">
-                    <h2 class="resultado_titulo">Resultados</h2>
 
-                    <div class="resultado_txt_box">
-                        <h2>Nivel de alcance: <span id="nivel_alcance">simule para obter resultados</span></h2>
-                        <h2>Quantos atletas consigo patrocinar: <span id="qtd_atltas">0</span></h2>
+            </div>
 
-                        <div style="display: none;" id="resumo_box">
+            <div style="display: none;" id="resumo_box" class="resumo_box">
 
-                            <h2>Resumo</h2>
-                            <h3>Você <span id="nao_desc"></span> consegiu alcançar seu objetivo, <span id="nao_desc2"></span> será possivel patrocinar x atletas no periodo de x tp</ com bolsa combrindo x% os custos do atleta<h3>
-                            <br>
-                            <br>
-                            <h3 id="msg_ruin"></h3>
+                <h2>Resultado</h2>
 
-                        </div>
+                        <h4 id="msg"></h4>
 
-                    </div>
-
-                </div>
             </div>
         </div>
     </section>
@@ -164,11 +146,28 @@
 
 <script>
 
+// Modal informativo
+    function abrirModal() {
+        simulador_sec.style.display = 'none';
+        modal.style.display = "block";
+    }
+
+    window.onload = function () {
+        abrirModal();
+    };
+
+    document.querySelector('.close').addEventListener('click', function () {
+            document.getElementById('modal').style.display = 'none';
+            simulador_sec.style.display = 'block';
+        });
+
     function simular() {
         var periodoChk = select_periodo.value;
+        var ramo = input_ramo.value;
         var periodo = Number(input_periodo.value)
         var orcamento = Number(input_orcamento.value);
         var viabilidade = 0;
+        
 
         if (input_periodo.value == null) {
             alert("Digite o período da simulação");
@@ -177,7 +176,7 @@
             periodo = periodo * 12
             console.log(`${periodo} em meses`)
         }
-        if (periodoChk == "mes"){
+        if (periodoChk == "mes") {
             var periodo = Number(input_periodo.value)
         }
 
@@ -192,38 +191,58 @@
 
         // o quanto pode patrocinar mensalmente
         var poderPatrocinio = orcamento / periodo;
+        var qtdAtletas = 0;
+        
 
-
-        if (alcance == "estadual"){
+        if (alcance == "estadual") {
             viabilidade = (gastoEstadual * apoio) - poderPatrocinio
-        }else if(alcance == "nacional"){
+            qtdAtletas = poderPatrocinio / (gastoEstadual * apoio)
+        } else if (alcance == "nacional") {
             viabilidade = (gastoNacional * apoio) - poderPatrocinio
-        }else if(alcance == "internacional"){
+            qtdAtletas = poderPatrocinio / (gastoNacional * apoio)
+        } else if (alcance == "internacional") {
             viabilidade = (gastoInternacional * apoio) - poderPatrocinio
-        }else if(alcance == "mundial"){
+            qtdAtletas = poderPatrocinio / (gastoInternacional * apoio)
+        } else if (alcance == "mundial") {
             viabilidade = (gastoMundial * apoio) - poderPatrocinio
+            qtdAtletas = poderPatrocinio / (gastoMundial * apoio)
         }
 
-        if(viabilidade < 1){
+        if (viabilidade < 1) {
             viabilidadeChk = true
-        }else{
+        } else {
             viabilidadeChk = false
         }
 
 
 
 
-        
-
 
         //MSG RUIN
-        if (viabilidadeChk == false){
+        if (viabilidadeChk == false) {
             resumo_box.style.display = 'block'
+            viabilidade = Math.abs(viabilidade) * periodo
 
-            viabilidade = Math.abs(viabilidade) * periodo 
+            msg.innerHTML = `Você não conseguiu alcançar seu objetivo, não será possivel patrocinar um atletas no periodo de ${periodo} meses com bolsa cobrindo ${apoio * 100}% dos custos do atleta <br><br>
+            Para alcançar seu objetivo de patrocinar um atleta de nivel ${alcance}, falta cerca de R$${viabilidade.toFixed(2)} reais`
+
+
             // console.log(viabilidade)
+        } else if (viabilidadeChk == true) {
+
+            resumo_box.style.display = 'block'
+            msg.innerHTML = `
+            Você conseguiu alcançar seu objetivo, será possivel patrocinar cerca de ${qtdAtletas.toFixed(0)} atletas no periodo de ${periodo} meses com uma bolsa cobrindo ${apoio * 100}% os custos do atleta <br><br>
+            
+            Sua empresa no ramo ${ramo} terá grandes chances de alcançar visbilidade ${alcance}mente
+            `
         }
 
+
+
+
+
+        
 
     }
 

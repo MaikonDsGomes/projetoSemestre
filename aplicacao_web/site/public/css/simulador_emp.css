@@ -10,7 +10,9 @@
     text-decoration: none;
     
 }
-
+body{
+    background-color: #1a1a2e;
+}
 /* MENU */
 
 .menu_sec span {
@@ -51,7 +53,22 @@
 }
 
 
-/* Dislay grid */
+/* MODAL INFORMATIVO */
+
+.txt_informativo_box{
+    gap: 40px;
+    display: flex;
+    flex-direction: column;
+}
+.txt_informativo_box i{
+    margin-right: 1% ;
+}
+.txt_informativo_box p{
+    font-size: 20px;
+}
+.modal h2{
+    margin-bottom: 2%;
+}
 
 .simulador_sec{
     background-color: #1a1a2e;
@@ -90,9 +107,8 @@ h3{
 /* CALCULADORA BOX */
 
 .calculadora_box{
-    margin-top: 35px;
     display: flex;
-    gap: 50px;
+    justify-content: center;
 }
 .resultados_box h2{
     margin-bottom: 10px;
@@ -126,6 +142,8 @@ h3{
     padding: 7px;
     border-radius: 5px;
     border: 1px solid black;
+    cursor: auto;
+
 }
 .form_box form select{
     height: 20px;
@@ -141,3 +159,49 @@ h3{
 .organizacao_inputs_box{
     display: flex;
 }
+
+/* modal explicativo */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    border: white 1px solid;
+    box-shadow: 20px 19px 60px #393957, -20px 20px 60px #4c4c8566;
+    height: 50vh;
+    width: 50vw;
+  }
+  .close {
+    float: right;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    background: #1a1a2e;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 5%;
+  }
+
+  /* Resultado */
+
+  .resumo_box{
+    display: block;
+    width: 50%;
+    margin: 70px auto;
+  }
+  .resumo_box h2{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    color: white;
+  }
+  .resumo_box h4{
+    color: white;
+    font-weight: normal;
+  }
