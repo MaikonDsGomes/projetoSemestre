@@ -1,74 +1,103 @@
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    
-}
-.notifications-container {
-  width: 320px;
-  height: auto;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #1a1a2e;
+  background-size: cover;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(5px);
 }
 
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffc1c1;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
 .flex {
   display: flex;
 }
-
-.flex-shrink-0 {
-  flex-shrink: 0;
-}
-
-.error-alert {
-  border-radius: 0.375rem;
-  padding: 1rem;
-  background-color: rgb(254 242 242);
-}
-
-.error-svg {
-  color: #F87171;
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.error-prompt-heading {
+.erro_titulo {
   color: #991B1B;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: bold;
 }
-
-.error-prompt-container {
+.erro_box {
   display: flex;
   flex-direction: column;
   margin-left: 1.25rem;
 }
-
-.error-prompt-wrap {
-  margin-top: 0.5rem;
+.erro_texto {
   color: #B91C1C;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
-
-.error-prompt-list {
-  padding-left: 1.25rem;
-  margin-top: 0.25rem;
-  list-style-type: disc;
-}
-
-.close{
+.close {
   color: rgb(0, 0, 0);
-    float: right;
-    padding: 0px 10px;
-    cursor: pointer;
+  float: right;
+  padding: 0px 10px;
+  cursor: pointer;
 }
 select{
   margin-bottom: 1%;
+}
+
+.login-container {
+  width: 420px;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgba(255, 255, 255, .2);
+  color: #000000;
+  border-radius: 10px;
+  padding: 30px 40px;
+  box-shadow: 0 0 3px 1.5px #f8f8f8;
+
+}
+
+h2 {
+  margin-bottom: 3%;
+  color: #000000;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #000000;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 3px;
+  color: #000;
+  border: #000 1px solid;
+
+}
+
+
+.login-form button {
+  background-color: #1a1a2e;
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+
+}
+
+.se-cadastre {
+  color: #000000;
 }

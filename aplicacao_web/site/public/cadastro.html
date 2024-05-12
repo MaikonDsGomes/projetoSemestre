@@ -10,11 +10,12 @@
 
   <!-- <script src="./js/sessao.js"></script> -->
 
-
+  <!-- Biblioteca de mascara input -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  
   <link rel="icon" href="assets/logo.ico" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-
-  <link rel="stylesheet" href="css/login.css">
   <link rel="stylesheet" href="css/cadastro.css">
 </head>
 
@@ -29,28 +30,19 @@
 
 
 <div id="modal" class="modal">
+  <div class="flex">
 
-  <div class="notifications-container">
-    <div class="error-alert">
-      <div class="flex">
-        <div class="flex-shrink-0">
-          <span class="close">&times;</span>
+    <span class="close">&times;</span>
 
-        </div>
+    <div class="erro_box">
+      <p class="erro_titulo">Algo deu errado</p>
+      <div class="erro_texto">
 
-        <div class="error-prompt-container">
-          <p class="error-prompt-heading">Algo deu errado
-          </p>
-          <div class="error-prompt-wrap">
-            <ul class="error-prompt-list" role="list">
-              <li id="mensagem_erro">Ops! Algo de errado verifique o campo <span id="alerta_modal"></span></li>
-            </ul>
-          </div>
-        </div>
+        <p id="mensagem_erro">Ops! Algo de errado verifique o campo <span id="alerta_modal"></span></p>
+
       </div>
     </div>
   </div>
-
 </div>
 
 <!-- <div id="modal" class="modal">
@@ -161,9 +153,14 @@
 
 
 
+$("#input_telefone").mask("(00) 00000-0000");
+ 
+    
+
   function verificar() {
     var testeFinal = true;
     var inputEmail = input_usermail.value;
+    var telefone = input_telefone;
     var senha1 = input_senha1.value;
     var senha2 = input_senha2.value;
     var indice_arroba = inputEmail.indexOf('@');
@@ -172,12 +169,14 @@
     var dataAtual = new Date();
     var validarIdade = dataAtual.getFullYear() - dataNascimento.getFullYear();
 
+    
+
     if (validarIdade < 18 || dataNascimento == null) {
       modal.style.display = 'block';
       alerta_modal.innerHTML = `idade, você precisa ser maior de idade`;
 
       testeFinal = false;
-    } 
+    }
     if (indice_arroba < 0 || indice_ponto < 0 || indice_ponto < indice_arroba + 2 || indice_ponto === inputEmail.length - 1) {
       modal.style.display = 'block';
       alerta_modal.innerHTML = `email`;
@@ -205,17 +204,12 @@
 
     document.querySelector('.close').addEventListener('click', function () {
       document.getElementById('modal').style.display = 'none';
-      document.querySelector('.conteudo').style.display = 'block'; 
-
-      
-
     });
 
   }
 
   function cadastrar() {
 
-    
 
     nomeVar = input_nome.value;
     sobrenomeVar = input_sobrenome.value;
@@ -268,7 +262,5 @@
     return false;
   }
 
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
+
 </script>

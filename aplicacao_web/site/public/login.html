@@ -4,22 +4,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="login.css">
-  
+  <link rel="stylesheet" href="css/login.css">
   <link rel="icon" href="assets/logo.ico" />
-  
   <title>login</title>
 </head>
+
+<div id="modal" class="modal">
+  <div class="flex">
+
+    <span class="close">&times;</span>
+
+    <div class="erro_box">
+      <p class="erro_titulo">Algo deu errado</p>
+      <div class="erro_texto">
+
+        <p id="mensagem_erro">Ops! Algo de errado verifique o campo <span id="alerta_modal"></span></p>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <body>
   <div class="login-container">
     <h2 style="margin-bottom: 10%;">Login</h2>
     <form class="login-form">
       <label for="username">E-mail do Usuário:</label>
-      <input placeholder="Insira seu E-mail:" type="text" id="inp_usermail" name="usermail" required>
+      <input placeholder="Insira seu E-mail:" type="text" id="input_usermail" name="usermail" required>
 
       <label for="password">Senha:</label>
-      <input placeholder="Insira sua senha:" type="password" id="password" name="password" required>
+      <input placeholder="Insira sua senha:" type="password" id="input_senha" name="password" required>
 
       <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button"
         onclick="verificar()">Entrar</button>
@@ -36,29 +50,35 @@
 <script>
 
   function verificar() {
-    var inputEmail = inp_usermail.value;
+    var testeFinal = true;
+    var inputEmail = input_usermail.value;
+    var senha = input_senha.value;
 
     var indice_arroba = inputEmail.indexOf('@');
     var indice_ponto = inputEmail.lastIndexOf('.');
 
     if (indice_arroba < 0 || indice_ponto < 0 || indice_ponto < indice_arroba + 2 || indice_ponto === inputEmail.length - 1) {
-      alert("Por favor, preencha o campo de e-mail corretamente");
-      testeFinal = false;
-    }
-
-    if (senha1.length <= 8 || senha2.length <= 8) {
+      alerta_modal.innerHTML = `email`;
       modal.style.display = 'block';
-      alerta_modal.innerHTML = `senha, deve ter mais de 8 caracteres`;
-
       testeFinal = false;
     }
 
-    if (inputEmail !== "fernando.brandao@sptech.school") {
-      alert("Usuário inválido");
-      return false;
+    if (senha.length <= 8) {
+      alerta_modal.innerHTML = `senha, deve ser maior que 8 caracteres`;
+      modal.style.display = 'block';
+      testeFinal = false;
     }
 
-    window.location.href = 'tela_dashboard.html';
+    if (testeFinal == true) {
+
+      window.location.href = 'index.html';
+
+    }
+
+    document.querySelector('.close').addEventListener('click', function () {
+      document.getElementById('modal').style.display = 'none';
+    });
+
   }
 
 

@@ -26,6 +26,9 @@
     text-decoration: none;
     
 }
+
+/* MENU */
+
 .menu_sec span {
     font-weight: 200;
 }
@@ -45,9 +48,23 @@
     align-self: flex-end;
     gap: 15px;
 }
-
 .banner_sec{
     background-color: #1a1a2e;
+}
+
+.lista_menu li {
+    margin-right: 10px;
+}
+
+.lista_menu a {
+    text-decoration: none;
+    color: #000000;
+    display: inline-block;
+    transition: transform 0.3s ease; /* Transição suave */
+}
+
+.lista_menu a:hover {
+    transform: translateY(-5px); /* Movimento para cima */
 }
 
 
@@ -83,6 +100,7 @@
     color: #1a1a2e;
     border-radius: 15px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 /* ATLETA SECTION */
@@ -261,22 +279,33 @@ footer {
     margin-right: 10px;
 }
 
-.footer-right ul {
+.direita ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
     display: flex;
 }
 
-.footer-right ul li {
+.direita ul li {
     margin-right: 10px;
 }
 
-.footer-right span {
+.direita span {
     margin: 0 10px;
     font-weight: bold;
 }
 .footer_sec i{
     font-size: 50px;
     color: #1a1a2e;
+}
+
+.direita a {
+    text-decoration: none;
+    color: #000000;
+    display: inline-block;
+    transition: transform 0.3s ease; /* Transição suave */
+}
+
+.direita a:hover {
+    transform: translateY(-5px); /* Movimento para cima */
 }
