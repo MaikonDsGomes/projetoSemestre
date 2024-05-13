@@ -16,47 +16,7 @@
 
 
 
-<div id="modal" class="modal">
-    <div class="flex">
 
-        <div class="">
-            <h2 class="">faça uma simulação</h2>
-            <div class="txt_informativo_box">
-
-                <p>
-                    <span><i class="fa-regular fa-clipboard"></i></span> Preencha seus Dados: Comece inserindo o
-                    nome da sua empresa e o e-mail do
-                    representante responsável
-                    pelo patrocínio. Isso nos ajudará a entrar em contato com você com os resultados da sua análise.
-                </p>
-                <p>
-                    <span><i class="fa-solid fa-bullseye"></i></span> Defina seu Orçamento: Em seguida, indique
-                    quanto deseja gastar em patrocínio
-                    esportivo. Você pode
-                    inserir um valor específico ou definir um limite máximo para o seu investimento.
-                </p>
-
-                <p>
-                    <span><i class="fa-solid fa-check"></i></span> Escolha seu Alcance: Selecione o nível de alcance
-                    desejado para sua campanha
-                    de
-                    patrocínio:
-                    nacional, estadual ou internacional. Isso nos ajudará a calcular o potencial de exposição e
-                    impacto
-                    da sua marca.
-                </p>
-                <p>
-                    <span><i class="fa-solid fa-hand-holding-heart"></i></span> Receba seus Resultados: Após
-                    preencher essas informações, nossa calculadora
-                    fornecerá uma análise
-                    personalizada do potencial de retorno sobre o investimento.
-                </p>
-
-            </div>
-            <button class="close">Fechar</button>
-        </div>
-    </div>
-</div>
 
 <div id="modal_erro" class="modal_erro">
     <div class="flex">
@@ -78,7 +38,7 @@
 
 <body>
 
-    <section class="menu_sec">
+    <section id="menu_sec" class="menu_sec">
 
         <header class="menu">
             <div class="centro">
@@ -97,14 +57,20 @@
         </header>
     </section>
 
+
+
     <section id="simulador_sec" class="simulador_sec">
         <h1>Faça uma simulação</h1>
         <div class="centro">
             <div class="calculadora_box">
+
                 <div class="form_box">
+                    <i onclick="abrir_modal()" class="fa-solid fa-circle-info"></i>
+                    
                     <form>
                         <label>Nome da empresa</label>
-                        <input type="text" id="input_nomeEmp" placeholder="Digite o nome da empresa interessada em patrocinar">
+                        <input type="text" id="input_nomeEmp"
+                            placeholder="Digite o nome da empresa interessada em patrocinar">
 
                         <label>Ramo da empresa</label>
                         <input placeholder="Digite o ramo da empresa" type="text" id="input_ramo">
@@ -154,7 +120,49 @@
 
             </div>
         </div>
+
     </section>
+    <div id="modal" class="modal">
+        <div class="flex">
+
+            <div class="">
+                <h2 class="">faça uma simulação</h2>
+                <div class="txt_informativo_box">
+
+                    <p>
+                        <span><i class="fa-regular fa-clipboard"></i></span> Preencha seus Dados: Comece inserindo o
+                        nome da sua empresa e o e-mail do
+                        representante responsável
+                        pelo patrocínio. Isso nos ajudará a entrar em contato com você com os resultados da sua análise.
+                    </p>
+                    <p>
+                        <span><i class="fa-solid fa-bullseye"></i></span> Defina seu Orçamento: Em seguida, indique
+                        quanto deseja gastar em patrocínio
+                        esportivo. Você pode
+                        inserir um valor específico ou definir um limite máximo para o seu investimento.
+                    </p>
+
+                    <p>
+                        <span><i class="fa-solid fa-check"></i></span> Escolha seu Alcance: Selecione o nível de alcance
+                        desejado para sua campanha
+                        de
+                        patrocínio:
+                        nacional, estadual ou internacional. Isso nos ajudará a calcular o potencial de exposição e
+                        impacto
+                        da sua marca.
+                    </p>
+                    <p>
+                        <span><i class="fa-solid fa-hand-holding-heart"></i></span> Receba seus Resultados: Após
+                        preencher essas informações, nossa calculadora
+                        fornecerá uma análise
+                        personalizada do potencial de retorno sobre o investimento.
+                    </p>
+
+                </div>
+                <button class="close">Fechar</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 
@@ -175,7 +183,17 @@
     document.querySelector('.close').addEventListener('click', function () {
         document.getElementById('modal').style.display = 'none';
         simulador_sec.style.display = 'block';
+        menu_sec.style.display = 'block';
     });
+
+
+
+    function abrir_modal() {
+        document.getElementById('modal').style.display = 'block';
+        simulador_sec.style.display = 'none';
+        menu_sec.style.display = 'none';
+    }
+
 
     function simular() {
         var nome = input_nomeEmp.value
@@ -197,12 +215,12 @@
             erro = true;
         }
 
-        if(orcamento < 1){
+        if (orcamento < 1) {
             modal_erro.style.display = 'block';
             alerta_modal.innerHTML = `orçamento, preencha este campo corretamente!`;
             erro = true;
         }
-        if(periodo < 1){
+        if (periodo < 1) {
             modal_erro.style.display = 'block';
             alerta_modal.innerHTML = `periodo, preencha este campo corretamente!`;
             erro = true;

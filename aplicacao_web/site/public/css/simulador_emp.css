@@ -43,6 +43,7 @@ body{
 .menu_sec{
     background-color: white;
     padding: 30px 0px;
+    display: none;
 }
 .menu div{
     display: flex;
@@ -153,7 +154,19 @@ h3{
 
     box-shadow: 20px 19px 60px #393957, -20px 20px 60px #4c4c8566;
 }
+.button_info{
+    background-color: transparent;
+}
 
+
+.form_box i{
+    position: absolute;
+    right: 35%;
+    top: 23%;
+    font-size: 20px;
+    cursor: pointer;
+    color: #1a1a2e;
+}
 .form_box form{
     display: flex;
     flex-direction: column;
@@ -206,7 +219,7 @@ h3{
     padding: 30px;
     border: white 1px solid;
     box-shadow: 20px 19px 60px #393957, -20px 20px 60px #4c4c8566;
-    height: 50vh;
+    height: auto;
     width: 50vw;
   }
   .close {

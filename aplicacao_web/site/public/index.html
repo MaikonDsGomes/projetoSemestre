@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+
     <link rel="stylesheet" href="css/index.css">
     <link rel="icon" href="assets/logo.ico" />
     <title>Home</title>
@@ -15,8 +19,9 @@
 </head>
 
 <style>
-
-
+    html {
+        scroll-behavior: smooth;
+    }
 </style>
 
 <body>
@@ -29,8 +34,8 @@
 
                 <ul class="lista_menu">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Contato</a></li>
+                    <li><a href="#">Atletas</a></li>
+                    <li><a href="#contato_sec">Contato</a></li>
                     <li><span>|</span></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="cadastro.html">Cadastro</a></li>
@@ -44,7 +49,7 @@
 
         <div class="centro content_img">
 
-            <h1>Bem vindo ao Jiu Connect!</h1>
+            <h1>Bem vindo a comunidade Jiu Connect!</h1>
 
             <p>Conectamos atletas talentosos a potenciais patrocinadores, proporcionando oportunidades de sucesso e
                 parcerias lucrativas. Para atletas, oferecemos perfis detalhados e acesso a marcas interessadas. Para
@@ -182,11 +187,136 @@
         </div>
     </section>
 
-    <section class="galeria_sec">
+    <section class="comunidade_sec">
+        
+    </section>
+
+    <section class="blog_sec">
+        <h1>Mural de conversas</h1>
+
+        <div class="centro">
+
+            <form>
+                <label>Titulo</label>
+                <input type="text">
+                <label>conteudo</label>
+                <textarea name="" id="" cols="50" rows="5"></textarea>
+            </form>
+            <button class="enviar_blog_button">Enviar</button>
+
+            <h2>Tópicos</h2>
+            <div class="multiple-items card_blog_box">
+                <div >
+                    <div>
+                        <span class="user_nome">Maikon Douglas</span>
+                    </div>
+                    <div>
+                        <span class="Titulo">Patrocinio em 2024</span>
+                        <p>Em 2024, o patrocínio de atletas tornou-se uma estratégia essencial para marcas que buscam
+                            maior visibilidade e conexão emocional com o público. As empresas investem em atletas não
+                            apenas pela exposição durante eventos esportivos, mas também pela influência nas redes
+                            sociais. O ano viu um aumento significativo no apoio a atletas de diversas modalidades,
+                            refletindo um mercado mais inclusivo e diversificado. Além de benefícios financeiros, os
+                            patrocinadores oferecem suporte em treinamento, saúde e promoção, criando parcerias que vão
+                            além dos contratos tradicionais.</p>
+                    </div>
+                    <div>
+                        <span>Data: 13/05/2024 - 19:36</span>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    <div>
+                        <span class="user_nome">Leandro lo</span>
+                    </div>
+                    <div>
+                        <span class="Titulo">Competição nova ai hein</span>
+                        <p>Em 2024, o patrocínio de atletas tornou-se uma estratégia essencial para marcas que buscam
+                            maior visibilidade e conexão emocional com o público. As empresas investem em atletas não
+                            apenas pela exposição durante eventos esportivos, mas também pela influência nas redes
+                            sociais. O ano viu um aumento significativo no apoio a atletas de diversas modalidades,
+                            refletindo um mercado mais inclusivo e diversificado. Além de benefícios financeiros, os
+                            patrocinadores oferecem suporte em treinamento, saúde e promoção, criando parcerias que vão
+                            além dos contratos tradicionais.</p>
+                    </div>
+                    <div>
+                        <span>Data: 13/05/2024 - 19:36</span>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    <div>
+                        <span class="user_nome">Edu Oliveira</span>
+                    </div>
+                    <div>
+                        <span class="Titulo">Seminario itaquera</span>
+                        <p>Em 2024, o patrocínio de atletas tornou-se uma estratégia essencial para marcas que buscam
+                            maior visibilidade e conexão emocional com o público. As empresas investem em atletas não
+                            apenas pela exposição durante eventos esportivos, mas também pela influência nas redes
+                            sociais. O ano viu um aumento significativo no apoio a atletas de diversas modalidades,
+                            refletindo um mercado mais inclusivo e diversificado. Além de benefícios financeiros, os
+                            patrocinadores oferecem suporte em treinamento, saúde e promoção, criando parcerias que vão
+                            além dos contratos tradicionais.</p>
+                    </div>
+                    <div>
+                        <span>Data: 13/05/2024 - 19:36</span>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    <div>
+                        <span class="user_nome">Edu Oliveira</span>
+                    </div>
+                    <div>
+                        <span class="Titulo">Seminario itaquera</span>
+                        <p>Em 2024, o patrocínio de atletas tornou-se uma estratégia essencial para marcas que buscam
+                            maior visibilidade e conexão emocional com o público. As empresas investem em atletas não
+                            apenas pela exposição durante eventos esportivos, mas também pela influência nas redes
+                            sociais. O ano viu um aumento significativo no apoio a atletas de diversas modalidades,
+                            refletindo um mercado mais inclusivo e diversificado. Além de benefícios financeiros, os
+                            patrocinadores oferecem suporte em treinamento, saúde e promoção, criando parcerias que vão
+                            além dos contratos tradicionais.</p>
+                    </div>
+                    <div>
+                        <span>Data: 13/05/2024 - 19:36</span>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    <div>
+                        <span class="user_nome">Edu Oliveira</span>
+                    </div>
+                    <div>
+                        <span class="Titulo">Seminario itaquera</span>
+                        <p>Em 2024, o patrocínio de atletas tornou-se uma estratégia essencial para marcas que buscam
+                            maior visibilidade e conexão emocional com o público. As empresas investem em atletas não
+                            apenas pela exposição durante eventos esportivos, mas também pela influência nas redes
+                            sociais. O ano viu um aumento significativo no apoio a atletas de diversas modalidades,
+                            refletindo um mercado mais inclusivo e diversificado. Além de benefícios financeiros, os
+                            patrocinadores oferecem suporte em treinamento, saúde e promoção, criando parcerias que vão
+                            além dos contratos tradicionais.</p>
+                    </div>
+                    <div>
+                        <span>Data: 13/05/2024 - 19:36</span>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
     </section>
 
-    <section class="contato_sec">
+    <section id="contato_sec" class="contato_sec">
         <h1>Contato</h1>
         <div class="centroContato">
             <div>
@@ -225,8 +355,8 @@
             <div class="direita">
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Contato</a></li>
+                    <li><a href="#">Atletas</a></li>
+                    <li><a href="#contato_sec">Contato</a></li>
                     <li><span>|</span></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="cadastro.html">Cadastro</a></li>
@@ -237,14 +367,31 @@
         <p>Todos direitos reservados a: <a href="https://github.com/MaikonDsGomes" target="_blank">Maikon</a></p>
     </section>
 
+
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
 </body>
 
 </html>
 
 <script>
 
-    function enviar() {
 
-    }
+$(document).ready(function(){
+    $('.multiple-items').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        dots: true,
+        arrows: true,
+        autoplay: true,
+        autoplaySpeed: 5000
+    });
+});
+
+
 
 </script>

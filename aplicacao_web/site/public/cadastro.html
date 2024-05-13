@@ -13,7 +13,7 @@
   <!-- Biblioteca de mascara input -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-  
+
   <link rel="icon" href="assets/logo.ico" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link rel="stylesheet" href="css/cadastro.css">
@@ -99,7 +99,6 @@
         <label for="password">Faixa:</label>
         <select id="select_faixa">
 
-          <option selected disabled value="#">Selecione sua faixa</option>
           <option value="branca">Faixa Branca</option>
           <option value="cinza_branca">Faixa Cinza e Branca</option>
           <option value="cinza">Faixa Cinza</option>
@@ -124,7 +123,6 @@
         <label for="username">Grau da sua faixa:</label>
         <select id="select_grau">
 
-          <option disabled selected value="#">Selecione o grau da sua faixa</option>
           <option value="0°">0°</option>
           <option value="1°">1°</option>
           <option value="2°">2°</option>
@@ -153,9 +151,9 @@
 
 
 
-$("#input_telefone").mask("(00) 00000-0000");
- 
-    
+  $("#input_telefone").mask("(00) 00000-0000");
+
+
 
   function verificar() {
     var testeFinal = true;
@@ -169,7 +167,7 @@ $("#input_telefone").mask("(00) 00000-0000");
     var dataAtual = new Date();
     var validarIdade = dataAtual.getFullYear() - dataNascimento.getFullYear();
 
-    
+
 
     if (validarIdade < 18 || dataNascimento == null) {
       modal.style.display = 'block';
@@ -210,13 +208,15 @@ $("#input_telefone").mask("(00) 00000-0000");
 
   function cadastrar() {
 
-
-    nomeVar = input_nome.value;
-    sobrenomeVar = input_sobrenome.value;
-    emailVar = input_usermail.value;
-    senhaVar = input_senha1.value;
-    telefoneVar = input_telefone.value;
-    dtNascimentoVar = input_dtNasc.value;
+    var nomeVar = input_nome.value;
+    var sobrenomeVar = input_sobrenome.value;
+    var emailVar = input_usermail.value;
+    var senhaVar = input_senha1.value;
+    var telefoneVar = input_telefone.value;
+    var dtNascimentoVar = input_dtNasc.value;
+    var teamVar = input_team.value;
+    var faixaVar = select_faixa.value;
+    var grauVar = select_grau.value;
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -232,7 +232,10 @@ $("#input_telefone").mask("(00) 00000-0000");
         emailServer: emailVar,
         senhaServer: senhaVar,
         telefoneServer: telefoneVar,
-        dtNascimentoServer: dtNascimentoVar
+        dtNascimentoServer: dtNascimentoVar,
+        teamServer: teamVar,
+        faixaServer: faixaVar,
+        grauServer: grauVar
       }),
     })
       .then(function (resposta) {
