@@ -13,6 +13,27 @@
 body{
     background-color: #1a1a2e;
 }
+
+/* Modal ERRO */
+
+.modal_erro {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffc1c1;
+    border-radius: 10px;
+    padding: 15px;
+  }
+  .close_erro{
+    cursor: pointer;
+  }
+  .erro_titulo{
+    margin-bottom: 1%;
+  }
+
 /* MENU */
 
 .menu_sec span {
@@ -126,8 +147,8 @@ h3{
     padding: 30px 40px;
     background-color: white;
     border-radius: 15px;
-    width: 25vw;
-    height: 54vh;
+    width: 30vw;
+    height: auto;
     
 
     box-shadow: 20px 19px 60px #393957, -20px 20px 60px #4c4c8566;
@@ -152,6 +173,17 @@ h3{
 .form_box button{
     float: right;
     margin-top: 20px;
+    float: right;
+    margin-top: 20px;
+    padding: 0.6rem;
+    border: none;
+    background: #1a1a2e;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 5vw;
+
 }
 .periodo_box{
     display: flex !important;
@@ -186,7 +218,7 @@ h3{
     color: white;
     font-weight: 700;
     cursor: pointer;
-    margin-top: 5%;
+    margin-top: 0.5rem;
   }
 
   /* Resultado */

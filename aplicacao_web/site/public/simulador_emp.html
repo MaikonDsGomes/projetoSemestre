@@ -58,6 +58,22 @@
     </div>
 </div>
 
+<div id="modal_erro" class="modal_erro">
+    <div class="flex">
+
+        <span class="close_erro">&times;</span>
+
+        <div class="erro_box">
+            <p class="erro_titulo">Algo deu errado</p>
+            <div class="erro_texto">
+
+                <p id="mensagem_erro">Ops! Algo de errado verifique o campo <span id="alerta_modal"></span></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <body>
@@ -88,13 +104,13 @@
                 <div class="form_box">
                     <form>
                         <label>Nome da empresa</label>
-                        <input type="text" placeholder="Digite o nome da empresa interessada em patrocinar">
+                        <input type="text" id="input_nomeEmp" placeholder="Digite o nome da empresa interessada em patrocinar">
 
                         <label>Ramo da empresa</label>
                         <input placeholder="Digite o ramo da empresa" type="text" id="input_ramo">
 
                         <label>Email do representante</label>
-                        <input type="text" placeholder="Digite o email do representante da empresa ">
+                        <input type="text" id="input_email" placeholder="Digite o email do representante da empresa ">
 
                         <label>Apoio financeiro</label>
                         <select id="select_apoio">
@@ -134,7 +150,7 @@
 
                 <h2>Resultado</h2>
 
-                        <h4 id="msg"></h4>
+                <h4 id="msg"></h4>
 
             </div>
         </div>
@@ -146,7 +162,7 @@
 
 <script>
 
-// Modal informativo
+    // Modal informativo
     function abrirModal() {
         simulador_sec.style.display = 'none';
         modal.style.display = "block";
@@ -157,17 +173,47 @@
     };
 
     document.querySelector('.close').addEventListener('click', function () {
-            document.getElementById('modal').style.display = 'none';
-            simulador_sec.style.display = 'block';
-        });
+        document.getElementById('modal').style.display = 'none';
+        simulador_sec.style.display = 'block';
+    });
 
     function simular() {
-        var periodoChk = select_periodo.value;
+        var nome = input_nomeEmp.value
         var ramo = input_ramo.value;
+        var email = input_email.value;
         var periodo = Number(input_periodo.value)
         var orcamento = Number(input_orcamento.value);
         var viabilidade = 0;
-        
+        var periodoChk = select_periodo.value;
+        var erro = false;
+
+        // Validações
+        var indice_arroba = email.indexOf('@');
+        var indice_ponto = email.lastIndexOf('.');
+
+        if (indice_arroba < 0 || indice_ponto < 0) {
+            modal_erro.style.display = 'block';
+            alerta_modal.innerHTML = `email, está incorreto!`;
+            erro = true;
+        }
+
+        if(orcamento < 1){
+            modal_erro.style.display = 'block';
+            alerta_modal.innerHTML = `orçamento, preencha este campo corretamente!`;
+            erro = true;
+        }
+        if(periodo < 1){
+            modal_erro.style.display = 'block';
+            alerta_modal.innerHTML = `periodo, preencha este campo corretamente!`;
+            erro = true;
+        }
+
+        document.querySelector('.close_erro').addEventListener('click', function () {
+            document.getElementById('modal_erro').style.display = 'none';
+        });
+
+        // FIM VALIDAÇÕES
+
 
         if (input_periodo.value == null) {
             alert("Digite o período da simulação");
@@ -192,7 +238,7 @@
         // o quanto pode patrocinar mensalmente
         var poderPatrocinio = orcamento / periodo;
         var qtdAtletas = 0;
-        
+
 
         if (alcance == "estadual") {
             viabilidade = (gastoEstadual * apoio) - poderPatrocinio
@@ -219,7 +265,7 @@
 
 
         //MSG RUIN
-        if (viabilidadeChk == false) {
+        if (viabilidadeChk == false && erro == false) {
             resumo_box.style.display = 'block'
             viabilidade = Math.abs(viabilidade) * periodo
 
@@ -228,7 +274,7 @@
 
 
             // console.log(viabilidade)
-        } else if (viabilidadeChk == true) {
+        } else if (viabilidadeChk == true && erro == false) {
 
             resumo_box.style.display = 'block'
             msg.innerHTML = `
@@ -242,7 +288,7 @@
 
 
 
-        
+
 
     }
 
