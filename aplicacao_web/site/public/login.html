@@ -36,7 +36,7 @@
       <input placeholder="Insira sua senha:" type="password" id="input_senha" name="password" required>
 
       <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button"
-        onclick="verificar()">Entrar</button>
+        onclick="entrar()">Entrar</button>
 
       <a class="se-cadastre" href="cadastro.html">
         <span>Se cadastre aqui!</span>
@@ -52,7 +52,7 @@
   function verificar() {
     var testeFinal = true;
     var inputEmail = input_usermail.value;
-    var senha = input_senha.value;
+    var senhaVar = input_senha.value;
 
     var indice_arroba = inputEmail.indexOf('@');
     var indice_ponto = inputEmail.lastIndexOf('.');
@@ -63,7 +63,7 @@
       testeFinal = false;
     }
 
-    if (senha.length <= 8) {
+    if (senhaVar.length <= 8) {
       alerta_modal.innerHTML = `senha, deve ser maior que 8 caracteres`;
       modal.style.display = 'block';
       testeFinal = false;
@@ -75,10 +75,95 @@
 
     }
 
+    
+
+  }
+
+  function entrar() {
+    
     document.querySelector('.close').addEventListener('click', function () {
       document.getElementById('modal').style.display = 'none';
     });
 
+    var emailVar = input_usermail.value;
+    var senhaVar = input_senha.value;
+
+    var indice_arroba = emailVar.indexOf('@');
+    var indice_ponto = emailVar.lastIndexOf('.');
+
+    if (indice_arroba < 0 || indice_ponto < 0 || indice_ponto < indice_arroba + 2 || indice_ponto === emailVar.length - 1) {
+      alerta_modal.innerHTML = `email`;
+      modal.style.display = 'block';
+      
+      return false;
+    }else{
+      setInterval(sumirMensagem, 5000)
+    }
+
+    if (senhaVar.length <= 8) {
+      alerta_modal.innerHTML = `senha, deve ser maior que 8 caracteres`;
+      modal.style.display = 'block';
+      
+      return false;
+    }else{
+      setInterval(sumirMensagem, 5000)
+    }
+
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+          sessionStorage.EMAIL_USUARIO = json.email;
+          sessionStorage.NOME_USUARIO = json.nome;
+          sessionStorage.ID_USUARIO = json.id;
+          sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+          setTimeout(function () {
+            window.location = "./dashboard/dashboard.html";
+          }, 1000); // apenas para exibir o loading
+
+        });
+
+      } else {
+
+        console.log("Houve um erro ao tentar realizar o login!");
+        alerta_modal.innerHTML = `Email e/ou senha está incorreto!`;
+      modal.style.display = 'block';
+        resposta.text().then(texto => {
+          console.error(texto);
+          
+        });
+      }
+
+    }).catch(function (erro) {
+      console.log(erro);
+      ;
+      
+    })
+
+    return false;
+  }
+
+  function sumirMensagem() {
+    modal.style.display = "none"
   }
 
 
