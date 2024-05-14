@@ -58,26 +58,29 @@
       <h2 style="margin-bottom: 10%;">Cadastro</h2>
       <form class="login-form">
 
-        <label for="username">Nome:</label>
+        <label>Nome:</label>
         <input placeholder="Insira seu nome:" type="text" id="input_nome" required>
 
-        <label for="password">Sobrenome:</label>
+        <label>Sobrenome:</label>
         <input placeholder="Insira seu Sobrenome:" id="" type="text" id="input_sobrenome" required>
 
-        <label for="username">E-mail do Usuário:</label>
+        <label>E-mail do Usuário:</label>
         <input placeholder="Insira seu E-mail:" type="text" id="input_usermail" required>
 
-        <label for="password">Senha:</label>
+        <label>Senha:</label>
         <input placeholder="Insira sua senha:" type="password" id="input_senha1" required>
 
-        <label for="password">Repita a senha:</label>
+        <label>Repita a senha:</label>
         <input placeholder="Insira sua senha novamente:" type="password" id="input_senha2" required>
 
-        <label for="password">Telefone:</label>
+        <label>Telefone:</label>
         <input placeholder="Insira seu telefone:" type="text" id="input_telefone" required>
 
-        <label for="password">Data de nascimento:</label>
+        <label>Data de nascimento:</label>
         <input placeholder="Insira sua data de nascimento:" type="date" id="input_dtNasc" required>
+
+        <label>Cep:</label>
+        <input maxlength="9" placeholder="Insira seu cep:" type="text" id="input_cep" required>
 
         <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button"
           onclick="verificar()">Avançar</button>
@@ -93,10 +96,10 @@
       <h2 style="margin-bottom: 10%;">Perfil</h2>
       <form class="login-form">
 
-        <label for="username">Team:</label>
+        <label>Team:</label>
         <input placeholder="Insira o nome da sua academia:" type="text" id="input_team" required>
 
-        <label for="password">Faixa:</label>
+        <label>Faixa:</label>
         <select id="select_faixa">
 
           <option value="branca">Faixa Branca</option>
@@ -120,7 +123,7 @@
 
         </select>
 
-        <label for="username">Grau da sua faixa:</label>
+        <label>Grau da sua faixa:</label>
         <select id="select_grau">
 
           <option value="0°">0°</option>
@@ -152,13 +155,20 @@
 
 
   $("#input_telefone").mask("(00) 00000-0000");
+  $("#input_cep").mask("00000-000");
 
-
+  var nome = 0;
+  var sobrenome = 0;
+  var email = 0;
+  var senha = 0;
+  var telefone = 0;
+  var dtNascimento = 0;
+  var cepVar = 0;
 
   function verificar() {
     var testeFinal = true;
     var inputEmail = input_usermail.value;
-    var telefone = input_telefone;
+    var telefone = input_telefone.value;
     var senha1 = input_senha1.value;
     var senha2 = input_senha2.value;
     var indice_arroba = inputEmail.indexOf('@');
@@ -168,6 +178,15 @@
     var validarIdade = dataAtual.getFullYear() - dataNascimento.getFullYear();
 
 
+    nome = input_nome.value;
+    sobrenome = input_nome.value;
+    email = input_nome.value;
+    senha = input_nome.value;
+    telefone = input_nome.value;
+    dtNascimento = input_nome.value;
+    cep = input_nome.value;
+
+
 
     if (validarIdade < 18 || dataNascimento == null) {
       modal.style.display = 'block';
@@ -175,7 +194,7 @@
 
       testeFinal = false;
     }
-    if (indice_arroba < 0 || indice_ponto < 0 || indice_ponto < indice_arroba + 2 || indice_ponto === inputEmail.length - 1) {
+    if (indice_arroba < 0 || indice_ponto < 0) {
       modal.style.display = 'block';
       alerta_modal.innerHTML = `email`;
 
@@ -208,15 +227,18 @@
 
   function cadastrar() {
 
-    var nomeVar = input_nome.value;
-    var sobrenomeVar = input_sobrenome.value;
-    var emailVar = input_usermail.value;
-    var senhaVar = input_senha1.value;
-    var telefoneVar = input_telefone.value;
-    var dtNascimentoVar = input_dtNasc.value;
+    var nomeVar = nome;
+    var sobrenomeVar = sobrenome;
+    var emailVar = email;
+    var senhaVar = senha;
+    var telefoneVar = telefone;
+    var dtNascimentoVar = dtNascimento;
+    var cepVar = cep
+
     var teamVar = input_team.value;
     var faixaVar = select_faixa.value;
     var grauVar = select_grau.value;
+
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -232,6 +254,7 @@
         emailServer: emailVar,
         senhaServer: senhaVar,
         telefoneServer: telefoneVar,
+        cepServer: cepVar,
         dtNascimentoServer: dtNascimentoVar,
         teamServer: teamVar,
         faixaServer: faixaVar,
