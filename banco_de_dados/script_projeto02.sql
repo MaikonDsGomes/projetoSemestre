@@ -13,18 +13,13 @@ create table atleta (
     cep char(9),
     logradouro varchar(45),
     complemento varchar(45),
-    dtNasc date
-);
-
-create table perfil (
-	idPerfil int primary key auto_increment,
+    dtNasc date,
     team varchar(100),
     faixa varchar(45),
 	grau char(2),
-    descricao varchar(500),
-    fkAtleta int,
-    constraint perfilAtleta foreign key (fkAtleta) references atleta(idAtleta)
+    descricao varchar(500)
 );
+    
 
 create table medalha (
 	idMedalha int primary key auto_increment,

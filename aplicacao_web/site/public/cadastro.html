@@ -45,6 +45,22 @@
   </div>
 </div>
 
+<div id="modalVerde" class="modalVerde">
+  <div class="flex">
+
+    
+
+    <div class="sucesso_box">
+      <p class="sucesso_titulo">Sucesso!</p>
+      <div class="sucesso_texto">
+
+        <p id="mensagem_sucesso"></span></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- <div id="modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -62,10 +78,10 @@
         <input placeholder="Insira seu nome:" type="text" id="input_nome" required>
 
         <label>Sobrenome:</label>
-        <input placeholder="Insira seu Sobrenome:" id="" type="text" id="input_sobrenome" required>
+        <input placeholder="Insira seu Sobrenome:" type="text" id="input_sobrenome" required>
 
         <label>E-mail do Usuário:</label>
-        <input placeholder="Insira seu E-mail:" type="text" id="input_usermail" required>
+        <input placeholder="Insira seu E-mail:" type="text" id="input_email" required>
 
         <label>Senha:</label>
         <input placeholder="Insira sua senha:" type="password" id="input_senha1" required>
@@ -157,17 +173,10 @@
   $("#input_telefone").mask("(00) 00000-0000");
   $("#input_cep").mask("00000-000");
 
-  var nome = 0;
-  var sobrenome = 0;
-  var email = 0;
-  var senha = 0;
-  var telefone = 0;
-  var dtNascimento = 0;
-  var cepVar = 0;
-
   function verificar() {
+
     var testeFinal = true;
-    var inputEmail = input_usermail.value;
+    var inputEmail = input_email.value;
     var telefone = input_telefone.value;
     var senha1 = input_senha1.value;
     var senha2 = input_senha2.value;
@@ -176,17 +185,6 @@
     var dataNascimento = new Date(document.getElementById('input_dtNasc').value);
     var dataAtual = new Date();
     var validarIdade = dataAtual.getFullYear() - dataNascimento.getFullYear();
-
-
-    nome = input_nome.value;
-    sobrenome = input_nome.value;
-    email = input_nome.value;
-    senha = input_nome.value;
-    telefone = input_nome.value;
-    dtNascimento = input_nome.value;
-    cep = input_nome.value;
-
-
 
     if (validarIdade < 18 || dataNascimento == null) {
       modal.style.display = 'block';
@@ -223,21 +221,23 @@
       document.getElementById('modal').style.display = 'none';
     });
 
+
   }
 
   function cadastrar() {
 
-    var nomeVar = nome;
-    var sobrenomeVar = sobrenome;
-    var emailVar = email;
-    var senhaVar = senha;
-    var telefoneVar = telefone;
-    var dtNascimentoVar = dtNascimento;
-    var cepVar = cep
+    var nomeVar = input_nome.value;
+    var sobrenomeVar = input_sobrenome.value;
+    var emailVar = input_email.value;
+    var senhaVar = input_senha1.value;
+    var telefoneVar = input_telefone.value;
+    var dtNascimentoVar = input_dtNasc.value;
+    var cepVar = input_cep.value;
 
     var teamVar = input_team.value;
     var faixaVar = select_faixa.value;
     var grauVar = select_grau.value;
+
 
 
     // Enviando o valor da nova input
@@ -265,27 +265,27 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          modal.style.display = "block";
 
-          mensagem_erro.innerHTML =
+          modalVerde.style.display = "block";
+          mensagem_sucesso.innerHTML =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
 
-          limparFormulario();
-          finalizarAguardar();
+          
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
+        
       });
 
     return false;
+
   }
 
 
