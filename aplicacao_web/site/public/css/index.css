@@ -229,7 +229,7 @@
 }
 .card_blog_box p{
     font-size: 14px;
-    width: 18vw;
+    width: 25vw;
     text-align: justify;
 }
 .user_nome{
@@ -257,6 +257,9 @@
 
 .slick-prev{
     left: -50px !important;
+}
+.slick-next{
+    right: 20px !important;
 }
 
 
