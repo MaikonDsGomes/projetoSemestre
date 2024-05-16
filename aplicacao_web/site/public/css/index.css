@@ -28,7 +28,7 @@
     margin: 0;
     font-family: "Poppins", sans-serif;
     text-decoration: none;
-    
+    overflow-x: none;
 }
 
 /* MENU */
@@ -123,25 +123,13 @@
     padding: 50px 0px;
     text-align: center;
 }
-.atleta_sec div{
+.atleta_sec .centro{
     display: flex;
     gap: 0px 25px;
     /* justify-content: center; */
 }
-.info_box_atleta{
-    display: flex;
-    flex-direction: column;
-}
-.img_box_atleta img{
-    width: 65%;
-    height: auto;
-}
-.img_box_atleta{
-    position: relative;
-    right: -12%;
-}
-.info_box_atleta div:last-child{
-    gap: 0px 17px !important;
+.atleta_sec img{
+    width: 30vw;
 }
 .cardInfo_box div:last-child{
     display: flex;
