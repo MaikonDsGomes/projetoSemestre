@@ -63,9 +63,9 @@
         <h1>Faça uma simulação</h1>
         <div class="centro">
             <div class="calculadora_box">
-                <i onclick="abrir_modal()" class="fa-solid fa-circle-info"></i>
+                
                 <div class="form_box">
-                    
+                    <i onclick="abrir_modal()" class="fa-solid fa-circle-info"></i>
                     
                     <form>
                         <label>Nome da empresa</label>
@@ -113,13 +113,15 @@
 
             </div>
 
-            <div style="display: none;" id="resumo_box" class="resumo_box">
+            <div class="msg_box">
+                <h2>Resultado aqui</h2>
+                <div style="display: none;" id="resumo_box" class="resumo_box">
 
-                <h2>Resultado</h2>
-
-                <h4 id="msg"></h4>
-
+                    <h4 id="msg"></h4>
+    
+                </div>
             </div>
+            
         </div>
 
     </section>
@@ -280,7 +282,7 @@
 
 
 
-        //MSG RUIN
+        //MSG 
         if (viabilidadeChk == false && erro == false) {
             resumo_box.style.display = 'block'
             viabilidade = Math.abs(viabilidade) * periodo
@@ -297,7 +299,8 @@
             Você conseguiu alcançar seu objetivo! 
             Durante ${periodo} meses com uma bolsa cobrindo ${apoio * 100}% os custos do atleta <br><br>
             Sua empresa no ramo ${ramo} terá grandes chances de alcançar visbilidade <span class="spn_msg"> ${alcance}mente </span> <br><br>
-            será possivel patrocinar cerca de <span class="spn_msg"> ${qtdAtletas.toFixed(0)} atletas </span>
+            será possivel patrocinar cerca de <span class="spn_msg"> ${qtdAtletas.toFixed(0)} atletas </span> <br><br>
+            Com um custo individual de <span class="spn_msg"> R$${(orcamento/(qtdAtletas.toFixed(0))).toFixed(2)} reais </span>
             `
         }
 

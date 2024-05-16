@@ -224,9 +224,6 @@
     font-weight: bold;
 }
 .enviar_blog_button{
-    float: right;
-    margin-top: 20px;
-    float: right;
     margin-top: 20px;
     padding: 0.6rem;
     border: none;
@@ -235,7 +232,7 @@
     font-weight: 500;
     cursor: pointer;
     border-radius: 5px;
-    width: 5vw;
+    margin-left: 90%;
 }
 /* Button de passar slide */
 .slick-next:before, .slick-prev:before{
