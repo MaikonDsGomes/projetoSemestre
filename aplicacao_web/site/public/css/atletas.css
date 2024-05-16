@@ -7,6 +7,20 @@
     margin: auto;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    padding: 1% 2%;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -93,7 +107,16 @@
     cursor: pointer;
 }
 
-.titulo_atleta{
+.close {
+    background-color: #1a1a2e;
+    color: rgb(255, 255, 255);
+    padding: 5px 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.titulo_atleta {
     overflow-y: auto;
     max-height: 99px;
     width: 26vw;
@@ -101,28 +124,36 @@
 
 /* Para navegadores WebKit (Chrome, Safari) */
 .titulo_atleta::-webkit-scrollbar {
-    width: 12px; /* largura da barra de rolagem */
+    width: 12px;
+    /* largura da barra de rolagem */
 }
 
 .titulo_atleta::-webkit-scrollbar-thumb {
-    background-color: #888; /* cor do indicador de rolagem */
-    border-radius: 6px; /* arredondamento do indicador de rolagem */
+    background-color: #888;
+    /* cor do indicador de rolagem */
+    border-radius: 6px;
+    /* arredondamento do indicador de rolagem */
 }
 
 .titulo_atleta::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* cor de fundo da barra de rolagem */
+    background-color: #f1f1f1;
+    /* cor de fundo da barra de rolagem */
 }
 
 /* Para Firefox */
 .titulo_atleta::-moz-scrollbar {
-    width: 12px; /* largura da barra de rolagem */
+    width: 12px;
+    /* largura da barra de rolagem */
 }
 
 .titulo_atleta::-moz-scrollbar-thumb {
-    background-color: #888; /* cor do indicador de rolagem */
-    border-radius: 6px; /* arredondamento do indicador de rolagem */
+    background-color: #888;
+    /* cor do indicador de rolagem */
+    border-radius: 6px;
+    /* arredondamento do indicador de rolagem */
 }
 
 .titulo_atleta::-moz-scrollbar-track {
-    background-color: #f1f1f1; /* cor de fundo da barra de rolagem */
+    background-color: #f1f1f1;
+    /* cor de fundo da barra de rolagem */
 }

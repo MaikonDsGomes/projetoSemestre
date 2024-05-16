@@ -96,6 +96,9 @@ body{
     background-color: #1a1a2e;
     height: 100vh;
 }
+.simulador_sec .centro{
+    display: flex;
+}
 
 .simulador_sec h1{
     text-align: center;
@@ -170,6 +173,7 @@ h3{
 .form_box form{
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 .form_box form input{
     margin-bottom: 20px;
@@ -204,7 +208,11 @@ h3{
 .organizacao_inputs_box{
     display: flex;
 }
-
+.spn_msg{
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: underline #bee158 5px;
+}
 /* modal explicativo */
 
 .modal {

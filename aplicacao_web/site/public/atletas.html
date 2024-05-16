@@ -30,6 +30,19 @@
     </section>
     <section class="atletas_sec">
         <h1>Atletas</h1>
+
+        <div id="modal" class="modal">
+            <h4>Maikon Douglas</h4>
+                        <p>Team: JFC Almeida</p>
+                        <p>Faixa: Roxa - 2°</p>
+                        <p>Descrição: Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis iure ex, exercitationem 
+                            eos expedita aliquam sunt nesciunt provident molestiae, corrupti quibusdam 
+                            quam maiores quo dicta tempore. Perspiciatis repellendus doloremque tenetur.</p>
+                        <p>Contato: maikon@gmail.com</p>
+                        <p>Cidade: São Paulo</p>
+                        <button class="close">Fechar</button>
+        </div>
+
         <div class="centro">
             <div class="atletas_card_box">
                 <div class="card_atleta">
@@ -37,7 +50,7 @@
                         <h4>Maikon Douglas</h4>
                         <p>Team: JFC Almeida</p>
                         <p>Faixa: Roxa - 2°</p>
-                        <button>Ver mais</button>
+                        <button onclick="abrirModal()">Ver mais</button>
                     </div>
                     <div class="titulo_atleta">
                         <div>
@@ -106,3 +119,13 @@
 </body>
 
 </html>
+
+<script>
+    function abrirModal() {
+        modal.style.display = "block";
+    }
+
+    document.querySelector('.close').addEventListener('click', function () {
+        document.getElementById('modal').style.display = 'none';
+    });
+</script>

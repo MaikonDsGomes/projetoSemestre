@@ -63,9 +63,9 @@
         <h1>Faça uma simulação</h1>
         <div class="centro">
             <div class="calculadora_box">
-
+                <i onclick="abrir_modal()" class="fa-solid fa-circle-info"></i>
                 <div class="form_box">
-                    <i onclick="abrir_modal()" class="fa-solid fa-circle-info"></i>
+                    
                     
                     <form>
                         <label>Nome da empresa</label>
@@ -106,6 +106,7 @@
                             <option value="mundial">Mundial</option>
 
                         </select>
+                        
                     </form>
                     <button onclick="simular()">Simular</button>
                 </div>
@@ -171,13 +172,10 @@
 <script>
 
     // Modal informativo
-    function abrirModal() {
-        simulador_sec.style.display = 'none';
-        modal.style.display = "block";
-    }
+    
 
     window.onload = function () {
-        abrirModal();
+        abrir_modal();
     };
 
     document.querySelector('.close').addEventListener('click', function () {
@@ -296,9 +294,10 @@
 
             resumo_box.style.display = 'block'
             msg.innerHTML = `
-            Você conseguiu alcançar seu objetivo, será possivel patrocinar cerca de ${qtdAtletas.toFixed(0)} atletas no periodo de ${periodo} meses com uma bolsa cobrindo ${apoio * 100}% os custos do atleta <br><br>
-            
-            Sua empresa no ramo ${ramo} terá grandes chances de alcançar visbilidade ${alcance}mente
+            Você conseguiu alcançar seu objetivo! 
+            Durante ${periodo} meses com uma bolsa cobrindo ${apoio * 100}% os custos do atleta <br><br>
+            Sua empresa no ramo ${ramo} terá grandes chances de alcançar visbilidade <span class="spn_msg"> ${alcance}mente </span> <br><br>
+            será possivel patrocinar cerca de <span class="spn_msg"> ${qtdAtletas.toFixed(0)} atletas </span>
             `
         }
 
@@ -309,8 +308,8 @@
 
 
     }
-
-
+    
+    
     // Mostrar quantidade de atletas que consegue patrocinar
 
 </script>
