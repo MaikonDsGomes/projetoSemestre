@@ -6,54 +6,89 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
+create database projetoIndividual;
 
-USE aquatech;
+use projetoIndividual;
 
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14)
+
+create table atleta (
+	idAtleta int primary key auto_increment,
+    nome varchar(45),
+    sobrenome varchar(45),
+    email varchar(255),
+    senha varchar(45),
+    telefone char(16),
+    cep char(9),
+    logradouro varchar(45),
+    complemento varchar(45),
+    dtNasc date,
+    team varchar(100),
+    faixa varchar(45),
+	grau char(2),
+    descricao varchar(500)
+);
+    
+
+create table medalha (
+	idMedalha int primary key auto_increment,
+    federacao varchar(45),
+    campeonato varchar(45),
+    ano date,
+    posicao char(2),
+    fkAtleta int,
+    constraint medalhaAtleta foreign key (fkAtleta) references atleta(idAtleta)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+
+create table patrocinio (
+	idPatrocinio int primary key auto_increment,
+    lugar varchar(45),
+    empresa varchar(45),
+    segmento varchar(45),
+    fkAtleta int,
+    constraint patrocinioAtleta foreign key (fkAtleta) references atleta(idAtleta)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
-);
+-- INSERTS
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
+-- Inserts para a tabela 'atleta'
+insert into atleta (nome, sobrenome, email, senha, telefone, cep, logradouro, complemento, dtNasc) values
+    ('João', 'Silva', 'joao.silva@email.com', 'senha123', '(00) 1234-5678', '12345-678', 'Rua horizonte', 'Apartamento 101', '1990-05-15'),
+    ('Maria', 'Santos', 'maria.santos@email.com', 'senha456', '(00) 9876-5432', '54321-876', 'Avenida paulista', 'apartamento 1220', '1988-10-20'),
+    ('Pedro', 'Souza', 'pedro.souza@email.com', 'senha789', '(00) 4567-8901', '98765-432', 'Rua Cristovão', 'Bloco D', '1995-03-10');
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
+-- Inserts para a tabela 'perfil'
+insert into perfil (team, faixa, grau, descricao, fkAtleta) values
+    ('Macaco gold team', 'Preta', '1°', 'Campeão regional de Jiu-Jitsu', 1),
+    ('Alpha', 'Azul', '2°', 'Participante em torneios estaduais de Jiu-Jitsu', 2),
+    ('Ryan gracie', 'marrom', '3°', 'Instrutor de Jiu-Jitsu', 3);
 
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
+-- Inserts para a tabela 'medalha'
+insert into medalha (federacao, campeonato, ano, posicao, fkAtleta) values
+    ('CBJJE', 'Campeonato Brasileiro', '2023-01-01', '1º', 1),
+    ('IBJJF', 'Mundial de Jiu-Jitsu', '2022-01-01', '3º', 2),
+    ('FPJJ', 'Copa Paulista', '2024-01-01', '2º', 3);
 
-insert into empresa (razao_social, cnpj) values ('Empresa 1', '00000000000000');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
+-- Inserts para a tabela 'patrocinio'
+insert into patrocinio (lugar, empresa, segmento, fkAtleta) values
+    ('pernas', 'Kvara', 'Vestes', 1),
+    ('peito', 'Growth', 'Alimentício', 2),
+    ('braços', 'cisco', 'Tech', 3);
+    
+
+-- select para exibir as medalhas e os patrocinios de um usuario especifico
+select a.nome, a.sobrenome, m.federacao, m.campeonato, m.ano, m.posicao, pt.empresa, pt.segmento
+from atleta a
+left join medalha m on a.idAtleta = m.fkAtleta
+left join patrocinio pt on a.idAtleta = pt.fkAtleta
+where a.idAtleta = 1; -- substitua "1" pelo ID do usuário desejado
+
+-- select para exibir todas as medalhas e patrocinios de todos os usuarios
+select a.nome, a.sobrenome, m.federacao, m.campeonato, m.ano, m.posicao, pt.empresa, pt.segmento
+from atleta a
+left join medalha m on a.idAtleta = m.fkAtleta
+left join patrocinio pt on a.idAtleta = pt.fkAtleta;
+
+
+
+-- drop database projetoIndividual;

@@ -6,5 +6,82 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1a1a2e;
 }
 
+/* ORAGANIZAÇÃO */
+.dash_box {
+  display: flex;
+}
+
+.menu_box {
+  list-style: none;
+  background-color: white;
+  color: black;
+  height: 100vh;
+  width: 10vw;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1%;
+  gap: 1%;
+}
+
+.conteudo {
+  margin-left: 10%;
+  width: 90vw;
+}
+
+.centro {
+  margin: 5%;
+}
+
+/* MENU */
+.menu_box li {
+  list-style: none;
+}
+
+.menu_box a {
+  text-decoration: none;
+  width: 50%;
+  text-align: center;
+  border: none;
+  padding: 3%;
+  color: #1a1a2e;
+  font-weight: 700;
+  transition: all 0.5 ease;
+  font-size: 21px;
+}
+.menu_box a:hover {
+  text-decoration: underline 2px #1a1a2e;
+  
+}
+
+/* CONTEUDO */
+
+.titulo_pg {
+  text-align: center;
+  font-size: 45px;
+  color: white;
+}
+
+/* CARDS */
+.card_info_box {
+  background-color: white;
+  padding: 5px 20px;
+  border-radius: 15px;
+}
+
+.cards_inf_box {
+  display: flex;
+  margin-top: 2%;
+  gap: 1%;
+}
+
+.cards_inf_box div {
+  background-color: white;
+  padding: 5px 20px;
+  border-radius: 15px;
+  width: 38vw;
+}

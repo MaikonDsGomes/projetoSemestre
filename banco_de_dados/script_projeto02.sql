@@ -19,7 +19,6 @@ create table atleta (
 	grau char(2),
     descricao varchar(500)
 );
-    
 
 create table medalha (
 	idMedalha int primary key auto_increment,
@@ -44,16 +43,12 @@ create table patrocinio (
 -- INSERTS
 
 -- Inserts para a tabela 'atleta'
-insert into atleta (nome, sobrenome, email, senha, telefone, cep, logradouro, complemento, dtNasc) values
-    ('João', 'Silva', 'joao.silva@email.com', 'senha123', '(00) 1234-5678', '12345-678', 'Rua horizonte', 'Apartamento 101', '1990-05-15'),
-    ('Maria', 'Santos', 'maria.santos@email.com', 'senha456', '(00) 9876-5432', '54321-876', 'Avenida paulista', 'apartamento 1220', '1988-10-20'),
-    ('Pedro', 'Souza', 'pedro.souza@email.com', 'senha789', '(00) 4567-8901', '98765-432', 'Rua Cristovão', 'Bloco D', '1995-03-10');
+insert into atleta (nome, sobrenome, email, senha, telefone, cep, logradouro, complemento, dtNasc, team, faixa, grau, descricao ) values
+    ('João', 'Silva', 'joao.silva@email.com', 'senha123', '(00) 1234-5678', '12345-678', 'Rua horizonte', 'Apartamento 101', '1990-05-15', 'Macaco gold team', 'Preta', '1°', 'Campeão regional de Jiu-Jitsu'),
+    ('Maria', 'Santos', 'maria.santos@email.com', 'senha456', '(00) 9876-5432', '54321-876', 'Avenida paulista', 'apartamento 1220', '1988-10-20', 'Alpha', 'Azul', '2°', 'Participante em torneios estaduais de Jiu-Jitsu'),
+    ('Pedro', 'Souza', 'pedro.souza@email.com', 'senha789', '(00) 4567-8901', '98765-432', 'Rua Cristovão', 'Bloco D', '1995-03-10', 'Ryan gracie', 'marrom', '3°', 'Instrutor de Jiu-Jitsu');
 
--- Inserts para a tabela 'perfil'
-insert into perfil (team, faixa, grau, descricao, fkAtleta) values
-    ('Macaco gold team', 'Preta', '1°', 'Campeão regional de Jiu-Jitsu', 1),
-    ('Alpha', 'Azul', '2°', 'Participante em torneios estaduais de Jiu-Jitsu', 2),
-    ('Ryan gracie', 'marrom', '3°', 'Instrutor de Jiu-Jitsu', 3);
+
 
 -- Inserts para a tabela 'medalha'
 insert into medalha (federacao, campeonato, ano, posicao, fkAtleta) values
@@ -67,6 +62,10 @@ insert into patrocinio (lugar, empresa, segmento, fkAtleta) values
     ('peito', 'Growth', 'Alimentício', 2),
     ('braços', 'cisco', 'Tech', 3);
     
+
+update atleta set senha = '123456789' where idAtleta = 1;
+
+select idAtleta, email, senha from atleta;
 
 -- select para exibir as medalhas e os patrocinios de um usuario especifico
 select a.nome, a.sobrenome, m.federacao, m.campeonato, m.ano, m.posicao, pt.empresa, pt.segmento
