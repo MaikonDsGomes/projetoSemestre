@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/logo.ico" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,22 +31,166 @@
 
 <body>
 
-    
+
     <div class="dash_box">
 
-        
+
 
         <div class="menu_box">
-            
-                <a href="dashboard.html">Principal</a>
-                <a href="evolucao.html">Evolução</a>
-                <a href="../index.html">Sair</a>
-            
+
+            <a href="dashboard.html">Principal</a>
+            <a href="evolucao.html">Evolução</a>
+            <a href="../index.html">Sair</a>
+
         </div>
 
+        <div id="modalApagar" class="modalApagar">
+
+            <div>
+                Você tem certeza que deseja apagar
+            </div>
+            <div class="buttonModal_box">
+                <button onclick="fecharModalExcluir()">Sim</button> <button onclick="fecharModalExcluir()">Não</button>
+            </div>
+
+        </div>
+
+
+
         <section class="conteudo">
+
             <h1 class="titulo_pg">Principal</h1>
+
             <div class="centro">
+                <div id="modalAdicionarPat" class="modalAdicionarPat modalInfoGerais">
+                    <div>
+                        <i onclick="fecharAdicionarPat()" class="fa-solid fa-x"></i>
+                    </div>
+
+                    <form>
+                        <label>Local do Patrocinio</label>
+                        <select id="">
+                            <option>Costas</option>
+                            <option>Costas 2</option>
+                            <option>Peito dir</option>
+                            <option>Peito esq</option>
+                            <option>Perna dir</option>
+                            <option>Peito esq</option>
+                        </select>
+                        <label>Nome da empresa</label>
+                        <input type="text" id="input_empresa">
+                        <label>Segmento da empresa</label>
+                        <input type="text" id="input_segmento">
+                    </form>
+                    <div>
+                        <button onclick="fecharAdicionarPat">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="centro">
+                <div id="modalEditarUser" class="modalEditarUser modalInfoGerais">
+                    <div>
+                        <i onclick="fecharEditarUser()" class="fa-solid fa-x"></i>
+                    </div>
+
+                    <form>
+                        <label>Nome:</label>
+                        <input placeholder="Insira seu nome:" type="text" id="input_nome" required>
+
+                        <label>Sobrenome:</label>
+                        <input placeholder="Insira seu Sobrenome:" type="text" id="input_sobrenome" required>
+
+                        <label>E-mail do Usuário:</label>
+                        <input placeholder="Insira seu E-mail:" type="text" id="input_email" required>
+
+                        <label>Senha:</label>
+                        <input placeholder="Insira sua senha:" type="password" id="input_senha1" required>
+
+                        <label>Repita a senha:</label>
+                        <input placeholder="Insira sua senha novamente:" type="password" id="input_senha2" required>
+
+                        <label>Telefone:</label>
+                        <input placeholder="Insira seu telefone:" type="text" id="input_telefone" required>
+
+                        <label>Cep:</label>
+                        <input maxlength="9" placeholder="Insira seu cep:" type="text" id="input_cep" required>
+
+                        <label>Faixa:</label>
+                        <select id="select_faixa">
+
+                            <option value="branca">Faixa Branca</option>
+                            <option value="cinza_branca">Faixa Cinza e Branca</option>
+                            <option value="cinza">Faixa Cinza</option>
+                            <option value="cinza_preta">Faixa Cinza e Preta</option>
+                            <option value="amarela_branca">Faixa Amarela e Branca</option>
+                            <option value="amarela">Faixa Amarela</option>
+                            <option value="amarela_preta">Faixa Amarela e Preta</option>
+                            <option value="laranja_branca">Faixa Laranja e Branca</option>
+                            <option value="laranja">Faixa Laranja</option>
+                            <option value="laranja_preta">Faixa Laranja e Preta</option>
+                            <option value="verde_branca">Faixa Verde e Branca</option>
+                            <option value="verde">Faixa Verde</option>
+                            <option value="verde_preta">Faixa Verde e Preta</option>
+                            <option value="azul">Faixa Azul</option>
+                            <option value="roxa">Faixa Roxa</option>
+                            <option value="marrom">Faixa Marrom</option>
+                            <option value="preta">Faixa Preta</option>
+                        </select>
+
+                        </select>
+
+                        <label>Grau da sua faixa:</label>
+                        <select id="select_grau">
+
+                            <option value="0°">0°</option>
+                            <option value="1°">1°</option>
+                            <option value="2°">2°</option>
+                            <option value="3°">3°</option>
+                            <option value="4°">4°</option>
+                            <option value="5°">5°</option>
+                            <option value="6°">6°</option>
+                            <option value="7°">7°</option>
+                            <option value="8°">8°</option>
+                            <option value="9°">9°</option>
+
+                        </select>
+
+                    </form>
+                    <div>
+                        <button onclick="fecharEditarUser()">Editar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="centro">
+                <div id="modalAdicionarMed" class="modalAdicionarMed modalInfoGerais">
+                    <div>
+                        <i onclick="fecharAdicionarMed()" class="fa-solid fa-x"></i>
+                    </div>
+
+                    <form>
+                        
+                        <label>Federação</label>
+                        <input type="text" >
+                        <label>Campeonato</label>
+                        <input type="text">
+                        <label>Data</label>
+                        <input type="date">
+                        <label>Posição</label>
+                        <select id="">
+                            <option value="1°">1° Lugar</option>
+                            <option value="2°">2° Lugar</option>
+                            <option value="3°">3° Lugar</option>
+                            <option value="4°">4° Lugar</option>
+                        </select>
+                        
+                    </form>
+                    <div>
+                        <button onclick="fecharAdicionarMed">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="centro_div" class="centro">
                 <div>
                     <div class="cards_inf_box">
 
@@ -56,39 +200,48 @@
                             <p>Maikon Douglas</p>
                             <p>JFC</p>
                             <p>São Paulo</p>
+                            <p>maikon@gmail.com</p>
+                            <p>Faixa: Roxa - 1°</p>
 
 
-                            <button>Editar</button>
+                            <button onclick="abrirEditarUser()">Editar</button>
                         </div>
                         <div class="card_pat_box scroll_box">
                             <h1>Patrocinio</h1>
-                            
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
-                            
-                            <button>Adicionar</button>
+
+                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i onclick="abrirModalApagar()"
+                                    class="fa-solid fa-trash"></i></p>
+                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
+                            </p>
+                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
+                            </p>
+                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
+                            </p>
+                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
+                            </p>
+                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
+                            </p>
+
+                            <button onclick="abrirAdicionarMed()">Adicionar</button>
                         </div>
-                        
+
                     </div>
                     <div class="cards_inf_box">
                         <div class="medalhas_box">
                             <h1>Medalhas</h1>
-                            <button>Adicionar</button>
+                            <button onclick="abrirAdicionarMed()">Adicionar</button>
                         </div>
-                        
+
                     </div>
                     <div class="cards_inf_box">
                         <div>
                             <h1>Nivel dos atletas</h1>
-                        <canvas id="myChart"></canvas>
+                            <canvas id="myChart"></canvas>
                         </div>
                         <div>
                             <h1>Quantidade de alunos por faixas</h1>
-                            <canvas style="height: 259px; display: block; box-sizing: border-box; width: 519px;" id="myChartBar" width="519" height="350"></canvas>
+                            <canvas style="height: 259px; display: block; box-sizing: border-box; width: 519px;"
+                                id="myChartBar" width="519" height="350"></canvas>
                         </div>
                     </div>
                 </div>
@@ -108,54 +261,91 @@
 
 <script>
 
-
-const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ['Estadual', 'Nacional', 'Internacional', 'Mundial'],
-      datasets: [{
-        label: 'Nivel dos atletas',
-        data: [24,36,30,10 ],
-        backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)',
-      'rgb(25, 179, 49)'
-    ],
-      }]
+    function abrirModalApagar() {
+        modalApagar.style.display = 'block'
     }
-  });
+    function fecharModalExcluir() {
+        modalApagar.style.display = 'none'
+    }
 
-  const ctxBar = document.getElementById('myChartBar');
 
-  new Chart(ctxBar, {
-    type: 'bar',
-    data: {
-      labels: ['Branca', 'Azul', 'Roxa', 'Marrom', 'Preta'],
-      datasets: [{
-        label: 'Alunos por faixa',
-        data: [5, 10, 4, 15, 7],
-        borderWidth: 2,
-        borderColor: '#1a1a2e',
-        backgroundColor: [
-      'white',
-      'blue',
-      'purple',
-      'brown',
-      'black'
-    ],
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+    function abrirAdicionarPat() {
+        modalAdicionarPat.style.display = 'flex';
+        centro_div.style.display = 'none'
+    }
+    function fecharAdicionarPat() {
+        modalAdicionarPat.style.display = 'none';
+        centro_div.style.display = 'block'
+    }
+
+
+    function abrirEditarUser() {
+        modalEditarUser.style.display = 'flex';
+        centro_div.style.display = 'none'
+    }
+    function fecharEditarUser() {
+        modalEditarUser.style.display = 'none';
+        centro_div.style.display = 'block'
+    }
+
+        
+    function abrirAdicionarMed(){
+        modalAdicionarMed.style.display = 'block';
+        centro_div.style.display = 'none'
+    }
+    function fecharAdicionarMed(){
+        modalAdicionarMed.style.display = 'none';
+        centro_div.style.display = 'block'
+
+    }
+
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Estadual', 'Nacional', 'Internacional', 'Mundial'],
+            datasets: [{
+                label: 'Nivel dos atletas',
+                data: [24, 36, 30, 10],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(25, 179, 49)'
+                ],
+            }]
         }
-      }
-    }
-  });
+    });
+
+    const ctxBar = document.getElementById('myChartBar');
+
+    new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: ['Branca', 'Azul', 'Roxa', 'Marrom', 'Preta'],
+            datasets: [{
+                label: 'Alunos por faixa',
+                data: [5, 10, 4, 15, 7],
+                borderWidth: 2,
+                borderColor: '#1a1a2e',
+                backgroundColor: [
+                    'white',
+                    'blue',
+                    'purple',
+                    'brown',
+                    'black'
+                ],
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 
     /*
     
