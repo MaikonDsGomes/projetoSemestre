@@ -9,6 +9,7 @@
     <title>Jiu Connect | Dashboard</title>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="./../css/dashboards.css">
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
@@ -38,8 +39,8 @@
         <div class="menu_box">
             
                 <a href="dashboard.html">Principal</a>
-                <a href="">Evolução</a>
-                <a href="">Sair</a>
+                <a href="evolucao.html">Evolução</a>
+                <a href="../index.html">Sair</a>
             
         </div>
 
@@ -56,17 +57,38 @@
                             <p>JFC</p>
                             <p>São Paulo</p>
 
+
+                            <button>Editar</button>
                         </div>
-                        <div>
-                            <h1>Métricas da comunidade</h1>
+                        <div class="card_pat_box scroll_box">
+                            <h1>Patrocinio</h1>
+                            
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i></p> 
+                            
+                            <button>Adicionar</button>
                         </div>
+                        
+                    </div>
+                    <div class="cards_inf_box">
+                        <div class="medalhas_box">
+                            <h1>Medalhas</h1>
+                            <button>Adicionar</button>
+                        </div>
+                        
                     </div>
                     <div class="cards_inf_box">
                         <div>
-                            <h1>Medalhas</h1>
+                            <h1>Nivel dos atletas</h1>
+                        <canvas id="myChart"></canvas>
                         </div>
                         <div>
-                            <h1>Patrocinio</h1>
+                            <h1>Quantidade de alunos por faixas</h1>
+                            <canvas style="height: 259px; display: block; box-sizing: border-box; width: 519px;" id="myChartBar" width="519" height="350"></canvas>
                         </div>
                     </div>
                 </div>
@@ -85,6 +107,56 @@
 </html>
 
 <script>
+
+
+const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Estadual', 'Nacional', 'Internacional', 'Mundial'],
+      datasets: [{
+        label: 'Nivel dos atletas',
+        data: [24,36,30,10 ],
+        backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)',
+      'rgb(25, 179, 49)'
+    ],
+      }]
+    }
+  });
+
+  const ctxBar = document.getElementById('myChartBar');
+
+  new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: ['Branca', 'Azul', 'Roxa', 'Marrom', 'Preta'],
+      datasets: [{
+        label: 'Alunos por faixa',
+        data: [5, 10, 4, 15, 7],
+        borderWidth: 2,
+        borderColor: '#1a1a2e',
+        backgroundColor: [
+      'white',
+      'blue',
+      'purple',
+      'brown',
+      'black'
+    ],
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
     /*
     
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
