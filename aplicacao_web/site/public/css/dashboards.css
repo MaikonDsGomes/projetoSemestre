@@ -53,9 +53,10 @@ body {
   transition: all 0.5 ease;
   font-size: 21px;
 }
+
 .menu_box a:hover {
   text-decoration: underline 2px #1a1a2e;
-  
+
 }
 
 /* CONTEUDO */
@@ -66,7 +67,75 @@ body {
   color: white;
 }
 
-/* CARDS */
+/* MODAL DE ADICIONAR MEDALHA */
+.modalAdicionarMed{
+  padding-bottom: 4% !important;
+}
+
+/* MODAL DE ADICIONAR PAT */
+.modalInfoGerais {
+  background: white;
+  border-radius: 10px;
+  flex-direction: column;
+  padding: 2%;
+  display: none;
+  width: 35vw;
+  margin: auto;
+}
+
+.modalInfoGerais i {
+  cursor: pointer;
+  float: right;
+}
+
+.modalInfoGerais form {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalAdicionarPat button, .modalInfoGerais button {
+  background-color: #1a1a2e;
+  color: white;
+  margin-top: 2%;
+  padding: 5px 12px;
+  cursor: pointer;
+  border: none;
+  width: 10vw;
+  float: right;
+}
+
+/* MODAL DE APAGAR PATROCINIO */
+
+.modalApagar {
+  position: fixed;
+  display: none;
+  top: 3%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  top: 9%;
+  left: 43%;
+  width: 20%;
+}
+
+.modalApagar button {
+  background-color: #1a1a2e;
+  color: white;
+  padding: 3px 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.buttonModal_box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 3%;
+}
+
+
+/* CARDS PAGINA PRINCIPAL*/
 .card_info_box {
   background-color: white;
   padding: 5px 20px;
@@ -85,10 +154,12 @@ body {
   border-radius: 15px;
   width: 38vw;
 }
-.medalhas_box{
+
+.medalhas_box {
   width: 78vw !important;
 }
-.cards_inf_box button{
+
+.cards_inf_box button {
   float: right;
   padding: 7px 10px;
   background-color: #1a1a2e;
@@ -98,15 +169,18 @@ body {
   color: white;
   cursor: cell;
 }
-.card_pat_box p{
+
+.card_pat_box p {
   text-align: center;
 }
-.card_pat_box i{
+
+.card_pat_box i {
   color: red;
   margin-left: 5px;
   cursor: pointer;
 }
-.scroll_box{
-  max-height: 235px;
+
+.scroll_box {
+  max-height: 275px;
   overflow-y: auto;
 }
