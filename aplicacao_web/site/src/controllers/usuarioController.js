@@ -140,6 +140,45 @@ function adicionarMed(req, res) {
     }
 }
 
+function adicionarPat(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var lugar = req.body.lugarServer;
+    var nomeEmp = req.body.nomeEmpServer;
+    var segmento = req.body.segmentoServer;
+    var idAtleta = req.body.idAtletaServer;
+
+
+    // Faça as validações dos valores
+    if (lugar == undefined) {
+        res.status(400).send("Seu lugar está undefined!");
+    } else if (nomeEmp == undefined) {
+        res.status(400).send("Seu dt está undefined!");
+    } else if (segmento == undefined) {
+        res.status(400).send("Sua posicao está undefined!");
+    } else if (idAtleta == undefined) {
+        res.status(400).send("Seu idAtleta está undefined!");
+    }
+    else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.adicionarPat(lugar, nomeEmp, segmento, idAtleta)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar ao ADICIONAR UM PATROCINIO! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 function editar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
@@ -189,5 +228,6 @@ module.exports = {
     autenticar,
     cadastrar,
     editar,
-    adicionarMed
+    adicionarMed,
+    adicionarPat
 }
