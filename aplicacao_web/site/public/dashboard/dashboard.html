@@ -68,25 +68,32 @@
                     </div>
 
                     <form>
-                        <label>Local do Patrocinio</label>
+                        <label>Onde o patrocinio fica no kimono ?</label>
                         <select id="select_lugarPat">
                             <option>Costas</option>
-                            <option>Costas 2</option>
-                            <option>Peito dir</option>
-                            <option>Peito esq</option>
-                            <option>Perna dir</option>
-                            <option>Peito esq</option>
+                            <option>Costas-2</option>
+                            <option>Peito-dir</option>
+                            <option>Peito-esq</option>
+                            <option>Perna-dir</option>
+                            <option>Peito-esq</option>
+                            <option>Cóccix</option>
                         </select>
                         <label>Nome da empresa</label>
                         <input type="text" id="input_empresa">
                         <label>Segmento da empresa</label>
-                        <input type="text" id="input_segmento">
+                        <select id="select_segmento">
+                            <option>Alimentação</option>
+                            <option>Clinicas</option>
+                            <option>Vestimenta</option>
+                            <option>Outro</option>
+                        </select>
                     </form>
                     <div>
-                        <button onclick="fecharAdicionarPat()">Adicionar</button>
+                        <button onclick="enviarAdicionarPat()">Adicionar</button>
                     </div>
                 </div>
             </div>
+
             <div class="centro">
                 <div id="modalEditarUser" class="modalEditarUser modalInfoGerais">
                     <div>
@@ -319,9 +326,61 @@
         centro_div.style.display = 'none'
     }
 
-    function fecharAdicionarPat() {
-        modalAdicionarPat.style.display = 'none';
-        centro_div.style.display = 'block'
+    function enviarAdicionarPat() {
+
+        var lugarVar = select_lugarPat.value;
+        var nomeEmpVar = input_empresa.value;
+        var segmentoVar = select_segmento.value;
+
+        fetch("/usuarios/adicionarPat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+
+                lugarServer: lugarVar,
+                nomeEmpServer: nomeEmpVar,
+                segmentoServer: segmentoVar,
+                idAtletaServer: idAtleta_sto
+
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    //ADD ALERT DEPOIS  
+                    modalAdicionarPat.style.display = 'none';
+                    centro_div.style.display = 'block'
+
+                } else {
+                    
+                    throw "Houve um erro ao tentar realizar ao adicionar UM PATROCINIO!";
+
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                modalAdicionarPat.style.display = 'block';
+                    centro_div.style.display = 'none'
+            });
+
+        return false;
+
+
+
+
+
+
+
+
+
+
+       
     }
 
     function fecharEditarUser() {
