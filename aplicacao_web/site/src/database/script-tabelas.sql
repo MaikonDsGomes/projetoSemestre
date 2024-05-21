@@ -53,8 +53,8 @@ create table patrocinio (
 
 -- Inserts para a tabela 'atleta'
 insert into atleta (nome, sobrenome, email, senha, telefone, cep, logradouro, complemento, dtNasc, team, faixa, grau, descricao) values
-    ('João', 'Silva', 'joao.silva@email.com', '123456789', '(00) 1234-5678', '12345-678', 'Rua horizonte', 'Apartamento 101', '1990-05-15', 'Macaco gold team', 'Preta', '1°', 'Campeão regional de Jiu-Jitsu'),
-    ('Maria', 'Santos', 'maria.santos@email.com', '123456789', '(00) 9876-5432', '54321-876', 'Avenida paulista', 'apartamento 1220', '1988-10-20', 'Alpha', 'Azul', '2°', 'Participante em torneios estaduais de Jiu-Jitsu'),
+    ('João', 'Silva', 'joao.silva@email.com', '123456789', '(00) 1234-5678', '12345-678', 'Rua horizonte', 'Apartamento 101', '1990-05-15', 'Macaco gold team', 'preta', '1°', 'Campeão regional de Jiu-Jitsu'),
+    ('Maria', 'Santos', 'maria.santos@email.com', '123456789', '(00) 9876-5432', '54321-876', 'Avenida paulista', 'apartamento 1220', '1988-10-20', 'Alpha', 'azul', '2°', 'Participante em torneios estaduais de Jiu-Jitsu'),
     ('Pedro', 'Souza', 'pedro.souza@email.com', '123456789', '(00) 4567-8901', '98765-432', 'Rua Cristovão', 'Bloco D', '1995-03-10', 'Ryan gracie', 'marrom', '3°', 'Instrutor de Jiu-Jitsu');
 
 -- Inserts para a tabela 'medalha'
