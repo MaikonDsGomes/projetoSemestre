@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/login.css">
   <link rel="icon" href="assets/logo.ico" />
+  <script src="js/sessao.js"></script>
   <title>login</title>
 </head>
 
@@ -131,10 +132,21 @@
         resposta.json().then(json => {
           console.log(json);
           console.log(JSON.stringify(json));
-          sessionStorage.EMAIL_USUARIO = json.email;
+
+          sessionStorage.ID_USUARIO = json.idAtleta;
           sessionStorage.NOME_USUARIO = json.nome;
-          sessionStorage.ID_USUARIO = json.id;
-          sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+          sessionStorage.SOBRENOME_USUARIO = json.sobrenome; 
+          sessionStorage.EMAIL_USUARIO = json.email;
+          sessionStorage.SENHA = json.senha;
+          sessionStorage.TELEFONE_USUARIO = json.telefone;
+          sessionStorage.CEP_USUARIO = json.cep;
+          // Tive problema com isso
+          //sessionStorage.DTNASCIMENTO_USUARIO = json.dtNascimento;
+          sessionStorage.TEAM_USUARIO = json.team;
+          sessionStorage.FAIXA_USUARIO = json.faixa;
+          sessionStorage.GRAU_USUARIO = json.grau;
+
+          //sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
           setTimeout(function () {
             window.location = "./dashboard/dashboard.html";

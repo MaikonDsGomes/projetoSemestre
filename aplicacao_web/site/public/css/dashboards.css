@@ -181,6 +181,7 @@ body {
 }
 
 .scroll_box {
-  max-height: 275px;
+  max-height: 190px;
   overflow-y: auto;
+  width: unset !important;
 }

@@ -40,7 +40,7 @@
 
             <a href="dashboard.html">Principal</a>
             <a href="evolucao.html">Evolução</a>
-            <a href="../index.html">Sair</a>
+            <a onclick="limparSessao()">Sair</a>
 
         </div>
 
@@ -69,7 +69,7 @@
 
                     <form>
                         <label>Local do Patrocinio</label>
-                        <select id="">
+                        <select id="select_lugarPat">
                             <option>Costas</option>
                             <option>Costas 2</option>
                             <option>Peito dir</option>
@@ -83,7 +83,7 @@
                         <input type="text" id="input_segmento">
                     </form>
                     <div>
-                        <button onclick="fecharAdicionarPat">Adicionar</button>
+                        <button onclick="fecharAdicionarPat()">Adicionar</button>
                     </div>
                 </div>
             </div>
@@ -114,6 +114,9 @@
 
                         <label>Cep:</label>
                         <input maxlength="9" placeholder="Insira seu cep:" type="text" id="input_cep" required>
+
+                        <label>Team:</label>
+                        <input type="text" id="input_team" required>
 
                         <label>Faixa:</label>
                         <select id="select_faixa">
@@ -157,7 +160,7 @@
 
                     </form>
                     <div>
-                        <button onclick="fecharEditarUser()">Editar</button>
+                        <button onclick="enviarEditarUser()">Editar</button>
                     </div>
                 </div>
             </div>
@@ -168,24 +171,24 @@
                     </div>
 
                     <form>
-                        
+
                         <label>Federação</label>
-                        <input type="text" >
+                        <input type="text" id="input_federacao">
                         <label>Campeonato</label>
-                        <input type="text">
+                        <input type="text" id="input_campeonato">
                         <label>Data</label>
-                        <input type="date">
+                        <input type="date" id="input_data">
                         <label>Posição</label>
-                        <select id="">
+                        <select id="select_posicao">
                             <option value="1°">1° Lugar</option>
                             <option value="2°">2° Lugar</option>
                             <option value="3°">3° Lugar</option>
                             <option value="4°">4° Lugar</option>
                         </select>
-                        
+
                     </form>
                     <div>
-                        <button onclick="fecharAdicionarMed">Adicionar</button>
+                        <button onclick="enviarAdicionarMed()">Adicionar</button>
                     </div>
                 </div>
             </div>
@@ -197,32 +200,45 @@
                         <div class="card_info_box">
 
                             <h1>Informações</h1>
-                            <p>Maikon Douglas</p>
-                            <p>JFC</p>
-                            <p>São Paulo</p>
-                            <p>maikon@gmail.com</p>
-                            <p>Faixa: Roxa - 1°</p>
 
+                            <p><span id="nome_user"></span></p>
+                            <p><span id="team_user"></span></p>
+                            <p><span id="cep_user"></span></p>
+                            <p><span id="email_user"></span></p>
+                            <p><span id="faixa_user"></span> - <span id="grau_user"></span></p>
 
                             <button onclick="abrirEditarUser()">Editar</button>
                         </div>
-                        <div class="card_pat_box scroll_box">
+                        <div class="card_pat_box ">
                             <h1>Patrocinio</h1>
-
-                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i onclick="abrirModalApagar()"
-                                    class="fa-solid fa-trash"></i></p>
-                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
-                            </p>
-                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
-                            </p>
-                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
-                            </p>
-                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
-                            </p>
-                            <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i class="fa-solid fa-trash"></i>
-                            </p>
-
-                            <button onclick="abrirAdicionarMed()">Adicionar</button>
+                            <div class="scroll_box">
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i onclick="abrirModalApagar()"
+                                        class="fa-solid fa-trash"></i></p>
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
+                                        class="fa-solid fa-trash"></i>
+                                </p>
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
+                                        class="fa-solid fa-trash"></i>
+                                </p>
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
+                                        class="fa-solid fa-trash"></i>
+                                </p>
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
+                                        class="fa-solid fa-trash"></i>
+                                </p>
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
+                                        class="fa-solid fa-trash"></i>
+                                </p>
+                                </p>
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
+                                        class="fa-solid fa-trash"></i>
+                                </p>
+                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
+                                        class="fa-solid fa-trash"></i>
+                                </p>
+                                
+                            </div>
+                            <button onclick="abrirAdicionarPat()">Adicionar</button>
                         </div>
 
                     </div>
@@ -261,42 +277,249 @@
 
 <script>
 
+    // STORAGE INFORMAÇÃO
+
+
+    var idAtleta_sto = sessionStorage.ID_USUARIO
+    var nome_sto = sessionStorage.NOME_USUARIO
+
+    //console.log(`ID do user: ${idAtleta_sto}`)
+
+    var sobrenome_sto = sessionStorage.SOBRENOME_USUARIO
+    var email_sto = sessionStorage.EMAIL_USUARIO
+    var senha_sto = sessionStorage.SENHA
+    var telefone_sto = sessionStorage.TELEFONE_USUARIO
+    var cep_sto = sessionStorage.CEP_USUARIO
+
+    //var dtNascimento_sto = sessionStorage.DTNASCIMENTO_USUARIO
+    //console.log(`Data: ${dtNascimento_sto}`)
+
+    var team_sto = sessionStorage.TEAM_USUARIO
+    var faixa_sto = sessionStorage.FAIXA_USUARIO
+    var grau_sto = sessionStorage.GRAU_USUARIO
+
+    nome_user.innerHTML = nome_sto;
+    team_user.innerHTML = `Team: ${team_sto}`;
+    cep_user.innerHTML = `Cep: ${cep_sto}`;
+    email_user.innerHTML = `Email: ${email_sto}`;
+    faixa_user.innerHTML = `Faixa: ${faixa_sto}`;
+    grau_user.innerHTML = grau_sto;
+
+
     function abrirModalApagar() {
         modalApagar.style.display = 'block'
     }
+
     function fecharModalExcluir() {
         modalApagar.style.display = 'none'
     }
-
 
     function abrirAdicionarPat() {
         modalAdicionarPat.style.display = 'flex';
         centro_div.style.display = 'none'
     }
+
     function fecharAdicionarPat() {
         modalAdicionarPat.style.display = 'none';
         centro_div.style.display = 'block'
     }
 
-
-    function abrirEditarUser() {
-        modalEditarUser.style.display = 'flex';
-        centro_div.style.display = 'none'
-    }
     function fecharEditarUser() {
         modalEditarUser.style.display = 'none';
         centro_div.style.display = 'block'
     }
 
-        
-    function abrirAdicionarMed(){
+    function abrirEditarUser() {
+
+        input_nome.value = nome_sto
+        input_sobrenome.value = sobrenome_sto
+        input_email.value = email_sto
+        input_senha1.value = senha_sto
+        input_senha2.value = senha_sto
+        input_telefone.value = telefone_sto
+        input_cep.value = cep_sto
+        select_faixa.value = faixa_sto
+        select_grau.value = grau_sto
+        //input_dtNasc.value = dtNascimento_sto
+        input_team.value = team_sto
+
+        modalEditarUser.style.display = 'flex';
+        centro_div.style.display = 'none'
+
+    }
+
+    function enviarEditarUser() {
+        var nomeVar = input_nome.value;
+        var sobrenomeVar = input_sobrenome.value;
+        var emailVar = input_email.value;
+        var senhaVar = input_senha1.value;
+        var telefoneVar = input_telefone.value;
+        //var dtNascimentoVar = input_dtNasc.value;
+        var cepVar = input_cep.value;
+
+        var teamVar = input_team.value;
+        var faixaVar = select_faixa.value;
+        var grauVar = select_grau.value;
+
+        fetch("/usuarios/editar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                sobrenomeServer: sobrenomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                telefoneServer: telefoneVar,
+                cepServer: cepVar,
+                //dtNascimentoServer: dtNascimentoVar,
+                teamServer: teamVar,
+                faixaServer: faixaVar,
+                grauServer: grauVar,
+                idAtletaServer: idAtleta_sto
+
+
+
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    fetch("/usuarios/autenticar", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            emailServer: emailVar,
+                            senhaServer: senhaVar
+                        })
+                    }).then(function (resposta) {
+                        console.log("ESTOU NO THEN DO entrar()!")
+
+                        if (resposta.ok) {
+                            console.log(resposta);
+
+                            resposta.json().then(json => {
+                                console.log(json);
+                                console.log(JSON.stringify(json));
+
+                                sessionStorage.ID_USUARIO = json.idAtleta;
+                                sessionStorage.NOME_USUARIO = json.nome;
+                                sessionStorage.SOBRENOME_USUARIO = json.sobrenome;
+                                sessionStorage.EMAIL_USUARIO = json.email;
+                                sessionStorage.SENHA = json.senha;
+                                sessionStorage.TELEFONE_USUARIO = json.telefone;
+                                sessionStorage.CEP_USUARIO = json.cep;
+                                // Tive problema com isso
+                                //sessionStorage.DTNASCIMENTO_USUARIO = json.dtNascimento;
+                                sessionStorage.TEAM_USUARIO = json.team;
+                                sessionStorage.FAIXA_USUARIO = json.faixa;
+                                sessionStorage.GRAU_USUARIO = json.grau;
+
+                                //sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                                setTimeout(function () {
+                                    window.location = "dashboard.html";
+                                }, 1000); // apenas para exibir o loading
+
+                            });
+
+                        } else {
+
+                            console.log("Houve um erro ao tentar realizar o login!");
+                            alerta_modal.innerHTML = `Email e/ou senha está incorreto!`;
+                            modal.style.display = 'block';
+                            resposta.text().then(texto => {
+                                console.error(texto);
+
+                            });
+                        }
+
+                    }).catch(function (erro) {
+                        console.log(erro);
+                        ;
+
+                    })
+
+                    return false;
+
+                    modalEditarUser.style.display = 'none';
+                    centro_div.style.display = 'block'
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                modalEditarUser.style.display = 'block';
+                centro_div.style.display = 'none'
+            });
+
+        return false;
+    }
+
+    function abrirAdicionarMed() {
         modalAdicionarMed.style.display = 'block';
         centro_div.style.display = 'none'
     }
-    function fecharAdicionarMed(){
+
+    function fecharAdicionarMed() {
         modalAdicionarMed.style.display = 'none';
         centro_div.style.display = 'block'
+    }
+    function enviarAdicionarMed() {
 
+        var federacaoVar = input_federacao.value;
+        var dtVar = input_data.value;
+        var posicaoVar = select_posicao.value;
+        var nomeVar = input_campeonato.value;
+
+        fetch("/usuarios/adicionarMed", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+
+                federacaoServer: federacaoVar,
+                dtServer: dtVar,
+                posicaoServer: posicaoVar,
+                nomeServer: nomeVar,
+                idAtletaServer: idAtleta_sto
+
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    modalAdicionarMed.style.display = 'none';
+                    centro_div.style.display = 'block'
+
+                } else {
+                    console.log(`Posição: ${posicaoVar} --- Posição tamanho: ${posicaoVar.length}`)
+                    throw "Houve um erro ao tentar realizar ao adicionar UMA MEDALHA!";
+
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                modalAdicionarMed.style.display = 'block';
+                centro_div.style.display = 'none'
+            });
+
+        return false;
     }
 
     const ctx = document.getElementById('myChart');
@@ -348,244 +571,244 @@
     });
 
     /*
-    
-        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-    
-        let proximaAtualizacao;
-    
-        window.onload = exibirAquariosDoUsuario();
-    
-        function exibirAquariosDoUsuario() {
-            var aquarios = JSON.parse(sessionStorage.AQUARIOS);
-            aquarios.forEach(item => {
-                document.getElementById("btnAquario").innerHTML += `
-                <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
-                `
-    
-                document.getElementById("graficos").innerHTML += `
-                    <div id="grafico${item.id}" class="display-none">
-                        <h3 class="tituloGraficos">
-                            <span id="tituloAquario${item.id}">${item.descricao}</span>
-                        </h3>
-                        <div class="graph">
-                            <canvas id="myChartCanvas${item.id}"></canvas>
-                        </div>
-                        <div class="label-captura">
-                            <p id="avisoCaptura${item.id}" style="color: white"></p>
-                        </div>
-                    </div>
-                `
-    
-                obterDadosGrafico(item.id)
-            });
-    
-            if (aquarios.length > 0) {
-                exibirAquario(aquarios[0].id)
+     
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+     
+    let proximaAtualizacao;
+     
+    window.onload = exibirAquariosDoUsuario();
+     
+    function exibirAquariosDoUsuario() {
+    var aquarios = JSON.parse(sessionStorage.AQUARIOS);
+    aquarios.forEach(item => {
+    document.getElementById("btnAquario").innerHTML += `
+    <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
+    `
+     
+    document.getElementById("graficos").innerHTML += `
+        <div id="grafico${item.id}" class="display-none">
+            <h3 class="tituloGraficos">
+                <span id="tituloAquario${item.id}">${item.descricao}</span>
+            </h3>
+            <div class="graph">
+                <canvas id="myChartCanvas${item.id}"></canvas>
+            </div>
+            <div class="label-captura">
+                <p id="avisoCaptura${item.id}" style="color: white"></p>
+            </div>
+        </div>
+    `
+     
+    obterDadosGrafico(item.id)
+    });
+     
+    if (aquarios.length > 0) {
+    exibirAquario(aquarios[0].id)
+    }
+    }
+     
+    function alterarTitulo(idAquario) {
+    var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
+    var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
+    tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
+    }
+     
+    function exibirAquario(idAquario) {
+    let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
+     
+    for (i = 0; i < todosOsGraficos.length; i++) {
+    // exibindo - ou não - o gráfico
+    if (todosOsGraficos[i].id != idAquario) {
+        let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
+        if (elementoAtual.classList.contains("display-block")) {
+            elementoAtual.classList.remove("display-block")
+        }
+        elementoAtual.classList.add("display-none")
+     
+        // alterando estilo do botão
+        let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
+        if (btnAtual.classList.contains("btn-pink")) {
+            btnAtual.classList.remove("btn-pink")
+        }
+        btnAtual.classList.add("btn-white")
+    }
+    }
+     
+    // exibindo - ou não - o gráfico
+    let graficoExibir = document.getElementById(`grafico${idAquario}`)
+    graficoExibir.classList.remove("display-none")
+    graficoExibir.classList.add("display-block")
+     
+    // alterando estilo do botão
+    let btnExibir = document.getElementById(`btnAquario${idAquario}`)
+    btnExibir.classList.remove("btn-white")
+    btnExibir.classList.add("btn-pink")
+    }
+     
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+     
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+     
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDadosGrafico(idAquario) {
+     
+    alterarTitulo(idAquario)
+     
+    if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao);
+    }
+     
+    fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+     
+            plotarGrafico(resposta, idAquario);
+     
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+    }
+    })
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+    }
+     
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, idAquario) {
+     
+    console.log('iniciando plotagem do gráfico...');
+     
+    // Criando estrutura para plotar gráfico - labels
+    let labels = [];
+     
+    // Criando estrutura para plotar gráfico - dados
+    let dados = {
+    labels: labels,
+    datasets: [{
+        label: 'Umidade',
+        data: [],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+    },
+    {
+        label: 'Temperatura',
+        data: [],
+        fill: false,
+        borderColor: 'rgb(199, 52, 52)',
+        tension: 0.1
+    }]
+    };
+     
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+     
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (i = 0; i < resposta.length; i++) {
+    var registro = resposta[i];
+    labels.push(registro.momento_grafico);
+    dados.datasets[0].data.push(registro.umidade);
+    dados.datasets[1].data.push(registro.temperatura);
+    }
+     
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log(labels)
+    console.log('Dados:')
+    console.log(dados.datasets)
+    console.log('----------------------------------------------')
+     
+    // Criando estrutura para plotar gráfico - config
+    const config = {
+    type: 'line',
+    data: dados,
+    };
+     
+    // Adicionando gráfico criado em div na tela
+    let myChart = new Chart(
+    document.getElementById(`myChartCanvas${idAquario}`),
+    config
+    );
+     
+    setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+    }
+     
+     
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+     
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGrafico(idAquario, dados, myChart) {
+     
+     
+     
+    fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (novoRegistro) {
+     
+            obterdados(idAquario);
+            // alertar(novoRegistro, idAquario);
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico:`);
+            console.log(dados);
+     
+            let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
+            avisoCaptura.innerHTML = ""
+     
+     
+            if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                console.log("---------------------------------------------------------------")
+                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                console.log("Horário do novo dado capturado:")
+                console.log(novoRegistro[0].momento_grafico)
+                console.log("Horário do último dado capturado:")
+                console.log(dados.labels[dados.labels.length - 1])
+                console.log("---------------------------------------------------------------")
+            } else {
+                // tirando e colocando valores no gráfico
+                dados.labels.shift(); // apagar o primeiro
+                dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+     
+                dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+     
+                dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+     
+                myChart.update();
             }
-        }
-    
-        function alterarTitulo(idAquario) {
-            var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
-            var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
-            tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
-        }
-    
-        function exibirAquario(idAquario) {
-            let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
-    
-            for (i = 0; i < todosOsGraficos.length; i++) {
-                // exibindo - ou não - o gráfico
-                if (todosOsGraficos[i].id != idAquario) {
-                    let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-                    if (elementoAtual.classList.contains("display-block")) {
-                        elementoAtual.classList.remove("display-block")
-                    }
-                    elementoAtual.classList.add("display-none")
-    
-                    // alterando estilo do botão
-                    let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-                    if (btnAtual.classList.contains("btn-pink")) {
-                        btnAtual.classList.remove("btn-pink")
-                    }
-                    btnAtual.classList.add("btn-white")
-                }
-            }
-    
-            // exibindo - ou não - o gráfico
-            let graficoExibir = document.getElementById(`grafico${idAquario}`)
-            graficoExibir.classList.remove("display-none")
-            graficoExibir.classList.add("display-block")
-    
-            // alterando estilo do botão
-            let btnExibir = document.getElementById(`btnAquario${idAquario}`)
-            btnExibir.classList.remove("btn-white")
-            btnExibir.classList.add("btn-pink")
-        }
-    
-        // O gráfico é construído com três funções:
-        // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-        // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-        // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
-    
-        // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-        // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-        // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-    
-        //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-        //     Para ajustar o "select", ajuste o comando sql em src/models
-        function obterDadosGrafico(idAquario) {
-    
-            alterarTitulo(idAquario)
-    
-            if (proximaAtualizacao != undefined) {
-                clearTimeout(proximaAtualizacao);
-            }
-    
-            fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
-    
-                        plotarGrafico(resposta, idAquario);
-    
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-        }
-    
-        // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-        // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-        // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-        function plotarGrafico(resposta, idAquario) {
-    
-            console.log('iniciando plotagem do gráfico...');
-    
-            // Criando estrutura para plotar gráfico - labels
-            let labels = [];
-    
-            // Criando estrutura para plotar gráfico - dados
-            let dados = {
-                labels: labels,
-                datasets: [{
-                    label: 'Umidade',
-                    data: [],
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                },
-                {
-                    label: 'Temperatura',
-                    data: [],
-                    fill: false,
-                    borderColor: 'rgb(199, 52, 52)',
-                    tension: 0.1
-                }]
-            };
-    
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-            console.log(resposta)
-    
-            // Inserindo valores recebidos em estrutura para plotar o gráfico
-            for (i = 0; i < resposta.length; i++) {
-                var registro = resposta[i];
-                labels.push(registro.momento_grafico);
-                dados.datasets[0].data.push(registro.umidade);
-                dados.datasets[1].data.push(registro.temperatura);
-            }
-    
-            console.log('----------------------------------------------')
-            console.log('O gráfico será plotado com os respectivos valores:')
-            console.log('Labels:')
-            console.log(labels)
-            console.log('Dados:')
-            console.log(dados.datasets)
-            console.log('----------------------------------------------')
-    
-            // Criando estrutura para plotar gráfico - config
-            const config = {
-                type: 'line',
-                data: dados,
-            };
-    
-            // Adicionando gráfico criado em div na tela
-            let myChart = new Chart(
-                document.getElementById(`myChartCanvas${idAquario}`),
-                config
-            );
-    
-            setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-        }
-    
-    
-        // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-        // buscando a última medida inserida em tabela contendo as capturas, 
-    
-        //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-        //     Para ajustar o "select", ajuste o comando sql em src/models
-        function atualizarGrafico(idAquario, dados, myChart) {
-    
-    
-    
-            fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (novoRegistro) {
-    
-                        obterdados(idAquario);
-                        // alertar(novoRegistro, idAquario);
-                        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                        console.log(`Dados atuais do gráfico:`);
-                        console.log(dados);
-    
-                        let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
-                        avisoCaptura.innerHTML = ""
-    
-    
-                        if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                            console.log("---------------------------------------------------------------")
-                            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                            avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                            console.log("Horário do novo dado capturado:")
-                            console.log(novoRegistro[0].momento_grafico)
-                            console.log("Horário do último dado capturado:")
-                            console.log(dados.labels[dados.labels.length - 1])
-                            console.log("---------------------------------------------------------------")
-                        } else {
-                            // tirando e colocando valores no gráfico
-                            dados.labels.shift(); // apagar o primeiro
-                            dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-    
-                            dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                            dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
-    
-                            dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                            dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-    
-                            myChart.update();
-                        }
-    
-                        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                        proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-    
-                
-    
-        }
-    
-        */
+     
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+    }
+    })
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+     
+     
+     
+    }
+     
+    */
 </script>
