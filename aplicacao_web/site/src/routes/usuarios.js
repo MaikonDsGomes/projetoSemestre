@@ -12,6 +12,10 @@ router.post("/adicionarMed", function (req, res) {
     usuarioController.adicionarMed(req, res);
 })
 
+router.post("/adicionarPat", function (req, res) {
+    usuarioController.adicionarPat(req, res);
+})
+
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
