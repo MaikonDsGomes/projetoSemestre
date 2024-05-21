@@ -43,6 +43,24 @@ function adicionarMed(nome, federacao, dt, posicao, idAtleta) {
     return database.executar(instrucaoSql);
 }
 
+function adicionarPat(lugar, nomeEmp, segmento, idAtleta) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function ADICIONAR():", nomeEmp, segmento, lugar);
+
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+        
+    insert into patrocinio (lugar, empresa, segmento, fkAtleta) values 
+    ('${lugar}', 
+    '${nomeEmp}', 
+    '${segmento}', 
+    '${idAtleta}');
+    
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function editar(nome, sobrenome,email, senha, telefone, cep , team, faixa, grau, idAtleta) {
     console.log("ACESSEI O USUARIO MODEL EDIÇÃO \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
 
@@ -71,5 +89,6 @@ module.exports = {
     autenticar,
     cadastrar,
     editar,
-    adicionarMed
+    adicionarMed,
+    adicionarPat
 };
