@@ -7,9 +7,18 @@ router.get("/listar", function (req, res) {
     avisoController.listar(req, res);
 });
 
-router.get("/listar/:idUsuario", function (req, res) {
+router.get("/listarTudo", function (req, res) {
+    avisoController.listarTudo(req, res);
+});
+
+router.get(`/listar/:idAtleta`, function (req, res) {
     avisoController.listarPorUsuario(req, res);
 });
+
+router.get(`/listarMedalha/:idAtleta`, function (req, res) {
+    avisoController.listarMedalha(req, res);
+});
+//
 
 router.get("/pesquisar/:descricao", function (req, res) {
     avisoController.pesquisarDescricao(req, res);

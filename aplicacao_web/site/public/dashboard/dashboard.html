@@ -29,7 +29,7 @@
 
 
 
-<body>
+<body onload="atualizarFeed(), atualizarFeedMedalha()">
 
 
     <div class="dash_box">
@@ -216,34 +216,17 @@
 
                             <button onclick="abrirEditarUser()">Editar</button>
                         </div>
+
                         <div class="card_pat_box ">
                             <h1>Patrocinio</h1>
-                            <div class="scroll_box">
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i onclick="abrirModalApagar()"
-                                        class="fa-solid fa-trash"></i></p>
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
-                                        class="fa-solid fa-trash"></i>
-                                </p>
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
-                                        class="fa-solid fa-trash"></i>
-                                </p>
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
-                                        class="fa-solid fa-trash"></i>
-                                </p>
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
-                                        class="fa-solid fa-trash"></i>
-                                </p>
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
-                                        class="fa-solid fa-trash"></i>
-                                </p>
-                                </p>
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
-                                        class="fa-solid fa-trash"></i>
-                                </p>
-                                <p>Local: Costas - Marca: Kvara - Segmento: Vestimentas <i
-                                        class="fa-solid fa-trash"></i>
-                                </p>
-                                
+                            <div id="patrocinio_container" class="scroll_box">
+                                <!-- <p>
+                                    <span>Local: Costas</span> - <span>Marca: Kvara</span> - <span>Segmento:
+                                        Vestimentas</span>
+                                    <i onclick="abrirModalApagar()" class="fa-solid fa-trash"></i>
+                                </p> -->
+
+
                             </div>
                             <button onclick="abrirAdicionarPat()">Adicionar</button>
                         </div>
@@ -252,6 +235,16 @@
                     <div class="cards_inf_box">
                         <div class="medalhas_box">
                             <h1>Medalhas</h1>
+
+                            <div id="medalha_container">
+                                <!-- <span>
+                                    <span>Federação: CBJJ</span>
+                                    <span>Campeonato: Brasileiro OPEN</span>
+                                    <span>Posição: 1° lugar</span>
+                                    <span>Data: 12/12/2000</span>
+                                </span> -->
+                            </div>
+
                             <button onclick="abrirAdicionarMed()">Adicionar</button>
                         </div>
 
@@ -353,12 +346,14 @@
 
                 if (resposta.ok) {
 
+                    window.location.reload();
                     //ADD ALERT DEPOIS  
                     modalAdicionarPat.style.display = 'none';
                     centro_div.style.display = 'block'
 
+
                 } else {
-                    
+
                     throw "Houve um erro ao tentar realizar ao adicionar UM PATROCINIO!";
 
                 }
@@ -366,21 +361,12 @@
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
                 modalAdicionarPat.style.display = 'block';
-                    centro_div.style.display = 'none'
+                centro_div.style.display = 'none'
             });
 
         return false;
 
 
-
-
-
-
-
-
-
-
-       
     }
 
     function fecharEditarUser() {
@@ -562,7 +548,7 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-
+                    window.location.reload();
                     modalAdicionarMed.style.display = 'none';
                     centro_div.style.display = 'block'
 
@@ -580,6 +566,149 @@
 
         return false;
     }
+
+
+    // LISTAR 
+    function atualizarFeed() {
+
+        var idAtleta = idAtleta_sto;
+
+        console.log(`ATLETA ID NO DASHBOARD ATUALIZAR FEED  --  ${idAtleta}`)
+
+        fetch(`/avisos/listar/${idAtleta}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var patrocinio = document.getElementById("patrocinio_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    patrocinio.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var patrocinio = document.getElementById("patrocinio_container");
+                    patrocinio.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var pElement = document.createElement("p");
+                        var spanLocal = document.createElement("span");
+                        var spanMarca = document.createElement("span");
+                        var spanSegmento = document.createElement("span");
+                        var iconTrash = document.createElement("i");
+
+                        spanLocal.innerHTML = "<b> Local: </b>" + publicacao.lugar;
+                        spanMarca.innerHTML = "<b>Empresa: </b>" + publicacao.empresa;
+                        spanSegmento.innerHTML = "<b>Segmento: </b> " + publicacao.segmento;
+                        iconTrash.className = "fa-solid fa-trash";
+                        iconTrash.setAttribute("onclick", "abrirModalApagar()");
+                        spanLocal.id = "inputNumero" + publicacao.idAtleta;
+
+                        iconTrash.id = "btnDeletar" + publicacao.idAtleta;
+                        iconTrash.setAttribute("onclick", `deletar(${publicacao.idAtleta})`);
+
+                        pElement.appendChild(spanLocal);
+                        pElement.appendChild(document.createTextNode(" - "));
+                        pElement.appendChild(spanMarca);
+                        pElement.appendChild(document.createTextNode(" - "));
+                        pElement.appendChild(spanSegmento);
+                        pElement.appendChild(document.createTextNode(" "));
+                        pElement.appendChild(iconTrash);
+
+
+                        patrocinio.appendChild(pElement);
+
+                        //  
+                        //   <span>Local: Costas</span> - 
+                        //           <span>Marca: Kvara</span> - 
+                        //           <span>Segmento: Vestimentas</span> 
+                        //          <i onclick="abrirModalApagar()"class="fa-solid fa-trash"></i>
+                        //      
+                    }
+
+
+                });
+            } else {
+                console.log("id do atleta" + idAtleta)
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
+    }
+
+
+    function atualizarFeedMedalha() {
+
+        var idAtleta = idAtleta_sto;
+
+        console.log(`ATLETA ID NO DASHBOARD MEDALHA  --  ${idAtleta}`)
+
+        fetch(`/avisos/listarMedalha/${idAtleta}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var patrocinio = document.getElementById("patrocinio_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    patrocinio.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var patrocinio = document.getElementById("patrocinio_container");
+                    patrocinio.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var medalha = resposta[i];
+
+                        // Criação dos elementos principais
+                        var spanElement = document.createElement("span");
+                        var divOrg = document.createElement("div");
+                        var spanFederacao = document.createElement("span");
+                        var spanCampeonato = document.createElement("span");
+                        var spanPosicao = document.createElement("span");
+                        var spanData = document.createElement("span");
+
+                        spanElement.className = "span_medalhas_box";
+
+                        // Definindo o conteúdo de cada elemento span
+                        spanFederacao.innerHTML = "<b>Federação: </b> "+ medalha.federacao;
+                        spanCampeonato.innerHTML = "<b>Campeonato: </b> "+ medalha.campeonato;
+                        spanPosicao.innerHTML = "<b>Posição: </b>" + medalha.posicao + " Lugar";
+                        spanData.innerHTML = "<b>Data: </b>" + medalha.ano;
+
+                        // Adicionando os spans criados ao span principal
+                        spanElement.appendChild(spanFederacao);
+                        spanElement.appendChild(document.createTextNode(" - "));
+                        spanElement.appendChild(spanCampeonato);
+                        spanElement.appendChild(document.createTextNode(" - "));
+                        spanElement.appendChild(spanPosicao);
+                        spanElement.appendChild(document.createTextNode(" - "));
+                        spanElement.appendChild(spanData);
+
+                        // Adicionando o span principal ao elemento de destino no DOM (ajuste o seletor conforme necessário)
+                        document.getElementById("medalha_container").appendChild(spanElement);
+
+                        
+                    }
+
+
+                });
+            } else {
+                console.log("id do atleta" + idAtleta)
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
+    }
+
+
 
     const ctx = document.getElementById('myChart');
 

@@ -1,7 +1,21 @@
 var avisoModel = require("../models/avisoModel");
 
 function listar(req, res) {
-    avisoModel.listar().then(function (resultado) {
+    avisoModel.listarPorUsuario().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function listarTudo(req, res) {
+    avisoModel.listarTudo().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -15,9 +29,11 @@ function listar(req, res) {
 }
 
 function listarPorUsuario(req, res) {
-    var idUsuario = req.params.idUsuario;
+    var idAtleta = req.params.idAtleta;
 
-    avisoModel.listarPorUsuario(idUsuario)
+    console.log("iD DO ATLTETA "+idAtleta)
+
+    avisoModel.listarPorUsuario(idAtleta)
         .then(
             function (resultado) {
                 if (resultado.length > 0) {
@@ -31,7 +47,7 @@ function listarPorUsuario(req, res) {
             function (erro) {
                 console.log(erro);
                 console.log(
-                    "Houve um erro ao buscar os avisos: ",
+                    "Houve um erro ao buscar os PATROCINIOS: ",
                     erro.sqlMessage
                 );
                 res.status(500).json(erro.sqlMessage);
@@ -39,6 +55,32 @@ function listarPorUsuario(req, res) {
         );
 }
 
+function listarMedalha(req, res) {
+    var idAtleta = req.params.idAtleta;
+
+    console.log("iD DO ATLTETA "+idAtleta)
+
+    avisoModel.listarMedalha(idAtleta)
+        .then(
+            function (resultado) {
+                if (resultado.length > 0) {
+                    res.status(200).json(resultado);
+                } else {
+                    res.status(204).send("Nenhum resultado encontrado!");
+                }
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "Houve um erro ao buscar os PATROCINIOS: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 function pesquisarDescricao(req, res) {
     var descricao = req.params.descricao;
 
@@ -132,5 +174,7 @@ module.exports = {
     pesquisarDescricao,
     publicar,
     editar,
-    deletar
+    deletar,
+    listarTudo,
+    listarMedalha
 }

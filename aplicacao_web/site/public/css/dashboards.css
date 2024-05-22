@@ -157,6 +157,17 @@ body {
 
 .medalhas_box {
   width: 78vw !important;
+  
+}
+.span_medalhas_box{
+  width: 1030px;
+    display: block;
+}
+#medalha_container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px 0px;
+
 }
 
 .cards_inf_box button {
@@ -168,11 +179,10 @@ body {
   font-weight: 700;
   color: white;
   cursor: cell;
+  margin-top: 15px;
 }
 
-.card_pat_box p {
-  text-align: center;
-}
+
 
 .card_pat_box i {
   color: red;
@@ -181,7 +191,7 @@ body {
 }
 
 .scroll_box {
-  max-height: 190px;
+  max-height: 166px;
   overflow-y: auto;
   width: unset !important;
 }

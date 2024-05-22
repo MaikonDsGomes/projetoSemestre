@@ -24,7 +24,7 @@
     }
 </style>
 
-<body>
+<body onload="atualizarFeed()">
 
     <section class="menu_sec">
 
@@ -204,12 +204,14 @@
                     <textarea name="" id="" cols="50" rows="5"></textarea>
                     <button class="enviar_blog_button">Enviar</button>
                 </form>
-                
+
             </div>
 
             <h2>Tópicos</h2>
-            <div class="multiple-items card_blog_box">
-                <div>
+            <!-- multiple-items -->
+            <div class=" card_blog_box " id="feed_container" class="feed-container">
+
+                <!-- <div>
                     <div>
                         <span class="user_nome">Maikon Douglas</span>
                     </div>
@@ -228,91 +230,9 @@
 
                     </div>
 
-                </div>
+                </div> -->
 
-                <div>
-                    <div>
-                        <span class="user_nome">Leandro lo</span>
-                    </div>
-                    <div>
-                        <span class="Titulo">Competição nova ai hein</span>
-                        <p>Em 2024, o patrocínio de atletas tornou-se uma estratégia essencial para marcas que buscam
-                            maior visibilidade e conexão emocional com o público. As empresas investem em atletas não
-                            apenas pela exposição durante eventos esportivos, mas também pela influência nas redes
-                            sociais. O ano viu um aumento significativo no apoio a atletas de diversas modalidades,
-                            refletindo um mercado mais inclusivo e diversificado. Além de benefícios financeiros, os
-                            patrocinadores oferecem suporte em treinamento, saúde e promoção, criando parcerias que vão
-                            além dos contratos tradicionais.</p>
-                    </div>
-                    <div>
-                        <span>Data: 13/05/2024 - 19:36</span>
 
-                    </div>
-
-                </div>
-
-                <div>
-                    <div>
-                        <span class="user_nome">Edu Oliveira</span>
-                    </div>
-                    <div>
-                        <span class="Titulo">Seminario itaquera</span>
-                        <p>Em 2024, o patrocínio de atletas tornou-se uma estratégia essencial para marcas que buscam
-                            maior visibilidade e conexão emocional com o público. As empresas investem em atletas não
-                            apenas pela exposição durante eventos esportivos, mas também pela influência nas redes
-                            sociais. O ano viu um aumento significativo no apoio a atletas de diversas modalidades,
-                            refletindo um mercado mais inclusivo e diversificado. Além de benefícios financeiros, os
-                            patrocinadores oferecem suporte em treinamento, saúde e promoção, criando parcerias que vão
-                            além dos contratos tradicionais.</p>
-                    </div>
-                    <div>
-                        <span>Data: 13/05/2024 - 19:36</span>
-
-                    </div>
-
-                </div>
-
-                <div>
-                    <div>
-                        <span class="user_nome">Edu Oliveira</span>
-                    </div>
-                    <div>
-                        <span class="Titulo">Seminario itaquera</span>
-                        <p>Em 2024, o patrocínio de atletas tornou-se uma estratégia essencial para marcas que buscam
-                            maior visibilidade e conexão emocional com o público. As empresas investem em atletas não
-                            apenas pela exposição durante eventos esportivos, mas também pela influência nas redes
-                            sociais. O ano viu um aumento significativo no apoio a atletas de diversas modalidades,
-                            refletindo um mercado mais inclusivo e diversificado. Além de benefícios financeiros, os
-                            patrocinadores oferecem suporte em treinamento, saúde e promoção, criando parcerias que vão
-                            além dos contratos tradicionais.</p>
-                    </div>
-                    <div>
-                        <span>Data: 13/05/2024 - 19:36</span>
-
-                    </div>
-
-                </div>
-
-                <div>
-                    <div>
-                        <span class="user_nome">Edu Oliveira</span>
-                    </div>
-                    <div>
-                        <span class="Titulo">Seminario itaquera</span>
-                        <p>Em 2024, o patrocínio de atletas tornou-se uma estratégia essencial para marcas que buscam
-                            maior visibilidade e conexão emocional com o público. As empresas investem em atletas não
-                            apenas pela exposição durante eventos esportivos, mas também pela influência nas redes
-                            sociais. O ano viu um aumento significativo no apoio a atletas de diversas modalidades,
-                            refletindo um mercado mais inclusivo e diversificado. Além de benefícios financeiros, os
-                            patrocinadores oferecem suporte em treinamento, saúde e promoção, criando parcerias que vão
-                            além dos contratos tradicionais.</p>
-                    </div>
-                    <div>
-                        <span>Data: 13/05/2024 - 19:36</span>
-
-                    </div>
-
-                </div>
             </div>
         </div>
 
@@ -358,7 +278,7 @@
             <div class="direita">
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Atletas</a></li>
+                    <li><a href="atletas.html">Atletas</a></li>
                     <li><a href="#contato_sec">Contato</a></li>
                     <li><span>|</span></li>
                     <li><a href="login.html">Login</a></li>
@@ -383,17 +303,111 @@
 <script>
 
 
-    $(document).ready(function () {
-        $('.multiple-items').slick({
-            infinite: true,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            dots: true,
-            arrows: true,
-            autoplay: true,
-            autoplaySpeed: 5000
+function atualizarFeed() {
+        fetch("/avisos/listarTudo").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+                
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        // criando e manipulando elementos do HTML via JavaScript
+                        var divPublicacao = document.createElement("div");
+                        var spanTitulo = document.createElement("span");
+                        var spanNome = document.createElement("span");
+                        var divDescricao = document.createElement("div");
+                        var spanDt = document.createElement("span");
+                     
+                        spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
+                        spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+                        divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
+                        spanDt.innerHTML = `${publicacao.dtPostagem} - ${publicacao.horaPostagem}`;
+
+                        divPublicacao.className = "publicacao";
+                        spanTitulo.id = "inputNumero" + publicacao.idAviso;
+                        spanNome.className = "publicacao-nome";
+                        spanTitulo.className = "publicacao-titulo";
+                        divDescricao.className = "publicacao-descricao";
+
+                       
+
+                        
+                        divPublicacao.appendChild(spanNome);
+                        divPublicacao.appendChild(spanTitulo);
+                        divPublicacao.appendChild(divDescricao);
+                        divPublicacao.appendChild(spanDt);
+                       
+                        feed.appendChild(divPublicacao);
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
         });
-    });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // $(document).ready(function () {
+    //     $('.multiple-items').slick({
+    //         infinite: true,
+    //         slidesToShow: 3,
+    //         slidesToScroll: 1,
+    //         dots: true,
+    //         arrows: true,
+    //         autoplay: true,
+    //         autoplaySpeed: 5000
+    //     });
+    // });
 
 
 
