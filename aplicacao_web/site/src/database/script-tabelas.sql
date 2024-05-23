@@ -55,8 +55,7 @@ create table postagem(
 	idPostagem int primary key auto_increment,
     titulo varchar(45),
     descricao varchar(500),
-    dtPostagem date,
-    horaPostagem time,
+    dtPostagem timestamp not null default current_timestamp,
     fkAtleta int,
     constraint postageFkAtleta foreign key (fkAtleta) references atleta(idAtleta)
 );
@@ -86,14 +85,14 @@ INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'E
 select idPatrocinio, lugar, empresa, segmento, patrocinio.fkAtleta, nome, email, senha from patrocinio
 join atleta on patrocinio.fkAtleta;
 
-INSERT INTO postagem (idPostagem, titulo, descricao, dtPostagem, horaPostagem, fkAtleta) 
-VALUES (1, 'Primeiro Post', 'Descrição do primeiro post.', '2024-05-21', '10:00:00', 1);
+INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
+VALUES (1, 'Primeiro Post', 'Descrição do primeiro post.', 1);
 
-INSERT INTO postagem (idPostagem, titulo, descricao, dtPostagem, horaPostagem, fkAtleta) 
-VALUES (2, 'Segundo Post', 'Descrição do segundo post.', '2024-05-22', '11:00:00', 2);
+INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
+VALUES (2, 'Segundo Post', 'Descrição do segundo post.', 2);
 
-INSERT INTO postagem (idPostagem, titulo, descricao, dtPostagem, horaPostagem, fkAtleta) 
-VALUES (3, 'Terceiro Post', 'Descrição do terceiro post.', '2024-05-23', '12:00:00', 3);
+INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
+VALUES (3, 'Terceiro Post', 'Descrição do terceiro post.', 3);
 
 
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
