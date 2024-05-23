@@ -11,6 +11,10 @@ router.get("/listarTudo", function (req, res) {
     avisoController.listarTudo(req, res);
 });
 
+router.get("/listarPostUser/:idAtleta", function (req, res) {
+    avisoController.listarPostUser(req, res);
+});
+
 router.get(`/listar/:idAtleta`, function (req, res) {
     avisoController.listarPorUsuario(req, res);
 });
@@ -24,7 +28,7 @@ router.get("/pesquisar/:descricao", function (req, res) {
     avisoController.pesquisarDescricao(req, res);
 });
 
-router.post("/publicar/:idUsuario", function (req, res) {
+router.post("/publicar/:idAtleta", function (req, res) {
     avisoController.publicar(req, res);
 });
 
