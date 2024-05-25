@@ -60,6 +60,7 @@ function cadastrar(req, res) {
     var team = req.body.teamServer;
     var faixa = req.body.faixaServer;
     var grau = req.body.grauServer;
+    var categoria = req.body.categoriaServer;
 
 
     // Faça as validações dos valores
@@ -74,7 +75,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, sobrenome, email, senha, telefone, cep, dtNascimento, team, faixa, grau)
+        usuarioModel.cadastrar(nome, sobrenome, email, senha, telefone, cep, dtNascimento, team, faixa, grau, categoria)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -191,6 +192,7 @@ function editar(req, res) {
     var team = req.body.teamServer;
     var faixa = req.body.faixaServer;
     var grau = req.body.grauServer;
+    var categoria = req.body.categoriaServer;
     var idAtleta = req.body.idAtletaServer;
 
 
@@ -206,7 +208,7 @@ function editar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.editar(nome, sobrenome, email, senha, telefone, cep, team, faixa, grau, idAtleta)
+        usuarioModel.editar(nome, sobrenome, email, senha, telefone, cep, team, faixa, grau, categoria,idAtleta)
             .then(
                 function (resultado) {
                     res.json(resultado);

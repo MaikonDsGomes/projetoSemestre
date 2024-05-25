@@ -115,6 +115,20 @@
         <label>Team:</label>
         <input placeholder="Insira o nome da sua academia:" type="text" id="input_team" required>
 
+        <label>Peso:</label>
+        <select id="select_categoria">
+          <option value="galo">Galo</option>
+          <option value="pluma">Pluma</option>
+          <option value="pena">Pena</option>
+          <option value="leve">Leve</option>
+          <option value="medio">Médio</option>
+          <option value="meio-pesado">Meio-pesado</option>
+          <option value="pesado">Pesado</option>
+          <option value="super-pesado">Super-pesado</option>
+          <option value="pesadissimo">Pesadíssimo</option>
+          <option value="absoluto">Absoluto</option>
+        </select>
+
         <label>Faixa:</label>
         <select id="select_faixa">
 
@@ -237,6 +251,7 @@
     var teamVar = input_team.value;
     var faixaVar = select_faixa.value;
     var grauVar = select_grau.value;
+    var categoriaVar = select_categoria.value;
 
 
 
@@ -258,7 +273,8 @@
         dtNascimentoServer: dtNascimentoVar,
         teamServer: teamVar,
         faixaServer: faixaVar,
-        grauServer: grauVar
+        grauServer: grauVar,
+        categoriaServer: categoriaVar
       }),
     })
       .then(function (resposta) {

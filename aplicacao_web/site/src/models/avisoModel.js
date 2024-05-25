@@ -23,7 +23,7 @@ from postagem join atleta on postagem.fkAtleta = idAtleta order by dtPostagem de
 function listarcardsAtletas() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
-    select nome, sobrenome, email, faixa, grau, dtNasc,team,federacao, campeonato, ano, posicao from medalha 
+    select nome, sobrenome, email, faixa, grau, dtNasc,team,federacao, campeonato, DATE_FORMAT(ano, '%d/%m/%Y') AS ano, posicao, peso from medalha 
 join atleta on fkAtleta = idAtleta;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

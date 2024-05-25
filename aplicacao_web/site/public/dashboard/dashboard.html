@@ -29,7 +29,7 @@
 
 
 
-<body onload="atualizarFeedMedalha(), atualizarFeed(), obterDadosGrafico()">
+<body onload="atualizarFeedMedalha(), atualizarFeed(), obterDadosGrafico(), obterDadosGraficoCat()">
 
 
     <div class="dash_box">
@@ -39,7 +39,6 @@
         <div class="menu_box">
 
             <a href="dashboard.html">Principal</a>
-            <a href="evolucao.html">Evolução</a>
             <a href="publicar.html">Publicar</a>
             <a onclick="limparSessao()">Sair</a>
 
@@ -139,6 +138,20 @@
                             <option value="preta">Faixa Preta</option>
                         </select>
 
+                        </select>
+
+                        <label>Peso:</label>
+                        <select id="select_categoria">
+                            <option value="galo">Galo</option>
+                            <option value="pluma">Pluma</option>
+                            <option value="pena">Pena</option>
+                            <option value="leve">Leve</option>
+                            <option value="medio">Médio</option>
+                            <option value="meio-pesado">Meio-pesado</option>
+                            <option value="pesado">Pesado</option>
+                            <option value="super-pesado">Super-pesado</option>
+                            <option value="pesadissimo">Pesadíssimo</option>
+                            <option value="absoluto">Absoluto</option>
                         </select>
 
                         <label>Grau da sua faixa:</label>
@@ -245,14 +258,13 @@
                     <div class="cards_inf_box">
                         <div>
                             <h1>Quantidade de alunos por faixas</h1>
-                            
-                                <canvas id="myChartCanvas" width="519" height="350"></canvas>
-                            
+
+                            <canvas id="myChartCanvas" width="519" height="350"></canvas>
+
                         </div>
                         <div>
-                            <h1>Nivel dos atletas </h1>
-                            <canvas style="height: 259px; display: block; box-sizing: border-box; width: 519px;"
-                                id="myChartBar" width="519" height="350"></canvas>
+                            <h1>Categoria dos atletas </h1>
+                            <canvas id="myChartCanvasCat" width="519" height="350"></canvas>
                         </div>
                     </div>
                 </div>
@@ -400,6 +412,7 @@
         var teamVar = input_team.value;
         var faixaVar = select_faixa.value;
         var grauVar = select_grau.value;
+        var categoriaVar = select_categoria.value;
 
         fetch("/usuarios/editar", {
             method: "POST",
@@ -419,6 +432,7 @@
                 teamServer: teamVar,
                 faixaServer: faixaVar,
                 grauServer: grauVar,
+                categoriaServer: categoriaVar,
                 idAtletaServer: idAtleta_sto
 
 
@@ -635,7 +649,6 @@
         });
     }
 
-
     function atualizarFeedMedalha() {
 
         var idAtleta = idAtleta_sto;
@@ -708,66 +721,6 @@
 
 
 
-    /*
-    
-        const ctx = document.getElementById('myChart');
-    
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Estadual', 'Nacional', 'Internacional', 'Mundial'],
-                datasets: [{
-                    label: 'Nivel dos atletas',
-                    data: [24, 36, 30, 10],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)',
-                        'rgb(25, 179, 49)'
-                    ],
-                }]
-            }
-        });
-    
-        const ctxBar = document.getElementById('myChartBar');
-    
-        new Chart(ctxBar, {
-            type: 'bar',
-            data: {
-                labels: ['Branca', 'Azul', 'Roxa', 'Marrom', 'Preta'],
-                datasets: [{
-                    label: 'Alunos por faixa',
-                    data: [5, 10, 4, 15, 7],
-                    borderWidth: 2,
-                    borderColor: '#1a1a2e',
-                    backgroundColor: [
-                        'white',
-                        'blue',
-                        'purple',
-                        'brown',
-                        'black'
-                    ],
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    
-    
-        */
-
-
-
-    
-
-   
-
-    
 
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
@@ -780,6 +733,8 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
+
+    // GRAFICO 1 - FAIXA
     function obterDadosGrafico() {
 
         fetch(`/medidas/ultimas`, { cache: 'no-store' }).then(function (response) {
@@ -800,9 +755,6 @@
             });
     }
 
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     function plotarGrafico(resposta) {
 
         console.log('iniciando plotagem do gráfico...');
@@ -818,11 +770,11 @@
                 data: [],
                 fill: false,
                 backgroundColor: [],
-                borderColor: 'rgb(75, 192, 192)',
+
                 tension: 0.1
             }
-            
-        ]
+
+            ]
         };
 
         console.log('----------------------------------------------')
@@ -835,22 +787,22 @@
             // labels.push(registro.momento_grafico);
 
             labels.push(registro.faixa);
-        if (registro.faixa === 'branca') {
-            dados.datasets[0].data.push(registro.quantidade);
-            dados.datasets[0].backgroundColor.push('#DBDBDB');
-        } else if (registro.faixa === 'azul') {
-            dados.datasets[0].data.push(registro.quantidade);
-            dados.datasets[0].backgroundColor.push('#001A84');
-        } else if (registro.faixa === 'roxa') {
-            dados.datasets[0].data.push(registro.quantidade);
-            dados.datasets[0].backgroundColor.push('#410B92');
-        } else if (registro.faixa === 'marrom') {
-            dados.datasets[0].data.push(registro.quantidade);
-            dados.datasets[0].backgroundColor.push('#522213');
-        } else if (registro.faixa === 'preta') {
-            dados.datasets[0].data.push(registro.quantidade);
-            dados.datasets[0].backgroundColor.push('#1E1919');
-        }
+            if (registro.faixa === 'branca') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#DBDBDB');
+            } else if (registro.faixa === 'azul') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#001A84');
+            } else if (registro.faixa === 'roxa') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#410B92');
+            } else if (registro.faixa === 'marrom') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#522213');
+            } else if (registro.faixa === 'preta') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#1E1919');
+            }
 
 
             // dados.datasets[0].data.push(registro.quantidade);
@@ -858,7 +810,7 @@
             // dados.datasets[2].data.push(registro.quantidade);
             // dados.datasets[3].data.push(registro.quantidade);
             // dados.datasets[4].data.push(registro.quantidade);
-            
+
         }
 
         console.log('----------------------------------------------')
@@ -883,5 +835,121 @@
 
     }
 
+
+    // GRAFICO 2 - CATEGORIA
+    function obterDadosGraficoCat() {
+
+        fetch(`/medidas/ultimasCat`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoCat(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoCat(resposta) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: '',
+                data: [],
+                fill: false,
+                backgroundColor: [],
+
+                tension: 0.1
+            }
+
+            ]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            // labels.push(registro.momento_grafico);
+
+            labels.push(registro.peso);
+            if (registro.peso === 'galo') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#B3ECFF ');
+            } else if (registro.peso === 'pluma') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#8FD4FF ');
+            } else if (registro.peso === 'pena') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#4A97FF  ');
+            } else if (registro.peso === 'leve') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#267AFF  ');
+            } else if (registro.peso === 'medio') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#0057E7 ');
+            }else if (registro.peso === 'meio-pesado') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#0041A3 ');
+            }else if (registro.peso === 'pesado') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#002C6D ');
+            }else if (registro.peso === 'super-pesado') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#001749');
+            }else if (registro.peso === 'pesadissimo') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#1a1a2e ');
+            }else if (registro.peso === 'absoluto') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#1E1919');
+            }
+
+
+            // dados.datasets[0].data.push(registro.quantidade);
+            // dados.datasets[1].data.push(registro.quantidade);
+            // dados.datasets[2].data.push(registro.quantidade);
+            // dados.datasets[3].data.push(registro.quantidade);
+            // dados.datasets[4].data.push(registro.quantidade);
+
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'pie',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvasCat`),
+            config
+        );
+
+    }
 
 </script>

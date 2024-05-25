@@ -159,18 +159,22 @@
                         var h4Element = document.createElement("h4");
                         var pTeamElement = document.createElement("p");
                         var pFaixaElement = document.createElement("p");
+                        var pAnoElement = document.createElement("p");
+                        var pPesoElement = document.createElement("p");
                         var buttonElement = document.createElement("button");
 
                         // Definição do conteúdo e atributos dos elementos
                         h4Element.textContent = `${card.nome} ${card.sobrenome}`;
                         pTeamElement.textContent = `Team: ${card.team}`;
                         pFaixaElement.textContent = `Faixa: ${card.faixa} - ${card.grau}`;
+                        pPesoElement.textContent = `Categoria: ${card.peso}`;
                         buttonElement.textContent = "Ver mais";
 
                         // Adicionando os elementos ao primeiro bloco
                         divInfoElement.appendChild(h4Element);
                         divInfoElement.appendChild(pTeamElement);
                         divInfoElement.appendChild(pFaixaElement);
+                        divInfoElement.appendChild(pPesoElement);
                         divInfoElement.appendChild(buttonElement);
 
                         // Criação do segundo bloco (para os detalhes do campeonato)
@@ -180,13 +184,18 @@
                         var pPosicao = document.createElement("p");
 
                         // Definição do conteúdo dos elementos do campeonato
-                        pEvento.textContent = `${card.federacao} - ${card.campeonato} - ${card.ano}`;
+                        pEvento.textContent = `${card.federacao} - ${card.campeonato} `;
+
+                        var ano = card.ano.slice(0,10);
+
+                        pAnoElement.textContent = `Data: ${ano}`;
                         pPosicao.textContent = `Posição: ${card.posicao}°`;
 
                         // Adicionando os elementos do campeonato ao bloco do campeonato
                         divChampionship.appendChild(pEvento);
                         divChampionship.appendChild(pPosicao);
-
+                        divChampionship.appendChild(pAnoElement);
+                        
                         // Adicionando o bloco do campeonato ao wrapper do campeonato
                         divChampionshipWrapper.appendChild(divChampionship);
 

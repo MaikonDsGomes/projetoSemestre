@@ -10,14 +10,14 @@ function autenticar(email, senha) {
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(nome, sobrenome,email, senha, telefone, cep ,dtNascimento, team, faixa, grau) {
+function cadastrar(nome, sobrenome,email, senha, telefone, cep ,dtNascimento, team, faixa, grau, categoria) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
         
-        insert into atleta (nome, sobrenome, email, senha, telefone, cep, dtNasc, team, faixa, grau) values ('${nome}', '${sobrenome}', '${email}', '${senha}', '${telefone}', '${cep}', '${dtNascimento}', '${team}', '${faixa}', '${grau}');
+        insert into atleta (nome, sobrenome, email, senha, telefone, cep, dtNasc, team, faixa, grau, peso) values ('${nome}', '${sobrenome}', '${email}', '${senha}', '${telefone}', '${cep}', '${dtNascimento}', '${team}', '${faixa}', '${grau}', '${categoria}');
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -61,7 +61,7 @@ function adicionarPat(lugar, nomeEmp, segmento, idAtleta) {
     return database.executar(instrucaoSql);
 }
 
-function editar(nome, sobrenome,email, senha, telefone, cep , team, faixa, grau, idAtleta) {
+function editar(nome, sobrenome,email, senha, telefone, cep , team, faixa, grau, categoria,idAtleta) {
     console.log("ACESSEI O USUARIO MODEL EDIÇÃO \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
@@ -77,7 +77,8 @@ function editar(nome, sobrenome,email, senha, telefone, cep , team, faixa, grau,
       cep = '${cep}',
       team = '${team}',
       faixa = '${faixa}',
-      grau = '${grau}'
+      grau = '${grau}',
+      peso = '${categoria}'
     WHERE idAtleta = ${idAtleta};
 
     `;
