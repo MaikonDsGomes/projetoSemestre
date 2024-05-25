@@ -276,7 +276,8 @@
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
 
                         divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
-                        spanDt.innerHTML = `${publicacao.dtPostagem}`;
+                        var ano = publicacao.dtPostagem.slice(0,10);
+                        spanDt.innerHTML = `${ano}`;
 
                         divPublicacao.className = "publicacao";
                         spanTitulo.id = "inputNumero" + publicacao.idPostagem;

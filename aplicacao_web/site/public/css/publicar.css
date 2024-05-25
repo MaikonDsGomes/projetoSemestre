@@ -70,6 +70,7 @@
 
   .publicar form textarea{
     resize: none;
+    width: 48%;
     border-radius: 5px;
     margin-bottom: 2%;
   }
@@ -94,3 +95,22 @@
     border-radius: 5px;
     cursor: pointer;
   }
+
+  /* CARD PUBLICAÇÃO */
+  #feed_container{
+    background-color: white;
+    width: 45%;
+    margin: 0 auto;
+    padding: 3%;
+    border-radius: 10px;
+}
+
+#feed_container button{
+  float: right;
+    padding: 7px 19px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+  
