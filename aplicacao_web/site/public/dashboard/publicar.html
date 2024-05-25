@@ -37,11 +37,25 @@
         </div>
     </div>
 
+    <div id="modalVermelho" class="modalVermelho">
+        <div class="flex">
+
+            <div class="erro_box">
+                <p class="erro_titulo">erro!</p>
+                <div class="erro_texto">
+
+                    <p id="mensagem_erro"></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="dash_box">
         <div class="menu_box">
 
             <a href="dashboard.html">Principal</a>
-            
+
             <a href="publicar.html">Publicar</a>
             <a onclick="limparSessao()">Sair</a>
 
@@ -56,22 +70,28 @@
                         <h1>Publicar um aviso</h1>
                         <div class="div-form">
                             <form id="form_postagem" method="post" onsubmit="return publicar()">
-                                <label>
-                                    Título:
-                                    <br>
-                                    <input name="titulo" id="titulo" maxlength="100" type="text">
-                                </label>
-                                <br>
-                                <br>
-                                <label>
-                                    Descrição (máximo de 250 caracteres):
-                                    <br>
-                                    <textarea name="descricao" id="textarea_descricao" maxlength="250"
-                                        rows="5"></textarea>
-                                </label>
-                                <br>
-                                <br>
-                                <button>Enviar</button>
+
+
+                                <div class="label_publi">
+                                    <label>
+                                        Título:
+                                    </label>
+                                </div>
+
+                                <input name="titulo" id="titulo" maxlength="100" type="text">
+
+
+                                <div class="label_publi">
+                                    <label>
+                                        Descrição (máximo de 250 caracteres):
+                                    </label>
+                                </div>
+
+                                <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="10"
+                                    cols="100"></textarea>
+                                <div class="btn_enviar_publi_box">
+                                    <button>Enviar</button>
+                                </div>
                             </form>
                         </div>
                         <h1>Mural de publicações</h1>
@@ -115,33 +135,50 @@
             descricao: form_postagem.descricao.value
         }
 
-        fetch(`/avisos/publicar/${idAtleta}`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(corpo)
-        }).then(function (resposta) {
+        if (form_postagem.titulo.value == "" || form_postagem.descricao.value == "") {
 
-            console.log("resposta: ", resposta);
+            mensagem_erro.innerHTML = `Há algum campo vazio!`;
+            modalVermelho.style.display = `block`;
 
-            if (resposta.ok) {
-                window.alert("Post realizado com sucesso pelo usuario de ID: " + idAtleta + "!");
-                window.location = "/dashboard/publicar.html";
-                limparFormulario();
-                atualizarFeed();
+            setTimeout(() => {
+                modalVermelho.style.display = `none`;
+                window.location = "/dashboard/publicar.html"
+            }, "3000");
 
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
+        } else {
 
-        });
+            fetch(`/avisos/publicar/${idAtleta}`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(corpo)
+            }).then(function (resposta) {
 
-        return false;
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    window.alert("Post realizado com sucesso pelo usuario de ID: " + idAtleta + "!");
+                    window.location = "/dashboard/publicar.html";
+                    limparFormulario();
+                    atualizarFeed();
+
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+
+            return false;
+
+        }
+
+
+
 
     }
 
@@ -151,7 +188,7 @@
         window.alert("Você será redirecionado à página de edição do aviso de id número: " + idPostagem);
         window.location = "/dashboard/edicaoPost.html"
     }
-    
+
 
     function fecharModalExcluir() {
         modalApagar.style.display = `none`;
@@ -181,7 +218,7 @@
                     window.location = "/dashboard/publicar.html"
                 }, "3000");
 
-                
+
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
@@ -197,7 +234,7 @@
 
     }
 
-    
+
 
 
     function atualizarFeed() {
@@ -229,7 +266,7 @@
 
                         var divPublicacao = document.createElement("div");
                         var spanTitulo = document.createElement("span");
-                        
+
                         var divDescricao = document.createElement("div");
                         var spanDt = document.createElement("span");
                         var divButtons = document.createElement("div");
@@ -237,17 +274,17 @@
                         var btnDeletar = document.createElement("button");
 
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
-                        
+
                         divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
                         spanDt.innerHTML = `${publicacao.dtPostagem}`;
 
                         divPublicacao.className = "publicacao";
                         spanTitulo.id = "inputNumero" + publicacao.idPostagem;
-                        
+
                         spanTitulo.className = "publicacao-titulo";
                         divDescricao.className = "publicacao-descricao";
 
-                        
+
                         divPublicacao.appendChild(spanTitulo);
                         divPublicacao.appendChild(divDescricao);
                         divPublicacao.appendChild(spanDt);
