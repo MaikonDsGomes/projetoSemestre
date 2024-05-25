@@ -13,8 +13,8 @@ function listar() {
 function listarTudo() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
-    select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, dtPostagem, horaPostagem,idAtleta, nome, email, senha
-from postagem join atleta on postagem.fkAtleta = idAtleta;
+    select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, dtPostagem,idAtleta, nome, email, senha
+from postagem join atleta on postagem.fkAtleta = idAtleta order by dtPostagem desc;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -48,7 +48,7 @@ function listarPostUser(idAtleta) {
 
     var instrucaoSql = `
     select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, dtPostagem, idAtleta, nome, email, senha
-from postagem join atleta on postagem.fkAtleta = idAtleta where fkAtleta = ${idAtleta};
+from postagem join atleta on postagem.fkAtleta = idAtleta where fkAtleta = ${idAtleta} order by dtPostagem desc;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -61,7 +61,7 @@ function listarPorUsuario(idAtleta) {
 
     var instrucaoSql = `
     select idPatrocinio, lugar, empresa, segmento, patrocinio.fkAtleta, nome, email, senha from patrocinio
-join atleta on patrocinio.fkAtleta = idAtleta where idAtleta = ${idAtleta};
+join atleta on patrocinio.fkAtleta = idAtleta where idAtleta = ${idAtleta} ;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -96,10 +96,10 @@ function editar(novaDescricao, idAviso) {
     return database.executar(instrucaoSql);
 }
 
-function deletar(idAviso) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idAviso);
+function deletar(idPostagem) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idPostagem);
     var instrucaoSql = `
-        DELETE FROM aviso WHERE id = ${idAviso};
+        DELETE FROM postagem WHERE idPostagem = ${idPostagem};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

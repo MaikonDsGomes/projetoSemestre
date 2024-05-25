@@ -29,7 +29,7 @@
 
 
 
-<body onload="atualizarFeed(), atualizarFeedMedalha()">
+<body onload="atualizarFeedMedalha(), atualizarFeed()">
 
 
     <div class="dash_box">
@@ -40,20 +40,12 @@
 
             <a href="dashboard.html">Principal</a>
             <a href="evolucao.html">Evolução</a>
+            <a href="publicar.html">Publicar</a>
             <a onclick="limparSessao()">Sair</a>
 
         </div>
 
-        <div id="modalApagar" class="modalApagar">
-
-            <div>
-                Você tem certeza que deseja apagar
-            </div>
-            <div class="buttonModal_box">
-                <button onclick="fecharModalExcluir()">Sim</button> <button onclick="fecharModalExcluir()">Não</button>
-            </div>
-
-        </div>
+        
 
 
 
@@ -249,6 +241,7 @@
                         </div>
 
                     </div>
+                    <h1 class="titulo_comunidade">Métricas da comunidade</h1>
                     <div class="cards_inf_box">
                         <div>
                             <h1>Nivel dos atletas</h1>
@@ -676,8 +669,8 @@
                         spanElement.className = "span_medalhas_box";
 
                         // Definindo o conteúdo de cada elemento span
-                        spanFederacao.innerHTML = "<b>Federação: </b> "+ medalha.federacao;
-                        spanCampeonato.innerHTML = "<b>Campeonato: </b> "+ medalha.campeonato;
+                        spanFederacao.innerHTML = "<b>Federação: </b> " + medalha.federacao;
+                        spanCampeonato.innerHTML = "<b>Campeonato: </b> " + medalha.campeonato;
                         spanPosicao.innerHTML = "<b>Posição: </b>" + medalha.posicao + " Lugar";
                         spanData.innerHTML = "<b>Data: </b>" + medalha.ano;
 
@@ -693,7 +686,6 @@
                         // Adicionando o span principal ao elemento de destino no DOM (ajuste o seletor conforme necessário)
                         document.getElementById("medalha_container").appendChild(spanElement);
 
-                        
                     }
 
 

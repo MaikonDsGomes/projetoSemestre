@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+				
+
+    
+
     <link rel="stylesheet" href="css/index.css">
     <link rel="icon" href="assets/logo.ico" />
     <title>Home</title>
@@ -192,24 +198,15 @@
     </section>
 
     <section class="blog_sec">
-        <h1>Mural de conversas</h1>
+        <h1>Mural da comunidade</h1>
 
         <div class="centro">
 
-            <div>
-                <form>
-                    <label>Titulo</label>
-                    <input type="text">
-                    <label>conteudo</label>
-                    <textarea name="" id="" cols="50" rows="5"></textarea>
-                    <button class="enviar_blog_button">Enviar</button>
-                </form>
-
-            </div>
+            
 
             <h2>Tópicos</h2>
             <!-- multiple-items -->
-            <div class=" card_blog_box " id="feed_container" class="feed-container">
+            <div class=" card_blog_box multiple-items" id="feed_container" class="feed-container">
 
                 <!-- <div>
                     <div>
@@ -303,6 +300,19 @@
 <script>
 
 
+
+$(document).ready(function(){
+    $('.multiple-items').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        dots: true,
+        arrows: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+    });
+});
+
 function atualizarFeed() {
         fetch("/avisos/listarTudo").then(function (resposta) {
             if (resposta.ok) {
@@ -332,7 +342,7 @@ function atualizarFeed() {
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
                         spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
                         divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
-                        spanDt.innerHTML = `${publicacao.dtPostagem} - ${publicacao.horaPostagem}`;
+                        spanDt.innerHTML = `${publicacao.dtPostagem}`;
 
                         divPublicacao.className = "publicacao";
                         spanTitulo.id = "inputNumero" + publicacao.idAviso;
@@ -397,17 +407,17 @@ function atualizarFeed() {
 
 
 
-    // $(document).ready(function () {
-    //     $('.multiple-items').slick({
-    //         infinite: true,
-    //         slidesToShow: 3,
-    //         slidesToScroll: 1,
-    //         dots: true,
-    //         arrows: true,
-    //         autoplay: true,
-    //         autoplaySpeed: 5000
-    //     });
-    // });
+    $(document).ready(function () {
+        $('.multiple-items').slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            dots: true,
+         arrows: true,
+           autoplay: true,
+             autoplaySpeed: 5000
+        });
+ });
 
 
 

@@ -169,9 +169,12 @@ function editar(req, res) {
 }
 
 function deletar(req, res) {
-    var idAviso = req.params.idAviso;
+    var idPostagem = req.params.idPostagem;
 
-    avisoModel.deletar(idAviso)
+
+console.log(` ESTOU NO CONTROLLER DELETE ID ->  ${idPostagem}`);
+
+    avisoModel.deletar(idPostagem)
         .then(
             function (resultado) {
                 res.json(resultado);

@@ -195,3 +195,8 @@ body {
   overflow-y: auto;
   width: unset !important;
 }
+
+.titulo_comunidade{
+  color: white;
+  font-size: 45px;
+}

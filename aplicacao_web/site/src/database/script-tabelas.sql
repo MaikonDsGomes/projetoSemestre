@@ -1,10 +1,3 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
-
-/*
-comandos para mysql server
-*/
 
 create database projetoIndividual;
 
@@ -63,7 +56,7 @@ create table postagem(
 -- SELECT a.id AS idAviso, a.titulo, a.descricao, a.fk_usuario, u.id AS idUsuario, u.nome, u.email, u.senha
 -- FROM postagem a INNER JOIN usuario u ON a.fk_usuario = u.id WHERE u.id = 6
 
-select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, dtPostagem, horaPostagem,idAtleta, nome, email, senha
+select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, dtPostagem,idAtleta, nome, email, senha
 from postagem join atleta on postagem.fkAtleta = idAtleta;
 
 insert into atleta (nome, sobrenome, email, senha, telefone, cep, logradouro, complemento, dtNasc, team, faixa, grau, descricao) values
@@ -105,7 +98,6 @@ INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta)
 VALUES ('Federação C', 'Campeonato Z', '2021-07-10', '3', 3);
 
 select federacao, campeonato, ano, posicao, fkAtleta from medalha where fkAtleta = 1;
-
 
 
 -- drop database projetoIndividual;

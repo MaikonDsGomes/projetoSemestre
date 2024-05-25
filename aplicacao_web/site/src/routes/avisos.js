@@ -36,7 +36,7 @@ router.put("/editar/:idAviso", function (req, res) {
     avisoController.editar(req, res);
 });
 
-router.delete("/deletar/:idAviso", function (req, res) {
+router.delete("/deletar/:idPostagem", function (req, res) {
     avisoController.deletar(req, res);
 });
 
