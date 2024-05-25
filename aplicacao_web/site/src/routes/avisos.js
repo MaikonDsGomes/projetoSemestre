@@ -7,12 +7,20 @@ router.get("/listar", function (req, res) {
     avisoController.listar(req, res);
 });
 
+router.get("/listarCardsAtletas", function (req, res) {
+    avisoController.listarcardsAtletas(req, res);
+});
+
 router.get("/listarTudo", function (req, res) {
     avisoController.listarTudo(req, res);
 });
 
 router.get("/listarPostUser/:idAtleta", function (req, res) {
     avisoController.listarPostUser(req, res);
+});
+
+router.get("/listarEditarPost/:idPostagem", function (req, res) {
+    avisoController.listarEditarPost(req, res);
 });
 
 router.get(`/listar/:idAtleta`, function (req, res) {

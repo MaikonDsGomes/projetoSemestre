@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/publicar.css">
 </head>
 
-<body>
+<body onload="listarEditarPost()">
 
     <div id="modalVerde" class="modalVerde">
         <div class="flex">
@@ -68,31 +68,27 @@
                     </div>
                     <div class="container">
                         <h1>Publicar um aviso</h1>
-                        <div class="div-form">
-                           
-                                <label>
-                                    Título:
-                                    <br>
-                                    <input name="titulo" id="input_titulo" maxlength="100" type="text">
-                                </label>
+                        <div id="feed_container" class="div-form">
+
+                            <label>
+                                Título:
                                 <br>
+                                <input name="titulo" id="input_titulo" maxlength="100" type="text">
+                            </label>
+                            <br>
+                            <br>
+                            <label>
+                                Descrição (máximo de 250 caracteres):
                                 <br>
-                                <label>
-                                    Descrição (máximo de 250 caracteres):
-                                    <br>
-                                    <textarea name="descricao" id="textarea_descricao" maxlength="250"
-                                        rows="5"></textarea>
-                                </label>
-                                <br>
-                                <br>
-                                <button onclick="editar()">Enviar</button>
-                            
+                                <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5"></textarea>
+                            </label>
+                            <br>
+                            <br>
+
+
                         </div>
-                        <h1>Mural de publicações</h1>
-                        <div class="div-results">
-                            <div id="feed_container" class="feed-container">
-                            </div>
-                        </div>
+                        <button onclick="editar()">Enviar</button>
+
                     </div>
                 </div>
             </div>
@@ -102,8 +98,80 @@
 
 <script>
 
+    var idPostagem = sessionStorage.getItem("ID_POSTAGEM_EDITANDO");
 
-function editar() {
+    function listarEditarPost() {
+
+        fetch(`/avisos/listarEditarPost/${idPostagem}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        // Criação dos elementos principais
+                        var labelTitulo = document.createElement("label");
+                        var br1 = document.createElement("br");
+                        var inputTitulo = document.createElement("input");
+                        var br2 = document.createElement("br");
+                        var br3 = document.createElement("br");
+                        var labelDescricao = document.createElement("label");
+                        var br4 = document.createElement("br");
+                        var textareaDescricao = document.createElement("textarea");
+
+                        // Definição do conteúdo e atributos dos elementos
+                        labelTitulo.innerHTML = "Título:";
+                        inputTitulo.name = "titulo";
+                        inputTitulo.value = publicacao.titulo;
+                        inputTitulo.id = "input_titulo";
+                        inputTitulo.maxLength = 100;
+                        inputTitulo.type = "text";
+
+                        labelDescricao.innerHTML = "Descrição (máximo de 250 caracteres):";
+                        textareaDescricao.name = "descricao";
+                        textareaDescricao.value = publicacao.descricao;
+                        textareaDescricao.id = "textarea_descricao";
+                        textareaDescricao.maxLength = 250;
+                        textareaDescricao.rows = 5;
+
+                        // Construção da hierarquia dos elementos
+                        labelTitulo.appendChild(br1);
+                        labelTitulo.appendChild(inputTitulo);
+
+                        labelDescricao.appendChild(br4);
+                        labelDescricao.appendChild(textareaDescricao);
+
+                        // Adicionando os elementos ao documento com espaçadores
+                        var formElement = document.getElementById("feed_container"); // Ajuste o seletor conforme necessário
+                        formElement.appendChild(labelTitulo);
+                        formElement.appendChild(br2);
+                        formElement.appendChild(br3);
+                        formElement.appendChild(labelDescricao);
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
+    }
+
+    function editar() {
         fetch(`/avisos/editar/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
             method: "PUT",
             headers: {
@@ -120,12 +188,7 @@ function editar() {
                 mensagem_sucesso.innerHTML = `Post editado com sucesso`;
                 modalVerde.style.display = `block`;
 
-                setTimeout(() => {
-                    modalVerde.style.display = `none`;
-                    window.location = "publicar.html"
-                }, "3000");
 
-               
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {

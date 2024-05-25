@@ -9,7 +9,7 @@
     <link rel="icon" href="assets/logo.ico" />
 </head>
 
-<body>
+<body onload="atualizarFeed()">
     <section class="menu_sec">
 
         <header class="menu">
@@ -33,19 +33,19 @@
 
         <div id="modal" class="modal">
             <h4>Maikon Douglas</h4>
-                        <p>Team: JFC Almeida</p>
-                        <p>Faixa: Roxa - 2°</p>
-                        <p>Descrição: Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis iure ex, exercitationem 
-                            eos expedita aliquam sunt nesciunt provident molestiae, corrupti quibusdam 
-                            quam maiores quo dicta tempore. Perspiciatis repellendus doloremque tenetur.</p>
-                        <p>Contato: maikon@gmail.com</p>
-                        <p>Cidade: São Paulo</p>
-                        <button class="close">Fechar</button>
+            <p>Team: JFC Almeida</p>
+            <p>Faixa: Roxa - 2°</p>
+            <p>Descrição: Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis iure ex, exercitationem
+                eos expedita aliquam sunt nesciunt provident molestiae, corrupti quibusdam
+                quam maiores quo dicta tempore. Perspiciatis repellendus doloremque tenetur.</p>
+            <p>Contato: maikon@gmail.com</p>
+            <p>Cidade: São Paulo</p>
+            <button class="close">Fechar</button>
         </div>
 
         <div class="centro">
-            <div class="atletas_card_box">
-                <div class="card_atleta">
+            <div id="container" class="atletas_card_box">
+                <!-- <div class="card_atleta">
                     <div>
                         <h4>Maikon Douglas</h4>
                         <p>Team: JFC Almeida</p>
@@ -112,7 +112,7 @@
                             <p>Posição: 2°</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -128,4 +128,88 @@
     document.querySelector('.close').addEventListener('click', function () {
         document.getElementById('modal').style.display = 'none';
     });
+
+
+
+    function atualizarFeed() {
+        fetch("/avisos/listarCardsAtletas").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    
+                    for (let i = 0; i < resposta.length; i++) {
+                        var card = resposta[i];
+
+                        // Criação do elemento principal (div) e definição da classe
+                        var cardAtletaElement = document.createElement("div");
+                        cardAtletaElement.className = "card_atleta";
+
+                        // Criação dos elementos internos para o primeiro bloco
+                        var divInfoElement = document.createElement("div");
+                        var h4Element = document.createElement("h4");
+                        var pTeamElement = document.createElement("p");
+                        var pFaixaElement = document.createElement("p");
+                        var buttonElement = document.createElement("button");
+
+                        // Definição do conteúdo e atributos dos elementos
+                        h4Element.textContent = `${card.nome} ${card.sobrenome}`;
+                        pTeamElement.textContent = `Team: ${card.team}`;
+                        pFaixaElement.textContent = `Faixa: ${card.faixa} - ${card.grau}`;
+                        buttonElement.textContent = "Ver mais";
+
+                        // Adicionando os elementos ao primeiro bloco
+                        divInfoElement.appendChild(h4Element);
+                        divInfoElement.appendChild(pTeamElement);
+                        divInfoElement.appendChild(pFaixaElement);
+                        divInfoElement.appendChild(buttonElement);
+
+                        // Criação do segundo bloco (para os detalhes do campeonato)
+                        var divChampionshipWrapper = document.createElement("div");
+                        var divChampionship = document.createElement("div");
+                        var pEvento = document.createElement("p");
+                        var pPosicao = document.createElement("p");
+
+                        // Definição do conteúdo dos elementos do campeonato
+                        pEvento.textContent = `${card.federacao} - ${card.campeonato} - ${card.ano}`;
+                        pPosicao.textContent = `Posição: ${card.posicao}°`;
+
+                        // Adicionando os elementos do campeonato ao bloco do campeonato
+                        divChampionship.appendChild(pEvento);
+                        divChampionship.appendChild(pPosicao);
+
+                        // Adicionando o bloco do campeonato ao wrapper do campeonato
+                        divChampionshipWrapper.appendChild(divChampionship);
+
+                        // Adicionando os dois blocos ao elemento principal (card_atleta)
+                        cardAtletaElement.appendChild(divInfoElement);
+                        cardAtletaElement.appendChild(divChampionshipWrapper);
+
+                        // Adicionando o cardAtletaElement ao elemento de destino no DOM (ajuste o seletor conforme necessário)
+                        document.getElementById("container").appendChild(cardAtletaElement);
+
+
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
+    }
+
+
 </script>

@@ -45,6 +45,49 @@ function listarTudo(req, res) {
     });
 }
 
+function listarcardsAtletas(req, res) {
+    avisoModel.listarcardsAtletas().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
+
+function listarEditarPost(req, res) {
+    var idPostagem = req.params.idPostagem;
+
+    console.log("iD DO ATLTETA "+idPostagem)
+
+    avisoModel.listarEditarPost(idPostagem)
+        .then(
+            function (resultado) {
+                if (resultado.length > 0) {
+                    res.status(200).json(resultado);
+                } else {
+                    res.status(204).send("Nenhum resultado encontrado!");
+                }
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "Houve um erro ao buscar os PATROCINIOS: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function listarPorUsuario(req, res) {
     var idAtleta = req.params.idAtleta;
 
@@ -199,5 +242,7 @@ module.exports = {
     deletar,
     listarTudo,
     listarMedalha,
-    listarPostUser
+    listarPostUser,
+    listarEditarPost,
+    listarcardsAtletas
 }
