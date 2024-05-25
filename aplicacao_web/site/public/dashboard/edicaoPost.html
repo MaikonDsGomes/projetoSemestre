@@ -10,7 +10,21 @@
     <link rel="stylesheet" href="../css/publicar.css">
 </head>
 
-<body onload="atualizarFeed()">
+<body>
+
+    <div id="modalVerde" class="modalVerde">
+        <div class="flex">
+
+            <div class="sucesso_box">
+                <p class="sucesso_titulo">Sucesso!</p>
+                <div class="sucesso_texto">
+
+                    <p id="mensagem_sucesso"></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="modalApagar" class="modalApagar">
 
@@ -55,11 +69,11 @@
                     <div class="container">
                         <h1>Publicar um aviso</h1>
                         <div class="div-form">
-                            <form id="form_postagem" method="post" onsubmit="return publicar()">
+                           
                                 <label>
                                     Título:
                                     <br>
-                                    <input name="titulo" id="titulo" maxlength="100" type="text">
+                                    <input name="titulo" id="input_titulo" maxlength="100" type="text">
                                 </label>
                                 <br>
                                 <br>
@@ -71,8 +85,8 @@
                                 </label>
                                 <br>
                                 <br>
-                                <button>Enviar</button>
-                            </form>
+                                <button onclick="editar()">Enviar</button>
+                            
                         </div>
                         <h1>Mural de publicações</h1>
                         <div class="div-results">
@@ -85,3 +99,41 @@
         </section>
     </div>
 </body>
+
+<script>
+
+
+function editar() {
+        fetch(`/avisos/editar/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                descricao: textarea_descricao.value,
+                titulo: input_titulo.value
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+
+                mensagem_sucesso.innerHTML = `Post editado com sucesso`;
+                modalVerde.style.display = `block`;
+
+                setTimeout(() => {
+                    modalVerde.style.display = `none`;
+                    window.location = "publicar.html"
+                }, "3000");
+
+               
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+</script>

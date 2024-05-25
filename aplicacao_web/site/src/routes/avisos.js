@@ -32,7 +32,7 @@ router.post("/publicar/:idAtleta", function (req, res) {
     avisoController.publicar(req, res);
 });
 
-router.put("/editar/:idAviso", function (req, res) {
+router.put("/editar/:idPostagem", function (req, res) {
     avisoController.editar(req, res);
 });
 
