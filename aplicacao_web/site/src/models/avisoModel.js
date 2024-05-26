@@ -24,7 +24,7 @@ function listarcardsAtletas() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
     
-    select idAtleta, nome, sobrenome, faixa, grau, team , TIMESTAMPDIFF(YEAR, dtNasc, CURDATE()) AS idade from atleta;
+    select idAtleta, email,nome, sobrenome, faixa, grau, team , TIMESTAMPDIFF(YEAR, dtNasc, CURDATE()) AS idade from atleta;
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

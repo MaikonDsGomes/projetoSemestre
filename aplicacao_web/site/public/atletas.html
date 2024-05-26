@@ -225,6 +225,7 @@
                         var h4Element = document.createElement("h4");
                         var pTeamElement = document.createElement("p");
                         var pFaixaElement = document.createElement("p");
+                        var pEmailElement = document.createElement("p");
                         var buttonElement = document.createElement("button");
 
                         divElement.className = `card_atleta`;
@@ -233,6 +234,7 @@
                         h4Element.textContent = `${card.nome} ${card.sobrenome} - idade: ${card.idade}`;
                         pTeamElement.textContent = `Team: ${card.team}`;
                         pFaixaElement.textContent = `Faixa: ${card.faixa} - ${card.grau}`;
+                        pEmailElement.textContent = `Email: ${card.email}`;
                         buttonElement.textContent = "Ver mais";
                         buttonElement.className = "buttonAbrirModalBlock";
                         buttonElement.setAttribute("onclick", `abrirModal(${card.idAtleta})`);
@@ -241,6 +243,7 @@
                         divElement.appendChild(h4Element);
                         divElement.appendChild(pTeamElement);
                         divElement.appendChild(pFaixaElement);
+                        divElement.appendChild(pEmailElement);
                         divElement.appendChild(buttonElement);
 
 
