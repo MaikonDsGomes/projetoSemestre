@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>publicar</title>
+    <title>Edição de uma postagem</title>
+    <link rel="icon" href="../assets/logo.ico" />
 
     <link rel="stylesheet" href="../css/dashboards.css">
-    <link rel="stylesheet" href="../css/publicar.css">
+    <link rel="stylesheet" href="../css/edicaoPost.css">
+    <script src="../js/sessao.js"></script>
 </head>
 
 <body onload="listarEditarPost()">
@@ -65,7 +67,7 @@
                 <div class="publicar">
                     <div id="alerta">
                     </div>
-                    <div class="container">
+                    <div class="container container_editPost">
                         <h1>Publicar um aviso</h1>
                         <div id="feed_container" class="div-form">
 
@@ -86,7 +88,9 @@
 
 
                         </div>
-                        <button onclick="editar()">Enviar</button>
+                        <div>
+                            <button onclick="editar()">Enviar</button>
+                        </div>
 
                     </div>
                 </div>
@@ -159,14 +163,14 @@
                         formElement.appendChild(labelDescricao);
                     }
 
-                    finalizarAguardar();
+                   
                 });
             } else {
                 throw ('Houve um erro na API!');
             }
         }).catch(function (resposta) {
             console.error(resposta);
-            finalizarAguardar();
+            
         });
     }
 
@@ -184,8 +188,13 @@
 
             if (resposta.ok) {
 
-                mensagem_sucesso.innerHTML = `Post editado com sucesso`;
+                mensagem_sucesso.innerHTML = `Post editado!`;
                 modalVerde.style.display = `block`;
+
+                setTimeout(() => {
+                    modalVerde.style.display = `none`;
+                    window.location = "/dashboard/publicar.html"
+                }, "3000");
 
 
             } else if (resposta.status == 404) {

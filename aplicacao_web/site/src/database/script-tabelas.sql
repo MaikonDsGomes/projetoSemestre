@@ -50,7 +50,7 @@ select * from atleta;
 create table postagem(
 	idPostagem int primary key auto_increment,
     titulo varchar(45),
-    descricao varchar(500),
+    descricao varchar(250),
     dtPostagem timestamp not null default current_timestamp,
     fkAtleta int,
     constraint postageFkAtleta foreign key (fkAtleta) references atleta(idAtleta)

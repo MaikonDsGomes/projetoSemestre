@@ -32,7 +32,7 @@
         <h1>Atletas</h1>
 
         <div id="modal" class="modal">
-            <h4>Maikon Douglas</h4>
+            <!-- <h4>Maikon Douglas</h4>
             <p>Team: JFC Almeida</p>
             <p>Faixa: Roxa - 2°</p>
             <p>Descrição: Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis iure ex, exercitationem
@@ -40,7 +40,7 @@
                 quam maiores quo dicta tempore. Perspiciatis repellendus doloremque tenetur.</p>
             <p>Contato: maikon@gmail.com</p>
             <p>Cidade: São Paulo</p>
-            <button class="close">Fechar</button>
+            <button class="close">Fechar</button> -->
         </div>
 
         <div class="centro">
@@ -121,12 +121,80 @@
 </html>
 
 <script>
-    function abrirModal() {
+    function abrirModal(idAtleta) {
         modal.style.display = "block";
+
+        fetch(`/avisos/listarInfoAtletas/${idAtleta}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        var card = resposta[i];
+
+                        var divElement = document.createElement("div");
+
+                        // Criação dos elementos internos
+                        var h4Element = document.createElement("h4");
+                        var pTeamElement = document.createElement("p");
+
+                        var pDescricaoElement = document.createElement("p");
+                        var pContatoElement = document.createElement("p");
+                        //var pCidadeElement = document.createElement("p");
+                        var buttonElement = document.createElement("button");
+
+                        // Definição do conteúdo dos elementos
+                        h4Element.textContent = `${card.nome} ${card.sobrenome}`;
+                        pTeamElement.textContent = `Team: ${card.team}`;
+                        pDescricaoElement.textContent = `Descrição: ${card.descricao}`;
+                        pContatoElement.textContent = `${card.email}`;
+                        //pCidadeElement.textContent = "Cidade: São Paulo";
+                        buttonElement.textContent = "Fechar";
+                        buttonElement.className = "close";
+                        buttonElement.setAttribute("onclick", `fecharModal()`);
+
+                        // Adicionando os elementos ao div principal
+                        divElement.appendChild(h4Element);
+                        divElement.appendChild(pTeamElement);
+                        divElement.appendChild(pDescricaoElement);
+                        divElement.appendChild(pContatoElement);
+                        //divElement.appendChild(pCidadeElement);
+                        divElement.appendChild(buttonElement);
+
+                        // Adicionando o divElement ao elemento de destino no DOM (ajuste o seletor conforme necessário)
+                        document.getElementById("modal").appendChild(divElement);
+
+
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
+
     }
 
-    document.querySelector('.close').addEventListener('click', function () {
+    function fecharModal(){
         document.getElementById('modal').style.display = 'none';
+        modal.innerHTML = ``
+    }
+    document.querySelector('.close').addEventListener('click', function () {
+       
     });
 
 
@@ -146,65 +214,36 @@
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
                     var feed = document.getElementById("feed_container");
-                    
+
                     for (let i = 0; i < resposta.length; i++) {
                         var card = resposta[i];
 
-                        // Criação do elemento principal (div) e definição da classe
-                        var cardAtletaElement = document.createElement("div");
-                        cardAtletaElement.className = "card_atleta";
+                        var divElement = document.createElement("div");
 
-                        // Criação dos elementos internos para o primeiro bloco
-                        var divInfoElement = document.createElement("div");
+                        // Criação dos elementos internos
                         var h4Element = document.createElement("h4");
                         var pTeamElement = document.createElement("p");
                         var pFaixaElement = document.createElement("p");
-                        var pAnoElement = document.createElement("p");
-                        var pPesoElement = document.createElement("p");
                         var buttonElement = document.createElement("button");
+
+                        divElement.className = `card_atleta`;
 
                         // Definição do conteúdo e atributos dos elementos
                         h4Element.textContent = `${card.nome} ${card.sobrenome}`;
                         pTeamElement.textContent = `Team: ${card.team}`;
                         pFaixaElement.textContent = `Faixa: ${card.faixa} - ${card.grau}`;
-                        pPesoElement.textContent = `Categoria: ${card.peso}`;
                         buttonElement.textContent = "Ver mais";
+                        buttonElement.setAttribute("onclick", `abrirModal(${card.idAtleta})`);
 
-                        // Adicionando os elementos ao primeiro bloco
-                        divInfoElement.appendChild(h4Element);
-                        divInfoElement.appendChild(pTeamElement);
-                        divInfoElement.appendChild(pFaixaElement);
-                        divInfoElement.appendChild(pPesoElement);
-                        divInfoElement.appendChild(buttonElement);
+                        // Adicionando os elementos ao div principal
+                        divElement.appendChild(h4Element);
+                        divElement.appendChild(pTeamElement);
+                        divElement.appendChild(pFaixaElement);
+                        divElement.appendChild(buttonElement);
 
-                        // Criação do segundo bloco (para os detalhes do campeonato)
-                        var divChampionshipWrapper = document.createElement("div");
-                        var divChampionship = document.createElement("div");
-                        var pEvento = document.createElement("p");
-                        var pPosicao = document.createElement("p");
-
-                        // Definição do conteúdo dos elementos do campeonato
-                        pEvento.textContent = `${card.federacao} - ${card.campeonato} `;
-
-                        var ano = card.ano.slice(0,10);
-
-                        pAnoElement.textContent = `Data: ${ano}`;
-                        pPosicao.textContent = `Posição: ${card.posicao}°`;
-
-                        // Adicionando os elementos do campeonato ao bloco do campeonato
-                        divChampionship.appendChild(pEvento);
-                        divChampionship.appendChild(pPosicao);
-                        divChampionship.appendChild(pAnoElement);
-                        
-                        // Adicionando o bloco do campeonato ao wrapper do campeonato
-                        divChampionshipWrapper.appendChild(divChampionship);
-
-                        // Adicionando os dois blocos ao elemento principal (card_atleta)
-                        cardAtletaElement.appendChild(divInfoElement);
-                        cardAtletaElement.appendChild(divChampionshipWrapper);
 
                         // Adicionando o cardAtletaElement ao elemento de destino no DOM (ajuste o seletor conforme necessário)
-                        document.getElementById("container").appendChild(cardAtletaElement);
+                        document.getElementById("container").appendChild(divElement);
 
 
                     }

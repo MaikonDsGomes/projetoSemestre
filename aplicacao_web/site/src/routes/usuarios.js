@@ -24,5 +24,15 @@ router.post("/editar", function (req, res) {
     usuarioController.editar(req, res);
 });
 
+router.delete("/deletarPat/:idPatrocinio", function (req, res) {
+    usuarioController.deletarPat(req, res);
+});
+
+router.delete("/deletarMed/:idMedalha", function (req, res) {
+    usuarioController.deletarMed(req, res);
+});
+//
+
+
 
 module.exports = router;

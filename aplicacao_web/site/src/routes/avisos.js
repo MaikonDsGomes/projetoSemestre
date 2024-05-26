@@ -11,6 +11,10 @@ router.get("/listarCardsAtletas", function (req, res) {
     avisoController.listarcardsAtletas(req, res);
 });
 
+router.get("/listarInfoAtletas/:idAtleta", function (req, res) {
+    avisoController.listarInfoAtletas(req, res);
+});
+
 router.get("/listarTudo", function (req, res) {
     avisoController.listarTudo(req, res);
 });

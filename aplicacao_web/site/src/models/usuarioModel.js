@@ -86,10 +86,29 @@ function editar(nome, sobrenome,email, senha, telefone, cep , team, faixa, grau,
     return database.executar(instrucaoSql);
 }
 
+function deletarPat(idPatrocinio) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idPatrocinio);
+    var instrucaoSql = `
+        DELETE FROM patrocinio WHERE idPatrocinio = ${idPatrocinio};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function deletarPat(idMedalha) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idMedalha);
+    var instrucaoSql = `
+        DELETE FROM medalha WHERE idMedalha = ${idMedalha};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     editar,
     adicionarMed,
-    adicionarPat
+    adicionarPat,
+    deletarPat
 };

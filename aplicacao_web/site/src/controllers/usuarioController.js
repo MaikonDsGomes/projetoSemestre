@@ -226,10 +226,54 @@ function editar(req, res) {
     }
 }
 
+function deletarPat(req, res) {
+    var idPatrocinio = req.params.idPatrocinio;
+
+
+console.log(` ESTOU NO CONTROLLER DELETE ID ->  ${idPatrocinio}`);
+
+    usuarioModel.deletarPat(idPatrocinio)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function deletarMed(req, res) {
+    var idMedalha = req.params.idMedalha;
+
+
+console.log(` ESTOU NO CONTROLLER DELETE ID ->  ${idMedalha}`);
+
+    usuarioModel.deletarMed(idMedalha)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     editar,
     adicionarMed,
-    adicionarPat
+    adicionarPat,
+    deletarPat,
+    deletarMed
 }

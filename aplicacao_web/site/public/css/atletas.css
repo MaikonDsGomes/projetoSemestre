@@ -94,6 +94,7 @@
     border: white 1px solid;
     background-color: white;
     display: flex;
+    flex-direction: column;
     padding: 4%;
     border-radius: 10px;
 }

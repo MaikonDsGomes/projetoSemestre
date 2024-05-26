@@ -45,6 +45,19 @@
         </div>
 
 
+        <div id="modalVerde" class="modalVerde">
+            <div class="flex">
+
+                <div class="sucesso_box">
+                    <p class="sucesso_titulo">Sucesso!</p>
+                    <div class="sucesso_texto">
+
+                        <p id="mensagem_sucesso"></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -376,6 +389,41 @@
 
     }
 
+    function deletarPat(idPatrocinio) {
+
+        console.log("Criar função de apagar post escolhido - ID" + idPatrocinio);
+        fetch(`/usuarios/deletarPat/${idPatrocinio}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                //window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+
+                mensagem_sucesso.innerHTML = `Post deletado com sucesso`;
+                modalVerde.style.display = `block`;
+
+
+                setTimeout(() => {
+                    modalVerde.style.display = `none`;
+                    window.location = "/dashboard/dashboard.html"
+                }, "3000");
+
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+
     function fecharEditarUser() {
         modalEditarUser.style.display = 'none';
         centro_div.style.display = 'block'
@@ -529,6 +577,7 @@
         modalAdicionarMed.style.display = 'none';
         centro_div.style.display = 'block'
     }
+
     function enviarAdicionarMed() {
 
         var federacaoVar = input_federacao.value;
@@ -576,6 +625,39 @@
         return false;
     }
 
+    function deletarMed(idMedalha) {
+
+        console.log("Criar função de apagar post escolhido - ID" + idMedalha);
+        fetch(`/usuarios/deletarMed/${idMedalha}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                //window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+
+                mensagem_sucesso.innerHTML = `Post deletado com sucesso`;
+                modalVerde.style.display = `block`;
+
+
+                setTimeout(() => {
+                    modalVerde.style.display = `none`;
+                    window.location = "/dashboard/dashboard.html"
+                }, "3000");
+
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
 
     // LISTAR 
     function atualizarFeed() {
@@ -616,7 +698,7 @@
                         spanLocal.id = "inputNumero" + publicacao.idAtleta;
 
                         iconTrash.id = "btnDeletar" + publicacao.idAtleta;
-                        iconTrash.setAttribute("onclick", `deletar(${publicacao.idAtleta})`);
+                        iconTrash.setAttribute("onclick", `deletarMed(${publicacao.idPatrocinio})`);
 
                         pElement.appendChild(spanLocal);
                         pElement.appendChild(document.createTextNode(" - "));
@@ -680,6 +762,7 @@
                         var spanCampeonato = document.createElement("span");
                         var spanPosicao = document.createElement("span");
                         var spanData = document.createElement("span");
+                        var iconTrash = document.createElement("i");
 
                         spanElement.className = "span_medalhas_box";
 
@@ -688,6 +771,10 @@
                         spanCampeonato.innerHTML = "<b>Campeonato: </b> " + medalha.campeonato;
                         spanPosicao.innerHTML = "<b>Posição: </b>" + medalha.posicao + " Lugar";
                         spanData.innerHTML = "<b>Data: </b>" + medalha.ano;
+                        iconTrash.className = "fa-solid fa-trash";
+                        iconTrash.id = "btnDeletar" + medalha.idAtleta;
+                        iconTrash.setAttribute("onclick", `deletarPat(${medalha.idMedalha})`);
+                        //spanLocal.id = "inputNumero" + publicacao.idAtleta;
 
                         // Adicionando os spans criados ao span principal
                         spanElement.appendChild(spanFederacao);
@@ -697,6 +784,7 @@
                         spanElement.appendChild(spanPosicao);
                         spanElement.appendChild(document.createTextNode(" - "));
                         spanElement.appendChild(spanData);
+                        spanElement.appendChild(iconTrash);
 
                         // Adicionando o span principal ao elemento de destino no DOM (ajuste o seletor conforme necessário)
                         document.getElementById("medalha_container").appendChild(spanElement);
@@ -718,9 +806,6 @@
 
 
     // GRAFICOS
-
-
-
 
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
@@ -904,19 +989,19 @@
             } else if (registro.peso === 'medio') {
                 dados.datasets[0].data.push(registro.quantidade);
                 dados.datasets[0].backgroundColor.push('#0057E7 ');
-            }else if (registro.peso === 'meio-pesado') {
+            } else if (registro.peso === 'meio-pesado') {
                 dados.datasets[0].data.push(registro.quantidade);
                 dados.datasets[0].backgroundColor.push('#0041A3 ');
-            }else if (registro.peso === 'pesado') {
+            } else if (registro.peso === 'pesado') {
                 dados.datasets[0].data.push(registro.quantidade);
                 dados.datasets[0].backgroundColor.push('#002C6D ');
-            }else if (registro.peso === 'super-pesado') {
+            } else if (registro.peso === 'super-pesado') {
                 dados.datasets[0].data.push(registro.quantidade);
                 dados.datasets[0].backgroundColor.push('#001749');
-            }else if (registro.peso === 'pesadissimo') {
+            } else if (registro.peso === 'pesadissimo') {
                 dados.datasets[0].data.push(registro.quantidade);
                 dados.datasets[0].backgroundColor.push('#1a1a2e ');
-            }else if (registro.peso === 'absoluto') {
+            } else if (registro.peso === 'absoluto') {
                 dados.datasets[0].data.push(registro.quantidade);
                 dados.datasets[0].backgroundColor.push('#1E1919');
             }

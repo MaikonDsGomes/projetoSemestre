@@ -96,26 +96,38 @@
     cursor: pointer;
   }
 
-  /* CARD PUBLICAÇÃO */
-  #feed_container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px 0px;
-  }
-  .publicacao{
-    background-color: white;
-    width: 45%;
-    margin: 0 auto;
-    padding: 1.5%;
-    border-radius: 10px;
-  }
-  
-  #feed_container button {
-    float: right;
+
+#feed_container button{
+  float: right;
     padding: 7px 19px;
     border: 1px solid black;
     border-radius: 5px;
     cursor: pointer;
     margin-right: 5px;
-  }
+}
   
+
+
+.container_editPost textarea,
+.container_editPost input{
+    width: 100%;
+}
+.container_editPost div{
+    width: 61vw;
+}
+.container_editPost button{
+    float: right;
+    border: none;
+    padding: 7px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 2%;
+    background-color: white;
+}
+#feed_container{
+    background-color: white;
+    width: 45%;
+    margin: 0 auto;
+    padding: 3%;
+    border-radius: 10px;
+}

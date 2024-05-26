@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>publicar</title>
+    <title>Publicar </title>
+    <script src="../js/sessao.js"></script>
 
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="../css/publicar.css">
+    <link rel="icon" href="../assets/logo.ico" />
 </head>
 
 <body onload="atualizarFeed()">
@@ -158,8 +160,16 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    window.alert("Post realizado com sucesso pelo usuario de ID: " + idAtleta + "!");
-                    window.location = "/dashboard/publicar.html";
+
+                    mensagem_sucesso.innerHTML = `Post enviado com sucesso!`;
+                    modalVerde.style.display = `block`;
+
+                    setTimeout(() => {
+                        modalVerde.style.display = `none`;
+                        window.location = "/dashboard/publicar.html"
+                    }, "3000");
+
+
                     limparFormulario();
                     atualizarFeed();
 
@@ -185,8 +195,16 @@
     function editar(idPostagem) {
         sessionStorage.ID_POSTAGEM_EDITANDO = idPostagem;
         console.log("cliquei em editar - " + idPostagem);
-        window.alert("Você será redirecionado à página de edição do aviso de id número: " + idPostagem);
-        window.location = "/dashboard/edicaoPost.html"
+
+        mensagem_sucesso.innerHTML = `tela de edição .....`;
+        modalVerde.style.display = `block`;
+
+        setTimeout(() => {
+            modalVerde.style.display = `none`;
+            window.location = "/dashboard/edicaoPost.html"
+        }, "3000");
+
+        
     }
 
 
@@ -195,9 +213,6 @@
     }
 
     function deletar(idPostagem) {
-
-        //modalApagar.style.display = `block`;
-
 
         console.log("Criar função de apagar post escolhido - ID" + idPostagem);
         fetch(`/avisos/deletar/${idPostagem}`, {
@@ -233,8 +248,6 @@
 
 
     }
-
-
 
 
     function atualizarFeed() {
@@ -276,8 +289,8 @@
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
 
                         divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
-                        var ano = publicacao.dtPostagem.slice(0,10);
-                        spanDt.innerHTML = `${ano}`;
+                        
+                        spanDt.innerHTML = `${publicacao.dtPostagem}`;
 
                         divPublicacao.className = "publicacao";
                         spanTitulo.id = "inputNumero" + publicacao.idPostagem;

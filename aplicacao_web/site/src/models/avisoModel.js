@@ -13,8 +13,8 @@ function listar() {
 function listarTudo() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
-    select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, dtPostagem,idAtleta, nome, email, senha
-from postagem join atleta on postagem.fkAtleta = idAtleta order by dtPostagem desc;
+    select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, DATE_FORMAT(dtPostagem, '%d/%m/%y - %H:%i:%s') AS dtPostagem, idAtleta, nome, email, senha from  postagem 
+join atleta on postagem.fkAtleta = idAtleta order by dtPostagem desc;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -23,8 +23,9 @@ from postagem join atleta on postagem.fkAtleta = idAtleta order by dtPostagem de
 function listarcardsAtletas() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
-    select nome, sobrenome, email, faixa, grau, dtNasc,team,federacao, campeonato, DATE_FORMAT(ano, '%d/%m/%Y') AS ano, posicao, peso from medalha 
-join atleta on fkAtleta = idAtleta;
+    
+    select idAtleta, nome, sobrenome, faixa, grau, team from atleta;
+
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -53,23 +54,21 @@ function pesquisarDescricao(texto) {
 
 function listarPostUser(idAtleta) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
-    
+
     //console.log("iD DO ATLTETA "+idAtleta)
 
     var instrucaoSql = `
-    select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, dtPostagem, idAtleta, nome, email, senha
+    select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, DATE_FORMAT(dtPostagem, '%d/%m/%y - %H:%i:%s') AS dtPostagem, idAtleta, nome, email, senha
 from postagem join atleta on postagem.fkAtleta = idAtleta where fkAtleta = ${idAtleta} order by dtPostagem desc;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-
-
 function listarPorUsuario(idAtleta) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
-    
-    console.log("iD DO ATLTETA "+idAtleta)
+
+    console.log("iD DO ATLTETA " + idAtleta)
 
     var instrucaoSql = `
     select idPatrocinio, lugar, empresa, segmento, patrocinio.fkAtleta, nome, email, senha from patrocinio
@@ -79,10 +78,23 @@ join atleta on patrocinio.fkAtleta = idAtleta where idAtleta = ${idAtleta} ;
     return database.executar(instrucaoSql);
 }
 
+function listarInfoAtletas(idAtleta) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
+
+    console.log("iD DO ATLTETA " + idAtleta)
+
+    var instrucaoSql = `
+    select nome, sobrenome, team, descricao, email, cep from atleta where idAtleta = ${idAtleta} ;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 function listarEditarPost(idPostagem) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
-    
-    console.log("iD DO ATLTETA -- MODEL "+idPostagem)
+
+    console.log("iD DO ATLTETA -- MODEL " + idPostagem)
 
     var instrucaoSql = `
     select descricao, titulo from postagem where idPostagem = ${idPostagem} ;
@@ -94,15 +106,16 @@ function listarEditarPost(idPostagem) {
 
 function listarMedalha(idAtleta) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
-    
-    console.log("iD DO ATLTETA "+idAtleta)
+
+    console.log("iD DO ATLTETA " + idAtleta)
 
     var instrucaoSql = `
-    select federacao, campeonato, ano, posicao, fkAtleta from medalha where fkAtleta = ${idAtleta};
+    select idMedalha ,federacao, campeonato, DATE_FORMAT(ano, '%d/%m/%Y') AS ano, posicao, fkAtleta from medalha where fkAtleta = ${idAtleta};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
 function publicar(titulo, descricao, idAtleta) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", titulo, descricao, idAtleta);
     var instrucaoSql = `
@@ -112,7 +125,7 @@ function publicar(titulo, descricao, idAtleta) {
     return database.executar(instrucaoSql);
 }
 
-function editar(novaDescricao, novoTitulo,idPostagem) {
+function editar(novaDescricao, novoTitulo, idPostagem) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idPostagem);
     var instrucaoSql = `
         UPDATE postagem SET descricao = '${novaDescricao}', titulo = '${novoTitulo}' WHERE idPostagem = ${idPostagem};
@@ -141,5 +154,6 @@ module.exports = {
     listarMedalha,
     listarPostUser,
     listarEditarPost,
-    listarcardsAtletas
+    listarcardsAtletas,
+    listarInfoAtletas
 }
