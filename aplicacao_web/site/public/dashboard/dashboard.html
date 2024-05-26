@@ -59,6 +59,20 @@
             </div>
         </div>
 
+        <div id="modalVermelho" class="modalVermelho">
+            <div class="flex">
+
+                <div class="erro_box">
+                    <p class="erro_titulo">erro!</p>
+                    <div class="erro_texto">
+
+                        <p id="mensagem_erro"></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
         <section class="conteudo">
@@ -133,18 +147,6 @@
                         <select id="select_faixa">
 
                             <option value="branca">Faixa Branca</option>
-                            <option value="cinza_branca">Faixa Cinza e Branca</option>
-                            <option value="cinza">Faixa Cinza</option>
-                            <option value="cinza_preta">Faixa Cinza e Preta</option>
-                            <option value="amarela_branca">Faixa Amarela e Branca</option>
-                            <option value="amarela">Faixa Amarela</option>
-                            <option value="amarela_preta">Faixa Amarela e Preta</option>
-                            <option value="laranja_branca">Faixa Laranja e Branca</option>
-                            <option value="laranja">Faixa Laranja</option>
-                            <option value="laranja_preta">Faixa Laranja e Preta</option>
-                            <option value="verde_branca">Faixa Verde e Branca</option>
-                            <option value="verde">Faixa Verde</option>
-                            <option value="verde_preta">Faixa Verde e Preta</option>
                             <option value="azul">Faixa Azul</option>
                             <option value="roxa">Faixa Roxa</option>
                             <option value="marrom">Faixa Marrom</option>
@@ -267,6 +269,7 @@
                         </div>
 
                     </div>
+
                     <h1 class="titulo_comunidade">Métricas da comunidade</h1>
                     <div class="cards_inf_box">
                         <div>
@@ -339,52 +342,72 @@
         centro_div.style.display = 'none'
     }
 
+    function fecharAdicionarPat() {
+        modalAdicionarPat.style.display = 'none';
+        centro_div.style.display = 'block'
+    }
+
     function enviarAdicionarPat() {
 
         var lugarVar = select_lugarPat.value;
         var nomeEmpVar = input_empresa.value;
         var segmentoVar = select_segmento.value;
 
-        fetch("/usuarios/adicionarPat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
+        if (lugarVar == "" || nomeEmpVar == "" || segmentoVar == "") {
+            mensagem_erro.innerHTML = `Preencha os campos corretamente`
+            modalVermelho.style.display = "block"
 
-                lugarServer: lugarVar,
-                nomeEmpServer: nomeEmpVar,
-                segmentoServer: segmentoVar,
-                idAtletaServer: idAtleta_sto
+            setTimeout(() => {
+                modalVermelho.style.display = `none`;
+            }, "3000");
 
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
+        } else {
 
-                if (resposta.ok) {
+            fetch("/usuarios/adicionarPat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
 
-                    window.location.reload();
-                    //ADD ALERT DEPOIS  
-                    modalAdicionarPat.style.display = 'none';
-                    centro_div.style.display = 'block'
+                    lugarServer: lugarVar,
+                    nomeEmpServer: nomeEmpVar,
+                    segmentoServer: segmentoVar,
+                    idAtletaServer: idAtleta_sto
 
-
-                } else {
-
-                    throw "Houve um erro ao tentar realizar ao adicionar UM PATROCINIO!";
-
-                }
+                }),
             })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                modalAdicionarPat.style.display = 'block';
-                centro_div.style.display = 'none'
-            });
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
 
-        return false;
+                    if (resposta.ok) {
+
+                        window.location.reload();
+                        //ADD ALERT DEPOIS  
+                        modalAdicionarPat.style.display = 'none';
+                        centro_div.style.display = 'block'
+
+
+                    } else {
+
+                        throw "Houve um erro ao tentar realizar ao adicionar UM PATROCINIO!";
+
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    modalAdicionarPat.style.display = 'block';
+                    centro_div.style.display = 'none'
+                });
+
+            return false;
+
+        }
+
+
+
 
 
     }
@@ -402,7 +425,7 @@
             if (resposta.ok) {
                 //window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
 
-                mensagem_sucesso.innerHTML = `Post deletado com sucesso`;
+                mensagem_sucesso.innerHTML = `Patrocinio deletado com sucesso`;
                 modalVerde.style.display = `block`;
 
 
@@ -585,44 +608,61 @@
         var posicaoVar = select_posicao.value;
         var nomeVar = input_campeonato.value;
 
-        fetch("/usuarios/adicionarMed", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
 
-                federacaoServer: federacaoVar,
-                dtServer: dtVar,
-                posicaoServer: posicaoVar,
-                nomeServer: nomeVar,
-                idAtletaServer: idAtleta_sto
+        if (federacaoVar == "" || dtVar == "" || posicaoVar == "" || nomeVar == "") {
 
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
+            mensagem_erro.innerHTML = `Preencha os campos corretamente`
+            modalVermelho.style.display = "block"
 
-                if (resposta.ok) {
-                    window.location.reload();
-                    modalAdicionarMed.style.display = 'none';
-                    centro_div.style.display = 'block'
+            setTimeout(() => {
+                modalVermelho.style.display = `none`;
+            }, "3000");
 
-                } else {
-                    console.log(`Posição: ${posicaoVar} --- Posição tamanho: ${posicaoVar.length}`)
-                    throw "Houve um erro ao tentar realizar ao adicionar UMA MEDALHA!";
+        } else {
 
-                }
+            fetch("/usuarios/adicionarMed", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+
+                    federacaoServer: federacaoVar,
+                    dtServer: dtVar,
+                    posicaoServer: posicaoVar,
+                    nomeServer: nomeVar,
+                    idAtletaServer: idAtleta_sto
+
+                }),
             })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                modalAdicionarMed.style.display = 'block';
-                centro_div.style.display = 'none'
-            });
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
 
-        return false;
+                    if (resposta.ok) {
+                        window.location.reload();
+                        modalAdicionarMed.style.display = 'none';
+                        centro_div.style.display = 'block'
+
+                    } else {
+                        console.log(`Posição: ${posicaoVar} --- Posição tamanho: ${posicaoVar.length}`)
+                        throw "Houve um erro ao tentar realizar ao adicionar UMA MEDALHA!";
+
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    modalAdicionarMed.style.display = 'block';
+                    centro_div.style.display = 'none'
+                });
+
+            return false;
+
+        }
+
+
+
     }
 
     function deletarMed(idMedalha) {
@@ -638,7 +678,7 @@
             if (resposta.ok) {
                 //window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
 
-                mensagem_sucesso.innerHTML = `Post deletado com sucesso`;
+                mensagem_sucesso.innerHTML = `Medalha deletada com sucesso`;
                 modalVerde.style.display = `block`;
 
 
@@ -698,7 +738,7 @@
                         spanLocal.id = "inputNumero" + publicacao.idAtleta;
 
                         iconTrash.id = "btnDeletar" + publicacao.idAtleta;
-                        iconTrash.setAttribute("onclick", `deletarMed(${publicacao.idPatrocinio})`);
+                        iconTrash.setAttribute("onclick", `deletarPat(${publicacao.idPatrocinio})`);
 
                         pElement.appendChild(spanLocal);
                         pElement.appendChild(document.createTextNode(" - "));
@@ -773,7 +813,7 @@
                         spanData.innerHTML = "<b>Data: </b>" + medalha.ano;
                         iconTrash.className = "fa-solid fa-trash";
                         iconTrash.id = "btnDeletar" + medalha.idAtleta;
-                        iconTrash.setAttribute("onclick", `deletarPat(${medalha.idMedalha})`);
+                        iconTrash.setAttribute("onclick", `deletarMed(${medalha.idMedalha})`);
                         //spanLocal.id = "inputNumero" + publicacao.idAtleta;
 
                         // Adicionando os spans criados ao span principal

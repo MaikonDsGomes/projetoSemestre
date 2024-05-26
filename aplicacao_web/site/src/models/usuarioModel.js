@@ -95,7 +95,7 @@ function deletarPat(idPatrocinio) {
     return database.executar(instrucaoSql);
 }
 
-function deletarPat(idMedalha) {
+function deletarMed(idMedalha) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idMedalha);
     var instrucaoSql = `
         DELETE FROM medalha WHERE idMedalha = ${idMedalha};
@@ -110,5 +110,6 @@ module.exports = {
     editar,
     adicionarMed,
     adicionarPat,
-    deletarPat
+    deletarPat,
+    deletarMed
 };

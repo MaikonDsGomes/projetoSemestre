@@ -195,10 +195,15 @@
 /* BLOG */
 
 
-/* .card_blog_box{
-    display: flex;
-    gap: 0% 5%;
-} */
+.card_blog_box{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    justify-items: start;
+    max-height: 471px;
+    overflow-y: auto;
+
+} 
 
 .blog_sec h1{
     font-size: 45px;

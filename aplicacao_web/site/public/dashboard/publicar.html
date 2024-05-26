@@ -69,7 +69,7 @@
                     <div id="alerta">
                     </div>
                     <div class="container">
-                        <h1>Publicar um aviso</h1>
+                        <h1>Publicar uma postagem</h1>
                         <div class="div-form">
                             <form id="form_postagem" method="post" onsubmit="return publicar()">
 
@@ -80,7 +80,7 @@
                                     </label>
                                 </div>
 
-                                <input name="titulo" id="titulo" maxlength="100" type="text">
+                                <input name="titulo" id="titulo" maxlength="40" type="text">
 
 
                                 <div class="label_publi">
@@ -143,8 +143,9 @@
             modalVermelho.style.display = `block`;
 
             setTimeout(() => {
+                
                 modalVermelho.style.display = `none`;
-                window.location = "/dashboard/publicar.html"
+                
             }, "3000");
 
         } else {
@@ -186,6 +187,8 @@
             return false;
 
         }
+
+        return false;
 
 
 
@@ -311,7 +314,7 @@
                         btnEditar.id = "btnEditar" + publicacao.idPostagem;
                         btnEditar.setAttribute("onclick", `editar(${publicacao.idPostagem})`);
 
-                        btnDeletar.className = "publicacao-btn-editar"
+                        btnDeletar.className = "publicacao-btn-deletar"
                         btnDeletar.id = "btnDeletar" + publicacao.idPostagem;
                         btnDeletar.setAttribute("onclick", `deletar(${publicacao.idPostagem})`);
 

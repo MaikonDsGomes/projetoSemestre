@@ -37,6 +37,35 @@ body {
   color: #000000;
 }
 
+/* MODAL ERRO */
+ /* MODAL ERRO */
+ .modalVermelho {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 55%;
+  top: 10%;
+  transform: translate(-50%, -50%);
+  background: #ff2222;
+  border-radius: 10px;
+  padding: 0px 50px;
+
+}
+.erro_titulo {
+  color: #ffffff;
+  font-size: 0.95rem;
+  line-height: 0.01rem;
+  font-weight: bold;
+}
+.erro_box {
+  display: flex;
+  flex-direction: column;
+}
+
+.erro_texto {
+  color: #ffffff;
+}
+
 /* ORAGANIZAÇÃO */
 .dash_box {
   display: flex;
