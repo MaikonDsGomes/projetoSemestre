@@ -1,7 +1,6 @@
 
 create database projetoIndividual;
 
-
 use projetoIndividual;
 
 -- drop database projetoindividual;
@@ -24,8 +23,6 @@ create table atleta (
     descricao varchar(500)
 );
 
-
-
 create table medalha (
 	idMedalha int primary key auto_increment,
     federacao varchar(45),
@@ -45,8 +42,6 @@ create table patrocinio (
     constraint patrocinioAtleta foreign key (fkAtleta) references atleta(idAtleta)
 );
 
-select * from atleta;
-
 create table postagem(
 	idPostagem int primary key auto_increment,
     titulo varchar(45),
@@ -56,18 +51,13 @@ create table postagem(
     constraint postageFkAtleta foreign key (fkAtleta) references atleta(idAtleta)
 );
 
--- SELECT a.id AS idAviso, a.titulo, a.descricao, a.fk_usuario, u.id AS idUsuario, u.nome, u.email, u.senha
--- FROM postagem a INNER JOIN usuario u ON a.fk_usuario = u.id WHERE u.id = 6
-
-select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, dtPostagem, idAtleta, nome, email, senha
-from postagem join atleta on postagem.fkAtleta = idAtleta;
+-- INSERTS NAS TABELAS
 
 INSERT INTO atleta (nome, sobrenome, email, senha, telefone, cep, logradouro, complemento, dtNasc, team, faixa, grau, peso, descricao) 
 VALUES 
 ('João', 'Silva', 'joao.silva@email.com', '123456789', '(00) 1234-5678', '12345-678', 'Rua horizonte', 'Apartamento 101', '1990-05-15', 'Macaco gold team', 'preta', '1°', 'medio', 'Campeão regional de Jiu-Jitsu'),
 ('Maria', 'Santos', 'maria.santos@email.com', '123456789', '(00) 9876-5432', '54321-876', 'Avenida paulista', 'apartamento 1220', '1988-10-20', 'Alpha', 'azul', '2°', 'pena', 'Participante em torneios estaduais de Jiu-Jitsu'),
 ('Pedro', 'Souza', 'pedro.souza@email.com', '123456789', '(00) 4567-8901', '98765-432', 'Rua Cristovão', 'Bloco D', '1995-03-10', 'Ryan gracie', 'marrom', '3°', 'meio-pesado', 'Instrutor de Jiu-Jitsu');
-
 INSERT INTO atleta (nome, sobrenome, email, senha, telefone, cep, logradouro, complemento, dtNasc, team, faixa, grau, peso, descricao) 
 VALUES 
 ('Carlos', 'Pereira', 'carlos.pereira@email.com', 'senhaSegura1', '(00) 1122-3344', '12345-987', 'Rua das Flores', 'Casa 10', '1985-07-22', 'BJJ Heroes', 'roxa', '2°', 'medio', 'Vice-campeão nacional de Jiu-Jitsu'),
@@ -81,43 +71,32 @@ VALUES
 ('Vinicius', 'Carvalho', 'vinicius.carvalho@email.com', 'senhaSegura9', '(00) 9900-1122', '44556-778', 'Avenida das Américas', 'Casa 5', '1990-01-12', 'CheckMat', 'verde', '1°', 'medio', 'Promissor atleta de Jiu-Jitsu'),
 ('Larissa', 'Barbosa', 'larissa.barbosa@email.com', 'senhaSegura10', '(00) 0011-2233', '55667-889', 'Rua das Estrelas', 'Bloco B', '1986-03-23', 'GFTeam', 'preta', '4°', 'pena', 'Instrutora de Jiu-Jitsu para mulheres');
 
+
+
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa1', 'Segmento1', 1);
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa2', 'Segmento2', 1);
-
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa3', 'Segmento3', 2);
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa4', 'Segmento4', 2);
-
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa5', 'Segmento5', 3);
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa6', 'Segmento6', 3);
 
 
 
-select idPatrocinio, lugar, empresa, segmento, patrocinio.fkAtleta, nome, email, senha from patrocinio
-join atleta on patrocinio.fkAtleta;
-
 INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
 VALUES (1, 'Primeiro Post', 'Descrição do primeiro post.', 1);
-
 INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
 VALUES (2, 'Segundo Post', 'Descrição do segundo post.', 2);
-
 INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
 VALUES (3, 'Terceiro Post', 'Descrição do terceiro post.', 3);
 
-delete from postagem where idPostagem = 2;
-
-select * from postagem order by dtPostagem desc;
 
 
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
 VALUES ('Federação A', 'Campeonato X', '2022-05-20', '1', 1);
-
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
 VALUES ('Federação B', 'Campeonato Y', '2023-06-15', '2', 2);
-
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
 VALUES ('Federação C', 'Campeonato Z', '2021-07-10', '3', 3);
-
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
 VALUES 
     ('Federação B', 'Campeonato Y', '2023-01-15', '1', 4),
@@ -131,11 +110,24 @@ VALUES
     ('Federação J', 'Campeonato Q', '2021-09-12', '3', 12),
     ('Federação K', 'Campeonato P', '2022-04-07', '1', 13);
 
+
+
+-- SELECTS COMUM
+
 select federacao, campeonato, ano, posicao, fkAtleta from medalha where fkAtleta = 1;
+
+select idPatrocinio, lugar, empresa, segmento, patrocinio.fkAtleta, nome, email, senha from patrocinio
+join atleta on patrocinio.fkAtleta;
+
+select idPostagem, titulo, postagem.descricao, postagem.fkAtleta, dtPostagem, idAtleta, nome, email, senha
+from postagem join atleta on postagem.fkAtleta = idAtleta;
 
 select nome, sobrenome, email, faixa, grau, dtNasc,team,federacao, campeonato, ano, posicao from medalha 
 join atleta on fkAtleta = idAtleta;
 
+
+
+-- SELECT GRAFICO 1
 select 'branca' as faixa, count(*) as quantidade from atleta where faixa = 'branca'
 union all
 select 'azul' as faixa, count(*) as quantidade from atleta where faixa = 'azul'
@@ -146,7 +138,8 @@ select 'marrom' as faixa, count(*) as quantidade from atleta where faixa = 'marr
 union all
 select 'preta' as faixa, count(*) as quantidade from atleta where faixa = 'preta';
 
--- galo, pluma, pena, leve, medio, meio-pesado, pesado, super-pesado,pesadissmo,absoluto
+
+-- SELECT GRAFICO 2
 select 'galo' as peso, count(*) as quantidade from atleta where peso = 'galo'
 union all
 select 'pluma' as peso, count(*) as quantidade from atleta where peso = 'pluma'
@@ -167,7 +160,6 @@ select 'pesadissmo' as peso, count(*) as quantidade from atleta where peso = 'pe
 union all
 select 'absoluto' as peso, count(*) as quantidade from atleta where peso = 'absoluto';
 
-select * from atleta;
 
 -- Idade do usuario
 SELECT 
@@ -178,4 +170,4 @@ SELECT
 FROM 
     atleta;
 
--- drop database projetoIndividual;
+
