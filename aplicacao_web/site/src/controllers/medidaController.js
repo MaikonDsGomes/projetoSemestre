@@ -16,6 +16,23 @@ function buscarUltimasMedidas(req, res) {
     });
 }
 
+function buscarUltimasMedidasEvolucao(req, res) {
+
+    var idAtleta = req.params.idAtleta;
+
+    medidaModel.buscarUltimasMedidasEvolucao(idAtleta).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function buscarUltimasMedidasCat(req, res) {
 
 
@@ -55,6 +72,7 @@ function buscarMedidasEmTempoReal(req, res) {
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    buscarUltimasMedidasCat
+    buscarUltimasMedidasCat,
+    buscarUltimasMedidasEvolucao
 
 }

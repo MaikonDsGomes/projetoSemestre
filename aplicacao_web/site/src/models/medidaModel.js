@@ -17,6 +17,20 @@ function buscarUltimasMedidas() {
     return database.executar(instrucaoSql);
 }
 
+function buscarUltimasMedidasEvolucao(idAtleta) {
+
+    var instrucaoSql = `
+    select year(ano) as ano, count(distinct campeonato) as qtdCamp 
+from medalha 
+where fkAtleta = ${idAtleta} 
+group by year(ano) 
+order by ano desc;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function buscarUltimasMedidasCat() {
 
     var instrucaoSql = `
@@ -66,5 +80,6 @@ select 'preta' as faixa, count(*) as quantidade from atleta where faixa = 'preta
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    buscarUltimasMedidasCat
+    buscarUltimasMedidasCat,
+    buscarUltimasMedidasEvolucao
 }

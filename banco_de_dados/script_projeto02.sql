@@ -13,14 +13,11 @@ create table atleta (
     senha varchar(45),
     telefone char(16),
     cep char(9),
-    logradouro varchar(45),
-    complemento varchar(45),
     dtNasc date,
     team varchar(100),
     faixa varchar(45),
 	grau char(2),
-    peso varchar(45),
-    descricao varchar(500)
+    peso varchar(45)
 );
 
 create table medalha (
@@ -92,23 +89,23 @@ VALUES (3, 'Terceiro Post', 'Descrição do terceiro post.', 3);
 
 
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
-VALUES ('Federação A', 'Campeonato X', '2022-05-20', '1', 1);
+VALUES ('Federação A', 'Campeonato X', '2022-05-20', '1°', 1);
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
-VALUES ('Federação B', 'Campeonato Y', '2023-06-15', '2', 2);
+VALUES ('Federação B', 'Campeonato Y', '2023-06-15', '2°', 2);
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
-VALUES ('Federação C', 'Campeonato Z', '2021-07-10', '3', 3);
+VALUES ('Federação C', 'Campeonato Z', '2021-07-10', '3°', 3);
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
 VALUES 
-    ('Federação B', 'Campeonato Y', '2023-01-15', '1', 4),
-    ('Federação C', 'Campeonato Z', '2022-08-10', '2', 5),
-    ('Federação D', 'Campeonato W', '2021-12-05', '3', 6),
-    ('Federação E', 'Campeonato V', '2022-03-22', '1', 7),
-    ('Federação F', 'Campeonato U', '2023-07-19', '2', 8),
-    ('Federação G', 'Campeonato T', '2021-11-25', '3', 9),
-    ('Federação H', 'Campeonato S', '2022-06-30', '1', 10),
-    ('Federação I', 'Campeonato R', '2023-02-18', '2', 11),
-    ('Federação J', 'Campeonato Q', '2021-09-12', '3', 12),
-    ('Federação K', 'Campeonato P', '2022-04-07', '1', 13);
+    ('Federação B', 'Campeonato Y', '2023-01-15', '1°', 4),
+    ('Federação C', 'Campeonato Z', '2022-08-10', '2°', 5),
+    ('Federação D', 'Campeonato W', '2021-12-05', '3°', 6),
+    ('Federação E', 'Campeonato V', '2022-03-22', '1°', 7),
+    ('Federação F', 'Campeonato U', '2023-07-19', '2°', 8),
+    ('Federação G', 'Campeonato T', '2021-11-25', '3°', 9),
+    ('Federação H', 'Campeonato S', '2022-06-30', '1°', 10),
+    ('Federação I', 'Campeonato R', '2023-02-18', '2°', 11),
+    ('Federação J', 'Campeonato Q', '2021-09-12', '3°', 12),
+    ('Federação K', 'Campeonato P', '2022-04-07', '1°', 13);
 
 
 

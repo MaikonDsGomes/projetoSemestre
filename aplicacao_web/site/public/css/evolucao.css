@@ -1,0 +1,72 @@
+/* pagina mural */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1a1a2e;
+}
+.conteudo {
+    margin-left: 10%;
+    width: 90vw;
+  }
+  .centro {
+    margin: 5%;
+  }
+.dash_box {
+    display: flex;
+}
+
+.menu_box {
+    list-style: none;
+    background-color: white;
+    color: black;
+    height: 100vh;
+    width: 12vw;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1%;
+    gap: 1%;
+}
+
+.conteudo {
+    margin-left: 10%;
+    width: 90vw;
+}
+
+.centro {
+    margin: 5%;
+}
+
+/* MENU */
+.menu_box li {
+    list-style: none;
+}
+
+.menu_box a {
+    text-decoration: none;
+    width: 50%;
+    text-align: center;
+    border: none;
+    padding: 3%;
+    color: #1a1a2e;
+    font-weight: 700;
+    transition: all 0.5 ease;
+    font-size: 21px;
+}
+
+.menu_box a:hover {
+    text-decoration: underline 2px #1a1a2e;
+
+}
+
+/* EVOLUÇÃO */
+.evolucao_sec h1{
+    text-align: center;
+    font-size: 45px;
+    color: white;
+}
