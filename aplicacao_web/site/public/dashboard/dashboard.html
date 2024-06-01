@@ -40,7 +40,7 @@
 
             <a href="dashboard.html">Principal</a>
             <a href="publicar.html">Publicar</a>
-            <a href="evolucao.html">Evolução</a>
+            <a href="evolucao.html">Suas métricas</a>
             <a onclick="limparSessao()">Sair</a>
 
         </div>
@@ -227,7 +227,7 @@
 
                         <div class="card_info_box">
 
-                            <h1>Informações</h1>
+                            <h1>Suas informações</h1>
 
                             <p><span id="nome_user"></span></p>
                             <p><span id="team_user"></span></p>
@@ -239,7 +239,7 @@
                         </div>
 
                         <div class="card_pat_box ">
-                            <h1>Patrocinio</h1>
+                            <h1>Patrocínio</h1>
                             <div id="patrocinio_container" class="scroll_box">
                                 <!-- <p>
                                     <span>Local: Costas</span> - <span>Marca: Kvara</span> - <span>Segmento:
@@ -910,32 +910,40 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            // labels.push(registro.momento_grafico);
+            
+
+            // labels.push(registro.faixa);
+            // if (registro.faixa === 'branca') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#DBDBDB');
+            // } else if (registro.faixa === 'azul') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#001A84');
+            // } else if (registro.faixa === 'roxa') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#410B92');
+            // } else if (registro.faixa === 'marrom') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#522213');
+            // } else if (registro.faixa === 'preta') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#1E1919');
+            // }
 
             labels.push(registro.faixa);
+            dados.datasets[0].data.push(registro.quantidade);
             if (registro.faixa === 'branca') {
-                dados.datasets[0].data.push(registro.quantidade);
                 dados.datasets[0].backgroundColor.push('#DBDBDB');
             } else if (registro.faixa === 'azul') {
-                dados.datasets[0].data.push(registro.quantidade);
-                dados.datasets[0].backgroundColor.push('#001A84');
+                dados.datasets[0].backgroundColor.push('blue');
             } else if (registro.faixa === 'roxa') {
-                dados.datasets[0].data.push(registro.quantidade);
-                dados.datasets[0].backgroundColor.push('#410B92');
+                dados.datasets[0].backgroundColor.push('purple');
             } else if (registro.faixa === 'marrom') {
-                dados.datasets[0].data.push(registro.quantidade);
-                dados.datasets[0].backgroundColor.push('#522213');
+                dados.datasets[0].backgroundColor.push('brown');
             } else if (registro.faixa === 'preta') {
-                dados.datasets[0].data.push(registro.quantidade);
-                dados.datasets[0].backgroundColor.push('#1E1919');
+                dados.datasets[0].backgroundColor.push('black');
             }
-
-
-            // dados.datasets[0].data.push(registro.quantidade);
-            // dados.datasets[1].data.push(registro.quantidade);
-            // dados.datasets[2].data.push(registro.quantidade);
-            // dados.datasets[3].data.push(registro.quantidade);
-            // dados.datasets[4].data.push(registro.quantidade);
+            
 
         }
 

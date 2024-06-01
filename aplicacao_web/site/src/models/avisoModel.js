@@ -65,6 +65,21 @@ from postagem join atleta on postagem.fkAtleta = idAtleta where fkAtleta = ${idA
     return database.executar(instrucaoSql);
 }
 
+//listarPesquisa
+function listarPesquisa(idAtleta) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
+
+    //console.log("iD DO ATLTETA "+idAtleta)
+
+    var instrucaoSql = `
+    
+    select federacao, campeonato, ano, posicao from medalha where ano > '2023-11-11' and ano < '2024-01-11' and fkAtleta = ${idAtleta};
+
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function listarPorUsuario(idAtleta) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
 
@@ -155,5 +170,6 @@ module.exports = {
     listarPostUser,
     listarEditarPost,
     listarcardsAtletas,
-    listarInfoAtletas
+    listarInfoAtletas,
+    listarPesquisa
 }

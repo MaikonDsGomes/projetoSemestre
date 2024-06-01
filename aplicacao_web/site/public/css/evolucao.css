@@ -49,7 +49,7 @@ body {
 
 .menu_box a {
     text-decoration: none;
-    width: 50%;
+    width: 85%;
     text-align: center;
     border: none;
     padding: 3%;
@@ -57,6 +57,7 @@ body {
     font-weight: 700;
     transition: all 0.5 ease;
     font-size: 21px;
+    cursor: pointer;
 }
 
 .menu_box a:hover {
@@ -69,4 +70,23 @@ body {
     text-align: center;
     font-size: 45px;
     color: white;
+}
+
+/* CARD PESQUISA */
+
+.pesquisa_box{
+    width: 50vw;
+    margin: auto;
+    margin-top: 5%; 
+}
+.pesquisa_box h2{
+    color: white;
+    
+}
+.card_pesquisa{
+    background-color: white;
+    padding: 3%;
+    border-radius: 15px;
+    color: black;
+    font-weight: 700;
 }

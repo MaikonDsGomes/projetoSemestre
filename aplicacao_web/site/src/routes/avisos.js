@@ -22,6 +22,10 @@ router.get("/listarTudo", function (req, res) {
 router.get("/listarPostUser/:idAtleta", function (req, res) {
     avisoController.listarPostUser(req, res);
 });
+//listarPesquisa
+router.get("/listarPesquisa/:idAtleta", function (req, res) {
+    avisoController.listarPesquisa(req, res);
+});
 
 router.get("/listarEditarPost/:idPostagem", function (req, res) {
     avisoController.listarEditarPost(req, res);

@@ -8,7 +8,8 @@
     <title>Evolução</title>
     <link rel="stylesheet" href="../css/evolucao.css">
 
-    
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -24,7 +25,7 @@
 
             <a href="dashboard.html">Principal</a>
             <a href="publicar.html">Publicar</a>
-            <a href="evolucao.html">Evolução</a>
+            <a href="evolucao.html">Suas métricas</a>
             <a onclick="limparSessao()">Sair</a>
 
         </div>
@@ -34,10 +35,26 @@
 
             <div class="centro">
 
-                <h1 style="text-align: center;">Evolução</h1>
                 <div>
-                    <canvas style="margin: auto;" width="1200px" height="700px" id="myChartCanvas"></canvas>
+
+                    <h1 style="text-align: center;">Quantidade de campeonatos por ano</h1>
+                    <div>
+                        <canvas style="margin: auto;" width="1200px" height="700px" id="myChartCanvas"></canvas>
+                    </div>
                 </div>
+                <!-- <div class="pesquisa_box">
+                    <div>
+                        <h2>Pesquisa de campeonatos pela data</h2>
+                        <div class="card_pesquisa">
+                            de:<input type="date"> - até <input type="date"> <br><br>
+                            <button>Pesquisar</button>
+                            <div>
+                                <h3>Resultados aqui!</h3>
+                                <div id="resultadosp"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
 
         </section>
@@ -90,7 +107,7 @@
                 borderColor: 'White',
                 tension: 0.1
             }],
-            
+
         };
 
         console.log('----------------------------------------------')

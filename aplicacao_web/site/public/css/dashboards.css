@@ -83,6 +83,7 @@ body {
   align-items: center;
   padding-top: 1%;
   gap: 1%;
+  cursor: pointer;
 }
 
 .conteudo {
@@ -101,7 +102,7 @@ body {
 
 .menu_box a {
   text-decoration: none;
-  width: 50%;
+  width: 85%;
   text-align: center;
   border: none;
   padding: 3%;
