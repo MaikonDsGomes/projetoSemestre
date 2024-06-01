@@ -24,6 +24,34 @@ order by ano desc;
     return database.executar(instrucaoSql);
 }
 
+
+function buscarUltimasMedidasPos(idAtleta) {
+
+    var instrucaoSql = `
+    select posicao, count(posicao) as posQtd from medalha where fkAtleta = ${idAtleta} group by posicao;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function taxaVitoria(idAtleta) {
+
+    var instrucaoSql = `
+    SELECT 
+    TRUNCATE(
+        (SELECT COUNT(*) FROM medalha WHERE fkAtleta = ${idAtleta} AND posicao = '1°') / 
+        (SELECT COUNT(*) FROM medalha WHERE fkAtleta = ${idAtleta}) * 100, 1
+    ) AS taxa
+FROM medalha
+WHERE fkAtleta = ${idAtleta}
+group by taxa;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function buscarUltimasMedidasCat() {
 
     var instrucaoSql = `
@@ -56,5 +84,7 @@ module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     buscarUltimasMedidasCat,
-    buscarUltimasMedidasEvolucao
+    buscarUltimasMedidasEvolucao,
+    buscarUltimasMedidasPos,
+    taxaVitoria
 }

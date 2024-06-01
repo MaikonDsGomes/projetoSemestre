@@ -3,18 +3,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #1a1a2e;
+    margin: 0;
+    padding: 0;
+    font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a2e;
 }
+
 .conteudo {
     margin-left: 10%;
     width: 90vw;
-  }
-  .centro {
+}
+
+.centro {
     margin: 5%;
-  }
+}
+
 .dash_box {
     display: flex;
 }
@@ -66,7 +69,7 @@ body {
 }
 
 /* EVOLUÇÃO */
-.evolucao_sec h1{
+.evolucao_sec h1 {
     text-align: center;
     font-size: 45px;
     color: white;
@@ -74,19 +77,42 @@ body {
 
 /* CARD PESQUISA */
 
-.pesquisa_box{
+.pesquisa_box {
     width: 50vw;
     margin: auto;
-    margin-top: 5%; 
+    margin-top: 5%;
 }
-.pesquisa_box h2{
+
+.pesquisa_box h2 {
     color: white;
-    
+
 }
-.card_pesquisa{
+
+.card_pesquisa {
     background-color: white;
     padding: 3%;
     border-radius: 15px;
     color: black;
     font-weight: 700;
+}
+
+/* GRAFICOS ABAIXO */
+.posicao_box {
+    display: flex;
+    justify-content: center;
+    color: white;
+    gap: 0px 75px;
+}
+
+.posicao_box div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.card_taxaVitoria span{
+    color: green;
+    font-size: 50px;
+    font-weight: bold;
 }

@@ -65,7 +65,6 @@ VALUES
 ('Larissa', 'Barbosa', 'larissa.barbosa@email.com', 'senhaSegura10', '(00) 0011-2233', '55667-889', '1986-03-23', 'GFTeam', 'preta', '4°', 'pena');
 
 
-
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa1', 'Segmento1', 1);
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa2', 'Segmento2', 1);
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa3', 'Segmento3', 2);
@@ -74,14 +73,12 @@ INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'E
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa6', 'Segmento6', 3);
 
 
-
 INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
 VALUES (1, 'Primeiro Post', 'Descrição do primeiro post.', 1);
 INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
 VALUES (2, 'Segundo Post', 'Descrição do segundo post.', 2);
 INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
 VALUES (3, 'Terceiro Post', 'Descrição do terceiro post.', 3);
-
 
 
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
@@ -101,10 +98,7 @@ VALUES
     ('Federação H', 'Campeonato S', '2022-06-30', '1°', 10),
     ('Federação I', 'Campeonato R', '2023-02-18', '2°', 11);
 
-
-
 -- SELECTS COMUM
-
 select federacao, campeonato, ano, posicao, fkAtleta from medalha where fkAtleta = 1;
 
 select idPatrocinio, lugar, empresa, segmento, patrocinio.fkAtleta, nome, email, senha from patrocinio
@@ -115,8 +109,6 @@ from postagem join atleta on postagem.fkAtleta = idAtleta;
 
 select nome, sobrenome, email, faixa, grau, dtNasc,team,federacao, campeonato, ano, posicao from medalha 
 join atleta on fkAtleta = idAtleta;
-
-
 
 -- SELECT GRAFICO 1
     select faixa, count(faixa) as quantidade from atleta group by faixa;
@@ -132,5 +124,20 @@ SELECT
     TIMESTAMPDIFF(YEAR, dtNasc, CURDATE()) AS idade_atual
 FROM 
     atleta;
+    
+    -- TAXA DE VITORIA
+SELECT 
+    TRUNCATE(
+        (SELECT COUNT(*) FROM medalha WHERE fkAtleta = 1 AND posicao = '1°') / 
+        (SELECT COUNT(*) FROM medalha WHERE fkAtleta = 1) * 100, 1
+    ) AS taxa
+FROM medalha
+WHERE fkAtleta = 1
+group by taxa;
+
+
+-- GRAFICO PIE DE QTD MEDALHA POR POSICAO
+
+select posicao, count(posicao) as posQtd from medalha where fkAtleta = 1 group by posicao;
 
 

@@ -15,7 +15,7 @@
 
 </head>
 
-<body onload="obterDadosGrafico()">
+<body onload="obterDadosGrafico(), obterDadosGraficoPos(), taxaVitoria()">
 
 
     <div class="dash_box">
@@ -37,24 +37,25 @@
 
                 <div>
 
-                    <h1 style="text-align: center;">Quantidade de campeonatos por ano</h1>
+                    <h1 style="text-align: center;">Quantidade de medalhas por ano</h1>
                     <div>
                         <canvas style="margin: auto;" width="1200px" height="700px" id="myChartCanvas"></canvas>
                     </div>
                 </div>
-                <!-- <div class="pesquisa_box">
+                <div class="posicao_box">
                     <div>
-                        <h2>Pesquisa de campeonatos pela data</h2>
-                        <div class="card_pesquisa">
-                            de:<input type="date"> - até <input type="date"> <br><br>
-                            <button>Pesquisar</button>
-                            <div>
-                                <h3>Resultados aqui!</h3>
-                                <div id="resultadosp"></div>
-                            </div>
+                        <h2>Quantidade de medalhas por posição</h2>
+                        <div style="width: 30vw;">
+                            <canvas style="width: 10vw; height: 10vh;" id="myChartCanvasPosc"></canvas>
                         </div>
                     </div>
-                </div> -->
+                    <div>
+                        <h2>Taxa de vitória nos campeonatos</h2>
+                        <div class="card_taxaVitoria">
+                            <div id="taxa_box"><span id="span_taxa_vitoria"></span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </section>
@@ -66,7 +67,7 @@
 
 <script>
 
-    // GRAFICO 1 - FAIXA
+    // GRAFICO 1 - EVOLUÇÃO LINE
     function obterDadosGrafico() {
 
         var idAtleta = sessionStorage.ID_USUARIO;
@@ -119,7 +120,7 @@
             var registro = resposta[i];
             // labels.push(registro.momento_grafico);
 
-            labels.push(`Quantidade de campeonatos no ano: ${registro.ano}`);
+            labels.push(`Quantidade de medalhas no ano: ${registro.ano}`);
             dados.datasets[0].data.push(registro.qtdCamp);
 
 
@@ -147,5 +148,154 @@
 
     }
 
+
+    // GRAFICO 2 - POSIÇÃO PIZZA
+    function obterDadosGraficoPos() {
+
+        var idAtleta = sessionStorage.ID_USUARIO;
+
+        fetch(`/medidas/ultimasPos/${idAtleta}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoPos(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoPos(resposta) {
+
+        console.log('iniciando plotagem do gráfico POSIÇÃO');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: '',
+                data: [],
+                fill: false,
+                backgroundColor: [],
+                borderColor: 'White',
+                tension: 0.1
+            }],
+
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGraficoPos" e passados para "plotarGraficoPOS":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            //labels.push(registro.momento_grafico);
+
+            labels.push(`Posição: ${registro.posicao}`);
+            dados.datasets[0].data.push(registro.posQtd);
+
+            if (registro.posicao == '1°') {
+                dados.datasets[0].backgroundColor.push('yellow');
+            } else if (registro.posicao == '2°') {
+                dados.datasets[0].backgroundColor.push('grey');
+            } else {
+                dados.datasets[0].backgroundColor.push('brown');
+            }
+
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico PIE DE POSIÇÃO será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'pie',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvasPosc`),
+            config
+        );
+
+    }
+
+
+    // TAXA DE VITÓRIA
+
+    function taxaVitoria() {
+        var idAtleta = sessionStorage.ID_USUARIO
+
+
+
+        fetch(`/medidas/taxaVitoria/${idAtleta}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var patrocinio = document.getElementById("patrocinio_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    patrocinio.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var patrocinio = document.getElementById("patrocinio_container");
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        var resultado = resposta[i];
+
+                        var taxa = resultado.taxa;
+
+                        span_taxa_vitoria.textContent = `${taxa}%`
+
+                        // // Criação dos elementos principais
+                        // var spanElement = document.createElement("span");
+
+                        // var spanFederacao = document.createElement("span");
+
+                        // spanElement.className = "span_medalhas_box";
+
+                        // // Definindo o conteúdo de cada elemento span
+                        // spanFederacao.innerHTML = "<b>Taxa de vitória: </b> " + medalha.taxa + "%";
+
+
+                        // // Adicionando os spans criados ao span principal
+                        // spanElement.appendChild(spanFederacao);
+
+                        // // Adicionando o span principal ao elemento de destino no DOM (ajuste o seletor conforme necessário)
+                        // document.getElementById("taxa_box").appendChild(spanElement);
+
+                    }
+
+
+                });
+            } else {
+                console.log("id do atleta" + idAtleta)
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
+    }
 
 </script>
