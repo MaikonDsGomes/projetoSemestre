@@ -38,7 +38,7 @@
                 <div>
 
                     <h1 style="text-align: center;">Quantidade de medalhas por ano</h1>
-                    <div>
+                    <div id="grafico_qtdMedalhas">
                         <canvas style="margin: auto;" width="1200px" height="700px" id="myChartCanvas"></canvas>
                     </div>
                 </div>
@@ -77,12 +77,13 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-
+                    
                     plotarGrafico(resposta);
 
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
+                
             }
         })
             .catch(function (error) {
@@ -92,6 +93,7 @@
 
     function plotarGrafico(resposta) {
 
+        
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
@@ -202,7 +204,7 @@
             var registro = resposta[i];
             //labels.push(registro.momento_grafico);
 
-            labels.push(`Posição: ${registro.posicao}`);
+            labels.push(`${registro.posicao} lugar`);
             dados.datasets[0].data.push(registro.posQtd);
 
             if (registro.posicao == '1°') {

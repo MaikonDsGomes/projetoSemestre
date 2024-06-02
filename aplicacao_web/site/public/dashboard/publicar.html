@@ -98,7 +98,7 @@
                         </div>
                         <h1>Suas publicações</h1>
                         <div class="div-results">
-                            <div id="feed_container" class="feed-container">
+                            <div style="color: white; text-align: center;" id="feed_container" class="feed-container">
                             </div>
                         </div>
                     </div>
@@ -265,7 +265,7 @@
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
                     var mensagem = document.createElement("span");
-                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    mensagem.innerHTML = "Não temos nenhum post seu, escreva algo!"
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }

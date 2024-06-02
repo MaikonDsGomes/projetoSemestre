@@ -201,9 +201,9 @@
     var dataAtual = new Date();
     var validarIdade = dataAtual.getFullYear() - dataNascimento.getFullYear();
 
-    if (validarIdade < 18 || dataNascimento == null) {
+    if (validarIdade < 16 || dataNascimento == null) {
       modal.style.display = 'block';
-      alerta_modal.innerHTML = `idade, você precisa ser maior de idade`;
+      alerta_modal.innerHTML = `idade, você precisa ter no mínimo 16 anos`;
 
       testeFinal = false;
     }

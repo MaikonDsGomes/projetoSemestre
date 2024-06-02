@@ -98,7 +98,7 @@
                             <option>Cóccix</option>
                         </select>
                         <label>Nome da empresa</label>
-                        <input type="text" id="input_empresa">
+                        <input placeholder="Digite o nome da empresa" type="text" id="input_empresa">
                         <label>Segmento da empresa</label>
                         <select id="select_segmento">
                             <option>Alimentação</option>
@@ -201,9 +201,9 @@
                     <form>
 
                         <label>Federação</label>
-                        <input type="text" id="input_federacao">
+                        <input placeholder="Digite a federação do campeonato" type="text" id="input_federacao">
                         <label>Campeonato</label>
-                        <input type="text" id="input_campeonato">
+                        <input placeholder="Digite o nome do campeonato ex: Paulista 3° etapa" type="text" id="input_campeonato">
                         <label>Data</label>
                         <input type="date" id="input_data">
                         <label>Posição</label>
@@ -322,7 +322,7 @@
     var faixa_sto = sessionStorage.FAIXA_USUARIO
     var grau_sto = sessionStorage.GRAU_USUARIO
 
-    nome_user.innerHTML = nome_sto;
+    nome_user.innerHTML = nome_sto + " " + sobrenome_sto;
     team_user.innerHTML = `Team: ${team_sto}`;
     cep_user.innerHTML = `Cep: ${cep_sto}`;
     email_user.innerHTML = `Email: ${email_sto}`;
@@ -712,7 +712,7 @@
                 if (resposta.status == 204) {
                     var patrocinio = document.getElementById("patrocinio_container");
                     var mensagem = document.createElement("span");
-                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    mensagem.innerHTML = "Nenhum patrocínio registrado, adicione :)"
                     patrocinio.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
@@ -781,9 +781,9 @@
         fetch(`/avisos/listarMedalha/${idAtleta}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    var patrocinio = document.getElementById("patrocinio_container");
+                    var patrocinio = document.getElementById("medalha_container");
                     var mensagem = document.createElement("span");
-                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    mensagem.innerHTML = "Adicione uma medalha sua!"
                     patrocinio.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
@@ -791,7 +791,7 @@
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-                    var patrocinio = document.getElementById("patrocinio_container");
+                    var patrocinio = document.getElementById("medalha_container");
                     patrocinio.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {
                         var medalha = resposta[i];

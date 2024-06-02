@@ -108,6 +108,8 @@
     margin: 0 auto;
     padding: 1.5%;
     border-radius: 10px;
+    color: #000000;
+    text-align: start;
   }
   
   #feed_container button {
