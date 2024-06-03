@@ -40,6 +40,10 @@
         </div>
 
         <div class="centro">
+            <select onchange="atualizarFeed()" name="" id="select_estado">
+                <option value="1">Todos</option>
+                <option >São paulo</option>
+            </select>
             <div id="container" class="atletas_card_box">
                 <!-- <div class="card_atleta">
                     <div>
@@ -202,7 +206,14 @@
 
 
     function atualizarFeed() {
-        fetch("/avisos/listarCardsAtletas").then(function (resposta) {
+
+        var estado = select_estado.value;
+
+
+        container.innerHTML = ``;
+
+
+        fetch(`/avisos/listarCardsAtletas/${estado}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
