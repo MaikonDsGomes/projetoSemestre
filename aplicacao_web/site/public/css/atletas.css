@@ -66,6 +66,16 @@
     /* Movimento para cima */
 }
 
+/* SELECT POR ESTADO */
+.select_estado_box{
+    margin-bottom: 2%;
+    color: white;
+}
+.select_estado_box select{
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
 /* Card */
 .atletas_sec {
