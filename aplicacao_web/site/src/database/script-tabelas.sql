@@ -2,7 +2,6 @@
 create database projetoIndividual;
 
 use projetoIndividual;
-
 -- drop database projetoindividual;
 
 create table atleta (
@@ -12,6 +11,7 @@ create table atleta (
     email varchar(255),
     senha varchar(45),
     telefone char(16),
+    estado varchar(45),
     cep char(9),
     dtNasc date,
     team varchar(100),
@@ -50,20 +50,21 @@ create table postagem(
 
 -- INSERTS NAS TABELAS
 
-INSERT INTO atleta (nome, sobrenome, email, senha, telefone, cep, dtNasc, team, faixa, grau, peso)
+INSERT INTO atleta (nome, sobrenome, email, senha, telefone, estado ,cep, dtNasc, team, faixa, grau, peso)
 VALUES 
-('João', 'Silva', 'joao.silva@email.com', '123456789', '(00) 1234-5678', '12345-678', '1990-05-15', 'Macaco gold team', 'preta', '1°', 'medio'),
-('Maria', 'Santos', 'maria.santos@email.com', '123456789', '(00) 9876-5432', '54321-876', '1988-10-20', 'Alpha', 'azul', '2°', 'pena'),
-('Pedro', 'Souza', 'pedro.souza@email.com', '123456789', '(00) 4567-8901', '98765-432', '1995-03-10', 'Ryan gracie', 'marrom', '3°', 'meio-pesado'),
-('Carlos', 'Pereira', 'carlos.pereira@email.com', 'senhaSegura1', '(00) 1122-3344', '12345-987', '1985-07-22', 'BJJ Heroes', 'roxa', '2°', 'medio'),
-('Lucas', 'Martins', 'lucas.martins@email.com', 'senhaSegura3', '(00) 3344-5566', '67890-123', '1989-04-17', 'Warriors', 'azul', '3°', 'super-pesado'),
-('Beatriz', 'Oliveira', 'beatriz.oliveira@email.com', 'senhaSegura4', '(00) 4455-6677', '87654-321', '1991-12-25', 'Elite Team', 'branca', '1°', 'galo'),
-('Gabriel', 'Fernandes', 'gabriel.fernandes@email.com', 'senhaSegura5', '(00) 5566-7788', '13579-246', '1987-06-18', 'Champion BJJ', 'preta', '5°', 'pesado'),
-('Julia', 'Costa', 'julia.costa@email.com', 'senhaSegura6', '(00) 6677-8899', '24680-135', '1994-08-05', 'Gracie Barra', 'marrom', '4°', 'leve'),
-('Rafael', 'Rodrigues', 'rafael.rodrigues@email.com', 'senhaSegura7', '(00) 7788-9900', '11223-334', '1993-09-14', 'Nova União', 'roxa', '3°', 'meio-pesado'),
-('Sofia', 'Almeida', 'sofia.almeida@email.com', 'senhaSegura8', '(00) 8899-0011', '33445-667', '1996-02-28', 'Alliance', 'azul', '2°', 'pluma'),
-('Larissa', 'Barbosa', 'larissa.barbosa@email.com', 'senhaSegura10', '(00) 0011-2233', '55667-889', '1986-03-23', 'GFTeam', 'preta', '4°', 'pena');
+('João', 'Silva', 'joao.silva@email.com', '123456789', '(00) 1234-5678', 'Belo Horizonte','12345-678', '1990-05-15', 'Macaco gold team', 'preta', '1°', 'medio'),
+('Maria', 'Santos', 'maria.santos@email.com', '123456789', '(00) 9876-5432', 'Belo Horizonte','54321-876','1988-10-20', 'Alpha', 'azul', '2°', 'pena'),
+('Pedro', 'Souza', 'pedro.souza@email.com', '123456789', '(00) 4567-8901', 'Belo Horizonte','98765-432', '1995-03-10', 'Ryan gracie', 'marrom', '3°', 'meio-pesado'),
+('Carlos', 'Pereira', 'carlos.pereira@email.com', 'senhaSegura1', '(00) 1122-3344', 'Belo Horizonte','12345-987', '1985-07-22', 'BJJ Heroes', 'roxa', '2°', 'medio'),
+('Lucas', 'Martins', 'lucas.martins@email.com', 'senhaSegura3', '(00) 3344-5566', 'São Paulo','67890-123', '1989-04-17', 'Warriors', 'azul', '3°', 'super-pesado'),
+('Beatriz', 'Oliveira', 'beatriz.oliveira@email.com', 'senhaSegura4', '(00) 4455-6677','São Paulo', '87654-321','1991-12-25', 'Elite Team', 'branca', '1°', 'galo'),
+('Gabriel', 'Fernandes', 'gabriel.fernandes@email.com', 'senhaSegura5', '(00) 5566-7788', 'São Paulo', '13579-246','1987-06-18', 'Champion BJJ', 'preta', '5°', 'pesado'),
+('Julia', 'Costa', 'julia.costa@email.com', 'senhaSegura6', '(00) 6677-8899', 'São Paulo','24680-135', '1994-08-05', 'Gracie Barra', 'marrom', '4°', 'leve'),
+('Rafael', 'Rodrigues', 'rafael.rodrigues@email.com', 'senhaSegura7', '(00) 7788-9900', 'Bahia', '11223-334', '1993-09-14', 'Nova União', 'roxa', '3°', 'meio-pesado'),
+('Sofia', 'Almeida', 'sofia.almeida@email.com', 'senhaSegura8', '(00) 8899-0011', 'Bahia','33445-667',  '1996-02-28', 'Alliance', 'azul', '2°', 'pluma'),
+('Larissa', 'Barbosa', 'larissa.barbosa@email.com', 'senhaSegura10', '(00) 0011-2233', 'Bahia','55667-889',  '1986-03-23', 'GFTeam', 'preta', '4°', 'pena');
 
+select * from atleta;
 
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa1', 'Segmento1', 1);
 INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'Empresa2', 'Segmento2', 1);
@@ -140,4 +141,6 @@ group by taxa;
 
 select posicao, count(posicao) as posQtd from medalha where fkAtleta = 1 group by posicao;
 
+-- LISTAR ESTADOS
 
+select distinct estado from atleta;
