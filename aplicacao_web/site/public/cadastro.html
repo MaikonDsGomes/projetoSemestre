@@ -105,6 +105,12 @@
         <label>Cep:</label>
         <input maxlength="9" placeholder="Insira seu cep:" type="text" id="input_cep" required>
 
+        <label>Estado</label>
+
+        <select id="select_estado">
+          <option>São paulo</option>
+        </select>
+
         <p>
           Ao me cadastrar aceito os seguintes <a href="termos.html">termos</a>
         </p>
@@ -248,6 +254,7 @@
     var telefoneVar = input_telefone.value;
     var dtNascimentoVar = input_dtNasc.value;
     var cepVar = input_cep.value;
+    var estadoVar = select_estado.value;
 
     var teamVar = input_team.value;
     var faixaVar = select_faixa.value;
@@ -271,6 +278,7 @@
         senhaServer: senhaVar,
         telefoneServer: telefoneVar,
         cepServer: cepVar,
+        estadoServer: estadoVar,
         dtNascimentoServer: dtNascimentoVar,
         teamServer: teamVar,
         faixaServer: faixaVar,
