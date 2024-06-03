@@ -56,6 +56,7 @@ function cadastrar(req, res) {
     var senha = req.body.senhaServer;
     var telefone = req.body.telefoneServer;
     var cep = req.body.cepServer;
+    var estado = req.body.estadoServer;
     var dtNascimento = req.body.dtNascimentoServer;
     var team = req.body.teamServer;
     var faixa = req.body.faixaServer;
@@ -75,7 +76,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, sobrenome, email, senha, telefone, cep, dtNascimento, team, faixa, grau, categoria)
+        usuarioModel.cadastrar(nome, sobrenome, email, senha, telefone, cep, estado,dtNascimento, team, faixa, grau, categoria)
             .then(
                 function (resultado) {
                     res.json(resultado);
