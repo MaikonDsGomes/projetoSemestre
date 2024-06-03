@@ -19,6 +19,15 @@ join atleta on postagem.fkAtleta = idAtleta order by dtPostagem desc;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+//
+function listarEstados() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucaoSql = `
+    select distinct estado from atleta;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 function listarcardsAtletas(estado) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
@@ -171,5 +180,6 @@ module.exports = {
     listarEditarPost,
     listarcardsAtletas,
     listarInfoAtletas,
-    listarPesquisa
+    listarPesquisa,
+    listarEstados
 }
