@@ -20,11 +20,11 @@ join atleta on postagem.fkAtleta = idAtleta order by dtPostagem desc;
     return database.executar(instrucaoSql);
 }
 
-function listarcardsAtletas() {
+function listarcardsAtletas(estado) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
     
-    select idAtleta, email,nome, sobrenome, faixa, grau, team , TIMESTAMPDIFF(YEAR, dtNasc, CURDATE()) AS idade from atleta;
+    select idAtleta, email,nome, sobrenome, faixa, grau, team , TIMESTAMPDIFF(YEAR, dtNasc, CURDATE()) AS idade from atleta where estado like '${estado}';
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
