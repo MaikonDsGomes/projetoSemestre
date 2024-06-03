@@ -7,8 +7,12 @@ router.get("/listar", function (req, res) {
     avisoController.listar(req, res);
 });
 
-router.get("/listarCardsAtletas", function (req, res) {
+router.get("/listarCardsAtletas/:estado", function (req, res) {
     avisoController.listarcardsAtletas(req, res);
+});
+
+router.get("/listarEstados", function (req, res) {
+    avisoController.listarEstados(req, res);
 });
 
 router.get("/listarInfoAtletas/:idAtleta", function (req, res) {
