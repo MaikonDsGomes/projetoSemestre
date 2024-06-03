@@ -9,7 +9,7 @@
     <link rel="icon" href="assets/logo.ico" />
 </head>
 
-<body onload="atualizarFeed()">
+<body onload="atualizarFeed(), listarEstados()">
     <section class="menu_sec">
 
         <header class="menu">
@@ -21,7 +21,8 @@
                     <li><a href="atletas.html">Atletas</a></li>
                     <li><a href="simulador_emp.html">Simulador</a></li>
                     <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=email@exemplo.com&body=Olá,%20JiuConnect." target="_blank">Contato</a></li>
+                    <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=email@exemplo.com&body=Olá,%20JiuConnect."
+                            target="_blank">Contato</a></li>
                     <li><span>|</span></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="cadastro.html">Cadastro</a></li>
@@ -35,15 +36,18 @@
 
         <div id="modal" class="modal">
             <h3 id="modalTitulo">Titulos</h3>
-            
+
             <button onclick="fecharModal()" class="close">x</button>
         </div>
 
         <div class="centro">
-            <select onchange="atualizarFeed()" name="" id="select_estado">
-                <option value="1">Todos</option>
-                <option >São paulo</option>
-            </select>
+            <div class="select_estado_box">
+                Selecione atletas por estado
+                <select onchange="atualizarFeed()"  id="select_estado">
+                    <option value="1">Todos</option>
+                    <!-- <option>São paulo</option> -->
+                </select>
+            </div>
             <div id="container" class="atletas_card_box">
                 <!-- <div class="card_atleta">
                     <div>
@@ -121,6 +125,28 @@
 </html>
 
 <script>
+
+    function listarEstados() {
+       
+
+
+
+        fetch("/avisos/listarEstados", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((estados) => {
+          estados.forEach((registro) => {
+            select_estado.innerHTML += `<option>${registro.estado}</option>`;
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+        
+
+    }
     function abrirModal(idAtleta) {
         modal.style.display = "block";
 
@@ -199,7 +225,7 @@
         <h3>Titulos</h3>
         <button onclick="fecharModal()" class="close">x</button>  
         `;
-        
+
     }
 
 
