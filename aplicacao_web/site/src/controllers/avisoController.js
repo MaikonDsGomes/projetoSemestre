@@ -80,7 +80,29 @@ function listarInfoAtletas(req, res) {
 }
 
 function listarcardsAtletas(req, res) {
-    avisoModel.listarcardsAtletas().then(function (resultado) {
+
+    var estado = req.params.estado; 
+
+    if(estado == 1){
+        estado = `%`
+    }
+
+    avisoModel.listarcardsAtletas(estado).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function listarEstados(req, res) {
+
+    avisoModel.listarEstados().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -280,5 +302,6 @@ module.exports = {
     listarEditarPost,
     listarcardsAtletas,
     listarInfoAtletas,
-    listarPesquisa
+    listarPesquisa,
+    listarEstados
 }
