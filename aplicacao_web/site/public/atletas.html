@@ -9,7 +9,7 @@
     <link rel="icon" href="assets/logo.ico" />
 </head>
 
-<body onload="atualizarFeed(), listarEstados()">
+<body style="background-color: #1a1a2e;" onload="atualizarFeed(), listarEstados()">
     <section class="menu_sec">
 
         <header class="menu">
@@ -21,8 +21,6 @@
                     <li><a href="atletas.html">Atletas</a></li>
                     <li><a href="simulador_emp.html">Simulador</a></li>
                     <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=email@exemplo.com&body=Olá,%20JiuConnect."
-                            target="_blank">Contato</a></li>
                     <li><span>|</span></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="cadastro.html">Cadastro</a></li>
@@ -45,6 +43,17 @@
                 Selecione atletas por estado
                 <select onchange="atualizarFeed()"  id="select_estado">
                     <option value="1">Todos</option>
+                    <!-- <option>São paulo</option> -->
+                </select>
+                Selecione as faixas dos atletas
+                <select onchange="atualizarFeed()"  id="select_faixa">
+                    <option value="1">Todas</option>
+                    <option>Branca</option>
+                    <option>Azul</option>
+                    <option>Roxa</option>
+                    <option>Marrom</option>
+                    <option>Preta</option>
+
                     <!-- <option>São paulo</option> -->
                 </select>
             </div>
@@ -155,7 +164,7 @@
         fetch(`/avisos/listarInfoAtletas/${idAtleta}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    var feed = document.getElementById("feed_container");
+                    var feed = document.getElementById("container");
                     var mensagem = document.createElement("span");
                     mensagem.innerHTML = "Nenhum resultado encontrado."
                     feed.appendChild(mensagem);
@@ -234,12 +243,10 @@
     function atualizarFeed() {
 
         var estado = select_estado.value;
-
-
+        var faixa = select_faixa.value;
         container.innerHTML = ``;
 
-
-        fetch(`/avisos/listarCardsAtletas/${estado}`).then(function (resposta) {
+        fetch(`/avisos/listarCardsAtletas/${estado}/${faixa}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");

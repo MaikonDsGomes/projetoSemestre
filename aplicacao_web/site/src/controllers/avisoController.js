@@ -82,12 +82,16 @@ function listarInfoAtletas(req, res) {
 function listarcardsAtletas(req, res) {
 
     var estado = req.params.estado; 
+    var faixa = req.params.faixa; 
 
     if(estado == 1){
         estado = `%`
     }
+    if(faixa == 1){
+        faixa = "%"
+    }
 
-    avisoModel.listarcardsAtletas(estado).then(function (resultado) {
+    avisoModel.listarcardsAtletas(estado, faixa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

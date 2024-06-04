@@ -7,7 +7,7 @@ router.get("/listar", function (req, res) {
     avisoController.listar(req, res);
 });
 
-router.get("/listarCardsAtletas/:estado", function (req, res) {
+router.get("/listarCardsAtletas/:estado/:faixa", function (req, res) {
     avisoController.listarcardsAtletas(req, res);
 });
 
