@@ -107,6 +107,11 @@
     font-weight: bold;
     cursor: pointer;
 }
+.spn_msg{
+    font-weight: bold;
+    font-size: 28px;
+    text-decoration: underline #bee158 5px;
+}
 
 /* ATLETA SECTION */
 

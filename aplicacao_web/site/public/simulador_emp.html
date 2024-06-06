@@ -202,22 +202,14 @@
     function simular() {
         var nome = input_nomeEmp.value
         var ramo = input_ramo.value;
-        var email = input_email.value;
+        //var email = input_email.value;
         var periodo = Number(input_periodo.value)
         var orcamento = Number(input_orcamento.value);
         var viabilidade = 0;
         var periodoChk = select_periodo.value;
         var erro = false;
 
-        // Validações
-        var indice_arroba = email.indexOf('@');
-        var indice_ponto = email.lastIndexOf('.');
-
-        if (indice_arroba < 0 || indice_ponto < 0) {
-            modal_erro.style.display = 'block';
-            alerta_modal.innerHTML = `email, está incorreto!`;
-            erro = true;
-        }
+        
 
         if (orcamento < 1) {
             modal_erro.style.display = 'block';
