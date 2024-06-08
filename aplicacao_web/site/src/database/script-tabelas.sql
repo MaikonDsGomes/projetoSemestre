@@ -75,11 +75,13 @@ INSERT INTO patrocinio (lugar, empresa, segmento, fkAtleta) VALUES ('Costas', 'E
 
 
 INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
-VALUES (1, 'Primeiro Post', 'Descrição do primeiro post.', 1);
+VALUES (1, 'Conquista no Tatame', 'Ao acessar este site, consegui fechar um patrocínio crucial. Agora, posso me dedicar integralmente ao jiu-jitsu e crescer no esporte. Estou empolgado com as novas oportunidades e pronto para alcançar novos patamares no tatame!', 1);
 INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
-VALUES (2, 'Segundo Post', 'Descrição do segundo post.', 2);
+VALUES (2, 'Rumo à Excelência', 'Agradeço ao site pelas detalhadas métricas de evolução. Com esse acompanhamento, estou focado em atingir a marca de 90% de vitórias nas lutas. O suporte de vocês é essencial para minha jornada rumo à excelência no jiu-jitsu!', 2);
 INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
-VALUES (3, 'Terceiro Post', 'Descrição do terceiro post.', 3);
+VALUES (3, 'Gratidão pelo Patrocínio', 'Agradeço à empresa pelo patrocínio de 100%, viabilizado graças à simulação no site. Esse apoio é fundamental para minha carreira no jiu-jitsu. Estou determinado a retribuir com muitas vitórias e conquistas!', 3);
+INSERT INTO postagem (idPostagem, titulo, descricao, fkAtleta) 
+VALUES (4, 'Gratidão pelo Patrocínio', 'Informo a todos sobre a recente mudança nas regras da federação: as penalidades para golpes proibidos serão mais severas. Fiquem atentos e ajustem suas técnicas para evitar punições. Vamos manter o esporte seguro e justo para todos!', 4);
 
 
 INSERT INTO medalha (federacao, campeonato, ano, posicao, fkAtleta) 
