@@ -25,6 +25,7 @@ function autenticar(req, res) {
                             sobrenome: resultadoAutenticar[0].sobrenome,
                             telefone: resultadoAutenticar[0].telefone,
                             cep: resultadoAutenticar[0].cep,
+                            estado: resultadoAutenticar[0].estado,
                             //dtNascimento: resultadoAutenticar[0].dtNascimento,
                             team: resultadoAutenticar[0].team,
                             faixa: resultadoAutenticar[0].faixa,

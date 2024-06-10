@@ -249,8 +249,9 @@
         fetch(`/avisos/listarCardsAtletas/${estado}/${faixa}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    var feed = document.getElementById("feed_container");
+                    var feed = document.getElementById("container");
                     var mensagem = document.createElement("span");
+                    mensagem.style.color = `white`
                     mensagem.innerHTML = "Nenhum resultado encontrado."
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";

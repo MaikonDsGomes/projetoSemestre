@@ -77,13 +77,13 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    
+
                     plotarGrafico(resposta);
 
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
-                
+
             }
         })
             .catch(function (error) {
@@ -93,7 +93,7 @@
 
     function plotarGrafico(resposta) {
 
-        
+
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
@@ -158,6 +158,8 @@
 
         fetch(`/medidas/ultimasPos/${idAtleta}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
+
+                
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();

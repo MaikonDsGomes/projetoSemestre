@@ -141,6 +141,38 @@
                         <label>Cep:</label>
                         <input maxlength="9" placeholder="Insira seu cep:" type="text" id="input_cep" required>
 
+                        <label>Estado</label>
+
+                        <select id="select_estado">
+                            <option>Acre</option>
+                            <option>Alagoas</option>
+                            <option>Amapá</option>
+                            <option>Amazonas</option>
+                            <option>Bahia</option>
+                            <option>Ceará</option>
+                            <option>Distrito Federal</option>
+                            <option>Espírito Santo</option>
+                            <option>Goiás</option>
+                            <option>Maranhão</option>
+                            <option>Mato Grosso</option>
+                            <option>Mato Grosso do Sul</option>
+                            <option>Minas Gerais</option>
+                            <option>Pará</option>
+                            <option>Paraíba</option>
+                            <option>Paraná</option>
+                            <option>Pernambuco</option>
+                            <option>Piauí</option>
+                            <option>Rio de Janeiro</option>
+                            <option>Rio Grande do Norte</option>
+                            <option>Rio Grande do Sul</option>
+                            <option>Rondônia</option>
+                            <option>Roraima</option>
+                            <option>Santa Catarina</option>
+                            <option>São Paulo</option>
+                            <option>Sergipe</option>
+                            <option>Tocantins</option>
+                        </select>
+
                         <label>Team:</label>
                         <input type="text" id="input_team" required>
 
@@ -203,7 +235,8 @@
                         <label>Federação</label>
                         <input placeholder="Digite a federação do campeonato" type="text" id="input_federacao">
                         <label>Campeonato</label>
-                        <input placeholder="Digite o nome do campeonato ex: Paulista 3° etapa" type="text" id="input_campeonato">
+                        <input placeholder="Digite o nome do campeonato ex: Paulista 3° etapa" type="text"
+                            id="input_campeonato">
                         <label>Data</label>
                         <input type="date" id="input_data">
                         <label>Posição</label>
@@ -314,6 +347,7 @@
     var senha_sto = sessionStorage.SENHA
     var telefone_sto = sessionStorage.TELEFONE_USUARIO
     var cep_sto = sessionStorage.CEP_USUARIO
+    var estado_sto = sessionStorage.ESTADO_USUARIO
 
     //var dtNascimento_sto = sessionStorage.DTNASCIMENTO_USUARIO
     //console.log(`Data: ${dtNascimento_sto}`)
@@ -464,6 +498,7 @@
         input_cep.value = cep_sto
         select_faixa.value = faixa_sto
         select_grau.value = grau_sto
+        select_estado.value = estado_sto;
         //input_dtNasc.value = dtNascimento_sto
         input_team.value = team_sto
 
@@ -910,7 +945,7 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            
+
 
             // labels.push(registro.faixa);
             // if (registro.faixa === 'branca') {
@@ -943,7 +978,7 @@
             } else if (registro.faixa === 'preta') {
                 dados.datasets[0].backgroundColor.push('black');
             }
-            
+
 
         }
 
