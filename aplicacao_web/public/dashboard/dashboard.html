@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="icon" href="../assets/logo.ico" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiu Connect | Dashboard</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+
+</head>
+
+
+
+<body onload="atualizarFeedMedalha(), atualizarFeed(), obterDadosGrafico(), obterDadosGraficoCat()">
+
+
+    <div class="dash_box">
+
+
+
+        <div class="menu_box">
+
+            <a href="dashboard.html">Principal</a>
+            <a href="publicar.html">Publicar</a>
+            <a href="evolucao.html">Suas métricas</a>
+            <a onclick="limparSessao()">Sair</a>
+
+        </div>
+
+
+        <div id="modalVerde" class="modalVerde">
+            <div class="flex">
+
+                <div class="sucesso_box">
+                    <p class="sucesso_titulo">Sucesso!</p>
+                    <div class="sucesso_texto">
+
+                        <p id="mensagem_sucesso"></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modalVermelho" class="modalVermelho">
+            <div class="flex">
+
+                <div class="erro_box">
+                    <p class="erro_titulo">erro!</p>
+                    <div class="erro_texto">
+
+                        <p id="mensagem_erro"></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <section class="conteudo">
+
+            <h1 class="titulo_pg">Principal</h1>
+
+            <div class="centro">
+                <div id="modalAdicionarPat" class="modalAdicionarPat modalInfoGerais">
+                    <div>
+                        <i onclick="fecharAdicionarPat()" class="fa-solid fa-x"></i>
+                    </div>
+
+                    <form>
+                        <label>Onde o patrocinio fica no kimono ?</label>
+                        <select id="select_lugarPat">
+                            <option>Costas</option>
+                            <option>Costas-2</option>
+                            <option>Peito-dir</option>
+                            <option>Peito-esq</option>
+                            <option>Perna-dir</option>
+                            <option>Peito-esq</option>
+                            <option>Cóccix</option>
+                        </select>
+                        <label>Nome da empresa</label>
+                        <input placeholder="Digite o nome da empresa" type="text" id="input_empresa">
+                        <label>Segmento da empresa</label>
+                        <select id="select_segmento">
+                            <option>Alimentação</option>
+                            <option>Clinicas</option>
+                            <option>Vestimenta</option>
+                            <option>Outro</option>
+                        </select>
+                    </form>
+                    <div>
+                        <button onclick="enviarAdicionarPat()">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="centro">
+                <div id="modalEditarUser" class="modalEditarUser modalInfoGerais">
+                    <div>
+                        <i onclick="fecharEditarUser()" class="fa-solid fa-x"></i>
+                    </div>
+
+                    <form>
+                        <label>Nome:</label>
+                        <input placeholder="Insira seu nome:" type="text" id="input_nome" required>
+
+                        <label>Sobrenome:</label>
+                        <input placeholder="Insira seu Sobrenome:" type="text" id="input_sobrenome" required>
+
+                        <label>E-mail do Usuário:</label>
+                        <input placeholder="Insira seu E-mail:" type="text" id="input_email" required>
+
+                        <label>Senha:</label>
+                        <input placeholder="Insira sua senha:" type="password" id="input_senha1" required>
+
+                        <label>Repita a senha:</label>
+                        <input placeholder="Insira sua senha novamente:" type="password" id="input_senha2" required>
+
+                        <label>Telefone:</label>
+                        <input placeholder="Insira seu telefone:" type="text" id="input_telefone" required>
+
+                        <label>Cep:</label>
+                        <input maxlength="9" placeholder="Insira seu cep:" type="text" id="input_cep" required>
+
+                        <label>Estado</label>
+
+                        <select id="select_estado">
+                            <option>Acre</option>
+                            <option>Alagoas</option>
+                            <option>Amapá</option>
+                            <option>Amazonas</option>
+                            <option>Bahia</option>
+                            <option>Ceará</option>
+                            <option>Distrito Federal</option>
+                            <option>Espírito Santo</option>
+                            <option>Goiás</option>
+                            <option>Maranhão</option>
+                            <option>Mato Grosso</option>
+                            <option>Mato Grosso do Sul</option>
+                            <option>Minas Gerais</option>
+                            <option>Pará</option>
+                            <option>Paraíba</option>
+                            <option>Paraná</option>
+                            <option>Pernambuco</option>
+                            <option>Piauí</option>
+                            <option>Rio de Janeiro</option>
+                            <option>Rio Grande do Norte</option>
+                            <option>Rio Grande do Sul</option>
+                            <option>Rondônia</option>
+                            <option>Roraima</option>
+                            <option>Santa Catarina</option>
+                            <option>São Paulo</option>
+                            <option>Sergipe</option>
+                            <option>Tocantins</option>
+                        </select>
+
+                        <label>Team:</label>
+                        <input type="text" id="input_team" required>
+
+                        <label>Faixa:</label>
+                        <select id="select_faixa">
+
+                            <option value="branca">Faixa Branca</option>
+                            <option value="azul">Faixa Azul</option>
+                            <option value="roxa">Faixa Roxa</option>
+                            <option value="marrom">Faixa Marrom</option>
+                            <option value="preta">Faixa Preta</option>
+                        </select>
+
+                        </select>
+
+                        <label>Peso:</label>
+                        <select id="select_categoria">
+                            <option value="galo">Galo</option>
+                            <option value="pluma">Pluma</option>
+                            <option value="pena">Pena</option>
+                            <option value="leve">Leve</option>
+                            <option value="medio">Médio</option>
+                            <option value="meio-pesado">Meio-pesado</option>
+                            <option value="pesado">Pesado</option>
+                            <option value="super-pesado">Super-pesado</option>
+                            <option value="pesadissimo">Pesadíssimo</option>
+                            <option value="absoluto">Absoluto</option>
+                        </select>
+
+                        <label>Grau da sua faixa:</label>
+                        <select id="select_grau">
+
+                            <option value="0°">0°</option>
+                            <option value="1°">1°</option>
+                            <option value="2°">2°</option>
+                            <option value="3°">3°</option>
+                            <option value="4°">4°</option>
+                            <option value="5°">5°</option>
+                            <option value="6°">6°</option>
+                            <option value="7°">7°</option>
+                            <option value="8°">8°</option>
+                            <option value="9°">9°</option>
+
+                        </select>
+
+                    </form>
+                    <div>
+                        <button onclick="enviarEditarUser()">Editar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="centro">
+                <div id="modalAdicionarMed" class="modalAdicionarMed modalInfoGerais">
+                    <div>
+                        <i onclick="fecharAdicionarMed()" class="fa-solid fa-x"></i>
+                    </div>
+
+                    <form>
+
+                        <label>Federação</label>
+                        <input placeholder="Digite a federação do campeonato" type="text" id="input_federacao">
+                        <label>Campeonato</label>
+                        <input placeholder="Digite o nome do campeonato ex: Paulista 3° etapa" type="text"
+                            id="input_campeonato">
+                        <label>Data</label>
+                        <input type="date" id="input_data">
+                        <label>Posição</label>
+                        <select id="select_posicao">
+                            <option value="1°">1° Lugar</option>
+                            <option value="2°">2° Lugar</option>
+                            <option value="3°">3° Lugar</option>
+                            <option value="4°">4° Lugar</option>
+                        </select>
+
+                    </form>
+                    <div>
+                        <button onclick="enviarAdicionarMed()">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="centro_div" class="centro">
+                <div>
+                    <div class="cards_inf_box">
+
+                        <div class="card_info_box">
+
+                            <h1>Suas informações</h1>
+
+                            <p><span id="nome_user"></span></p>
+                            <p><span id="team_user"></span></p>
+                            <p><span id="cep_user"></span></p>
+                            <p><span id="email_user"></span></p>
+                            <p><span id="faixa_user"></span> - <span id="grau_user"></span></p>
+
+                            <button onclick="abrirEditarUser()">Editar</button>
+                        </div>
+
+                        <div class="card_pat_box ">
+                            <h1>Patrocínio</h1>
+                            <div id="patrocinio_container" class="scroll_box">
+                                <!-- <p>
+                                    <span>Local: Costas</span> - <span>Marca: Kvara</span> - <span>Segmento:
+                                        Vestimentas</span>
+                                    <i onclick="abrirModalApagar()" class="fa-solid fa-trash"></i>
+                                </p> -->
+
+
+                            </div>
+                            <button onclick="abrirAdicionarPat()">Adicionar</button>
+                        </div>
+
+                    </div>
+                    <div class="cards_inf_box">
+                        <div class="medalhas_box">
+                            <h1>Medalhas</h1>
+
+                            <div id="medalha_container">
+                                <!-- <span>
+                                    <span>Federação: CBJJ</span>
+                                    <span>Campeonato: Brasileiro OPEN</span>
+                                    <span>Posição: 1° lugar</span>
+                                    <span>Data: 12/12/2000</span>
+                                </span> -->
+                            </div>
+
+                            <button onclick="abrirAdicionarMed()">Adicionar</button>
+                        </div>
+
+                    </div>
+
+                    <h1 class="titulo_comunidade">Métricas da comunidade</h1>
+                    <div class="cards_inf_box">
+                        <div>
+                            <h1>Quantidade de alunos por faixas</h1>
+
+                            <canvas id="myChartCanvas" width="519" height="350"></canvas>
+
+                        </div>
+                        <div>
+                            <h1>Categoria dos atletas </h1>
+                            <canvas id="myChartCanvasCat" width="519" height="350"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+<script>
+
+    // STORAGE INFORMAÇÃO
+
+
+    var idAtleta_sto = sessionStorage.ID_USUARIO
+    var nome_sto = sessionStorage.NOME_USUARIO
+
+    //console.log(`ID do user: ${idAtleta_sto}`)
+
+    var sobrenome_sto = sessionStorage.SOBRENOME_USUARIO
+    var email_sto = sessionStorage.EMAIL_USUARIO
+    var senha_sto = sessionStorage.SENHA
+    var telefone_sto = sessionStorage.TELEFONE_USUARIO
+    var cep_sto = sessionStorage.CEP_USUARIO
+    var estado_sto = sessionStorage.ESTADO_USUARIO
+
+    //var dtNascimento_sto = sessionStorage.DTNASCIMENTO_USUARIO
+    //console.log(`Data: ${dtNascimento_sto}`)
+
+    var team_sto = sessionStorage.TEAM_USUARIO
+    var faixa_sto = sessionStorage.FAIXA_USUARIO
+    var grau_sto = sessionStorage.GRAU_USUARIO
+
+    nome_user.innerHTML = nome_sto + " " + sobrenome_sto;
+    team_user.innerHTML = `Team: ${team_sto}`;
+    cep_user.innerHTML = `Cep: ${cep_sto}`;
+    email_user.innerHTML = `Email: ${email_sto}`;
+    faixa_user.innerHTML = `Faixa: ${faixa_sto}`;
+    grau_user.innerHTML = grau_sto;
+
+
+    function abrirModalApagar() {
+        modalApagar.style.display = 'block'
+    }
+
+    function fecharModalExcluir() {
+        modalApagar.style.display = 'none'
+    }
+
+    function abrirAdicionarPat() {
+        modalAdicionarPat.style.display = 'flex';
+        centro_div.style.display = 'none'
+    }
+
+    function fecharAdicionarPat() {
+        modalAdicionarPat.style.display = 'none';
+        centro_div.style.display = 'block'
+    }
+
+    function enviarAdicionarPat() {
+
+        var lugarVar = select_lugarPat.value;
+        var nomeEmpVar = input_empresa.value;
+        var segmentoVar = select_segmento.value;
+
+        if (lugarVar == "" || nomeEmpVar == "" || segmentoVar == "") {
+            mensagem_erro.innerHTML = `Preencha os campos corretamente`
+            modalVermelho.style.display = "block"
+
+            setTimeout(() => {
+                modalVermelho.style.display = `none`;
+            }, "3000");
+
+        } else {
+
+            fetch("/usuarios/adicionarPat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+
+                    lugarServer: lugarVar,
+                    nomeEmpServer: nomeEmpVar,
+                    segmentoServer: segmentoVar,
+                    idAtletaServer: idAtleta_sto
+
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+
+                        window.location.reload();
+                        //ADD ALERT DEPOIS  
+                        modalAdicionarPat.style.display = 'none';
+                        centro_div.style.display = 'block'
+
+
+                    } else {
+
+                        throw "Houve um erro ao tentar realizar ao adicionar UM PATROCINIO!";
+
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    modalAdicionarPat.style.display = 'block';
+                    centro_div.style.display = 'none'
+                });
+
+            return false;
+
+        }
+
+
+
+
+
+    }
+
+    function deletarPat(idPatrocinio) {
+
+        console.log("Criar função de apagar post escolhido - ID" + idPatrocinio);
+        fetch(`/usuarios/deletarPat/${idPatrocinio}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                //window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+
+                mensagem_sucesso.innerHTML = `Patrocinio deletado com sucesso`;
+                modalVerde.style.display = `block`;
+
+
+                setTimeout(() => {
+                    modalVerde.style.display = `none`;
+                    window.location = "/dashboard/dashboard.html"
+                }, "3000");
+
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+
+    function fecharEditarUser() {
+        modalEditarUser.style.display = 'none';
+        centro_div.style.display = 'block'
+    }
+
+    function abrirEditarUser() {
+
+        input_nome.value = nome_sto
+        input_sobrenome.value = sobrenome_sto
+        input_email.value = email_sto
+        input_senha1.value = senha_sto
+        input_senha2.value = senha_sto
+        input_telefone.value = telefone_sto
+        input_cep.value = cep_sto
+        select_faixa.value = faixa_sto
+        select_grau.value = grau_sto
+        select_estado.value = estado_sto;
+        //input_dtNasc.value = dtNascimento_sto
+        input_team.value = team_sto
+
+        modalEditarUser.style.display = 'flex';
+        centro_div.style.display = 'none'
+
+    }
+
+    function enviarEditarUser() {
+        var nomeVar = input_nome.value;
+        var sobrenomeVar = input_sobrenome.value;
+        var emailVar = input_email.value;
+        var senhaVar = input_senha1.value;
+        var telefoneVar = input_telefone.value;
+        //var dtNascimentoVar = input_dtNasc.value;
+        var cepVar = input_cep.value;
+
+        var teamVar = input_team.value;
+        var faixaVar = select_faixa.value;
+        var grauVar = select_grau.value;
+        var categoriaVar = select_categoria.value;
+
+        fetch("/usuarios/editar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                sobrenomeServer: sobrenomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                telefoneServer: telefoneVar,
+                cepServer: cepVar,
+                //dtNascimentoServer: dtNascimentoVar,
+                teamServer: teamVar,
+                faixaServer: faixaVar,
+                grauServer: grauVar,
+                categoriaServer: categoriaVar,
+                idAtletaServer: idAtleta_sto
+
+
+
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    fetch("/usuarios/autenticar", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            emailServer: emailVar,
+                            senhaServer: senhaVar
+                        })
+                    }).then(function (resposta) {
+                        console.log("ESTOU NO THEN DO entrar()!")
+
+                        if (resposta.ok) {
+                            console.log(resposta);
+
+                            resposta.json().then(json => {
+                                console.log(json);
+                                console.log(JSON.stringify(json));
+
+                                sessionStorage.ID_USUARIO = json.idAtleta;
+                                sessionStorage.NOME_USUARIO = json.nome;
+                                sessionStorage.SOBRENOME_USUARIO = json.sobrenome;
+                                sessionStorage.EMAIL_USUARIO = json.email;
+                                sessionStorage.SENHA = json.senha;
+                                sessionStorage.TELEFONE_USUARIO = json.telefone;
+                                sessionStorage.CEP_USUARIO = json.cep;
+                                // Tive problema com isso
+                                //sessionStorage.DTNASCIMENTO_USUARIO = json.dtNascimento;
+                                sessionStorage.TEAM_USUARIO = json.team;
+                                sessionStorage.FAIXA_USUARIO = json.faixa;
+                                sessionStorage.GRAU_USUARIO = json.grau;
+
+                                //sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                                setTimeout(function () {
+                                    window.location = "dashboard.html";
+                                }, 1000); // apenas para exibir o loading
+
+                            });
+
+                        } else {
+
+                            console.log("Houve um erro ao tentar realizar o login!");
+                            alerta_modal.innerHTML = `Email e/ou senha está incorreto!`;
+                            modal.style.display = 'block';
+                            resposta.text().then(texto => {
+                                console.error(texto);
+
+                            });
+                        }
+
+                    }).catch(function (erro) {
+                        console.log(erro);
+                        ;
+
+                    })
+
+                    return false;
+
+                    modalEditarUser.style.display = 'none';
+                    centro_div.style.display = 'block'
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                modalEditarUser.style.display = 'block';
+                centro_div.style.display = 'none'
+            });
+
+        return false;
+    }
+
+    function abrirAdicionarMed() {
+        modalAdicionarMed.style.display = 'block';
+        centro_div.style.display = 'none'
+    }
+
+    function fecharAdicionarMed() {
+        modalAdicionarMed.style.display = 'none';
+        centro_div.style.display = 'block'
+    }
+
+    function enviarAdicionarMed() {
+
+        var federacaoVar = input_federacao.value;
+        var dtVar = input_data.value;
+        var posicaoVar = select_posicao.value;
+        var nomeVar = input_campeonato.value;
+
+
+        if (federacaoVar == "" || dtVar == "" || posicaoVar == "" || nomeVar == "") {
+
+            mensagem_erro.innerHTML = `Preencha os campos corretamente`
+            modalVermelho.style.display = "block"
+
+            setTimeout(() => {
+                modalVermelho.style.display = `none`;
+            }, "3000");
+
+        } else {
+
+            fetch("/usuarios/adicionarMed", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+
+                    federacaoServer: federacaoVar,
+                    dtServer: dtVar,
+                    posicaoServer: posicaoVar,
+                    nomeServer: nomeVar,
+                    idAtletaServer: idAtleta_sto
+
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        window.location.reload();
+                        modalAdicionarMed.style.display = 'none';
+                        centro_div.style.display = 'block'
+
+                    } else {
+                        console.log(`Posição: ${posicaoVar} --- Posição tamanho: ${posicaoVar.length}`)
+                        throw "Houve um erro ao tentar realizar ao adicionar UMA MEDALHA!";
+
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    modalAdicionarMed.style.display = 'block';
+                    centro_div.style.display = 'none'
+                });
+
+            return false;
+
+        }
+
+
+
+    }
+
+    function deletarMed(idMedalha) {
+
+        console.log("Criar função de apagar post escolhido - ID" + idMedalha);
+        fetch(`/usuarios/deletarMed/${idMedalha}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                //window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+
+                mensagem_sucesso.innerHTML = `Medalha deletada com sucesso`;
+                modalVerde.style.display = `block`;
+
+
+                setTimeout(() => {
+                    modalVerde.style.display = `none`;
+                    window.location = "/dashboard/dashboard.html"
+                }, "3000");
+
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+    // LISTAR 
+    function atualizarFeed() {
+
+        var idAtleta = idAtleta_sto;
+
+        console.log(`ATLETA ID NO DASHBOARD ATUALIZAR FEED  --  ${idAtleta}`)
+
+        fetch(`/avisos/listar/${idAtleta}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var patrocinio = document.getElementById("patrocinio_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum patrocínio registrado, adicione :)"
+                    patrocinio.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var patrocinio = document.getElementById("patrocinio_container");
+                    patrocinio.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var pElement = document.createElement("p");
+                        var spanLocal = document.createElement("span");
+                        var spanMarca = document.createElement("span");
+                        var spanSegmento = document.createElement("span");
+                        var iconTrash = document.createElement("i");
+
+                        spanLocal.innerHTML = "<b> Local: </b>" + publicacao.lugar;
+                        spanMarca.innerHTML = "<b>Empresa: </b>" + publicacao.empresa;
+                        spanSegmento.innerHTML = "<b>Segmento: </b> " + publicacao.segmento;
+                        iconTrash.className = "fa-solid fa-trash";
+                        iconTrash.setAttribute("onclick", "abrirModalApagar()");
+                        spanLocal.id = "inputNumero" + publicacao.idAtleta;
+
+                        iconTrash.id = "btnDeletar" + publicacao.idAtleta;
+                        iconTrash.setAttribute("onclick", `deletarPat(${publicacao.idPatrocinio})`);
+
+                        pElement.appendChild(spanLocal);
+                        pElement.appendChild(document.createTextNode(" - "));
+                        pElement.appendChild(spanMarca);
+                        pElement.appendChild(document.createTextNode(" - "));
+                        pElement.appendChild(spanSegmento);
+                        pElement.appendChild(document.createTextNode(" "));
+                        pElement.appendChild(iconTrash);
+
+
+                        patrocinio.appendChild(pElement);
+
+                        //  
+                        //   <span>Local: Costas</span> - 
+                        //           <span>Marca: Kvara</span> - 
+                        //           <span>Segmento: Vestimentas</span> 
+                        //          <i onclick="abrirModalApagar()"class="fa-solid fa-trash"></i>
+                        //      
+                    }
+
+
+                });
+            } else {
+                console.log("id do atleta" + idAtleta)
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
+    }
+
+    function atualizarFeedMedalha() {
+
+        var idAtleta = idAtleta_sto;
+
+        console.log(`ATLETA ID NO DASHBOARD MEDALHA  --  ${idAtleta}`)
+
+        fetch(`/avisos/listarMedalha/${idAtleta}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var patrocinio = document.getElementById("medalha_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Adicione uma medalha sua!"
+                    patrocinio.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var patrocinio = document.getElementById("medalha_container");
+                    patrocinio.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var medalha = resposta[i];
+
+                        // Criação dos elementos principais
+                        var spanElement = document.createElement("span");
+                        var divOrg = document.createElement("div");
+                        var spanFederacao = document.createElement("span");
+                        var spanCampeonato = document.createElement("span");
+                        var spanPosicao = document.createElement("span");
+                        var spanData = document.createElement("span");
+                        var iconTrash = document.createElement("i");
+
+                        spanElement.className = "span_medalhas_box";
+
+                        // Definindo o conteúdo de cada elemento span
+                        spanFederacao.innerHTML = "<b>Federação: </b> " + medalha.federacao;
+                        spanCampeonato.innerHTML = "<b>Campeonato: </b> " + medalha.campeonato;
+                        spanPosicao.innerHTML = "<b>Posição: </b>" + medalha.posicao + " Lugar";
+                        spanData.innerHTML = "<b>Data: </b>" + medalha.ano;
+                        iconTrash.className = "fa-solid fa-trash";
+                        iconTrash.id = "btnDeletar" + medalha.idAtleta;
+                        iconTrash.setAttribute("onclick", `deletarMed(${medalha.idMedalha})`);
+                        //spanLocal.id = "inputNumero" + publicacao.idAtleta;
+
+                        // Adicionando os spans criados ao span principal
+                        spanElement.appendChild(spanFederacao);
+                        spanElement.appendChild(document.createTextNode(" - "));
+                        spanElement.appendChild(spanCampeonato);
+                        spanElement.appendChild(document.createTextNode(" - "));
+                        spanElement.appendChild(spanPosicao);
+                        spanElement.appendChild(document.createTextNode(" - "));
+                        spanElement.appendChild(spanData);
+                        spanElement.appendChild(iconTrash);
+
+                        // Adicionando o span principal ao elemento de destino no DOM (ajuste o seletor conforme necessário)
+                        document.getElementById("medalha_container").appendChild(spanElement);
+
+                    }
+
+
+                });
+            } else {
+                console.log("id do atleta" + idAtleta)
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
+    }
+
+
+
+    // GRAFICOS
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+
+    // GRAFICO 1 - FAIXA
+    function obterDadosGrafico() {
+
+        fetch(`/medidas/ultimas`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGrafico(resposta) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: '',
+                data: [],
+                fill: false,
+                backgroundColor: [],
+
+                tension: 0.1
+            }
+
+            ]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+
+            // labels.push(registro.faixa);
+            // if (registro.faixa === 'branca') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#DBDBDB');
+            // } else if (registro.faixa === 'azul') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#001A84');
+            // } else if (registro.faixa === 'roxa') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#410B92');
+            // } else if (registro.faixa === 'marrom') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#522213');
+            // } else if (registro.faixa === 'preta') {
+            //     dados.datasets[0].data.push(registro.quantidade);
+            //     dados.datasets[0].backgroundColor.push('#1E1919');
+            // }
+
+            labels.push(registro.faixa);
+            dados.datasets[0].data.push(registro.quantidade);
+            if (registro.faixa === 'branca') {
+                dados.datasets[0].backgroundColor.push('#DBDBDB');
+            } else if (registro.faixa === 'azul') {
+                dados.datasets[0].backgroundColor.push('blue');
+            } else if (registro.faixa === 'roxa') {
+                dados.datasets[0].backgroundColor.push('purple');
+            } else if (registro.faixa === 'marrom') {
+                dados.datasets[0].backgroundColor.push('brown');
+            } else if (registro.faixa === 'preta') {
+                dados.datasets[0].backgroundColor.push('black');
+            }
+
+
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'pie',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas`),
+            config
+        );
+
+    }
+
+
+    // GRAFICO 2 - CATEGORIA
+    function obterDadosGraficoCat() {
+
+        fetch(`/medidas/ultimasCat`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoCat(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoCat(resposta) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: '',
+                data: [],
+                fill: false,
+                backgroundColor: [],
+
+                tension: 0.1
+            }
+
+            ]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            // labels.push(registro.momento_grafico);
+
+            labels.push(registro.peso);
+            if (registro.peso === 'galo') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#c4d5db ');
+            } else if (registro.peso === 'pluma') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#8FD4FF ');
+            } else if (registro.peso === 'pena') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#4A97FF  ');
+            } else if (registro.peso === 'leve') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#267AFF  ');
+            } else if (registro.peso === 'medio') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#0057E7 ');
+            } else if (registro.peso === 'meio-pesado') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#0041A3 ');
+            } else if (registro.peso === 'pesado') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#002C6D ');
+            } else if (registro.peso === 'super-pesado') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#001749');
+            } else if (registro.peso === 'pesadissimo') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#1a1a2e ');
+            } else if (registro.peso === 'absoluto') {
+                dados.datasets[0].data.push(registro.quantidade);
+                dados.datasets[0].backgroundColor.push('#1E1919');
+            }
+
+            // dados.datasets[0].data.push(registro.quantidade);
+            // dados.datasets[1].data.push(registro.quantidade);
+            // dados.datasets[2].data.push(registro.quantidade);
+            // dados.datasets[3].data.push(registro.quantidade);
+            // dados.datasets[4].data.push(registro.quantidade);
+
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'pie',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvasCat`),
+            config
+        );
+
+    }
+
+</script>

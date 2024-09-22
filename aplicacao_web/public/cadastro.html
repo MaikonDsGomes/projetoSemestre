@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Jiu Connect | Cadastro</title>
+
+  <!-- <script src="./js/sessao.js"></script> -->
+
+  <!-- Biblioteca de mascara input -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="icon" href="assets/logo.ico" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="stylesheet" href="css/cadastro.css">
+</head>
+
+
+
+<style>
+
+
+</style>
+
+
+
+
+<div id="modal" class="modal">
+  <div class="flex">
+
+    <span class="close">&times;</span>
+
+    <div class="erro_box">
+      <p class="erro_titulo">Algo deu errado</p>
+      <div class="erro_texto">
+
+        <p id="mensagem_erro">Ops! Algo de errado verifique o campo <span id="alerta_modal"></span></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalVerde" class="modalVerde">
+  <div class="flex">
+
+
+
+    <div class="sucesso_box">
+      <p class="sucesso_titulo">Sucesso!</p>
+      <div class="sucesso_texto">
+
+        <p id="mensagem_sucesso"></span></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3 id="mensagem_erro">Ops! Algo de errado verifique o campo <span id="alerta_modal"></span></h3>
+  </div>
+</div> -->
+
+<body>
+  <section class="cadastro_sec">
+    <div id="tela_inicial" class="login-container">
+      <a style="text-decoration: none; color: black;" href="index.html">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <h2 style="margin-bottom: 10%;">Cadastro</h2>
+      <form class="login-form">
+
+        <label>Nome:</label>
+        <input placeholder="Insira seu nome:" type="text" id="input_nome" required>
+
+        <label>Sobrenome:</label>
+        <input placeholder="Insira seu Sobrenome:" type="text" id="input_sobrenome" required>
+
+        <label>E-mail do Usuário:</label>
+        <input placeholder="Insira seu E-mail:" type="text" id="input_email" required>
+
+        <label>Senha:</label>
+        <input placeholder="Insira sua senha:" type="password" id="input_senha1" required>
+
+        <label>Repita a senha:</label>
+        <input placeholder="Insira sua senha novamente:" type="password" id="input_senha2" required>
+
+        <label>Telefone:</label>
+        <input placeholder="Insira seu telefone:" type="text" id="input_telefone" required>
+
+        <label>Data de nascimento:</label>
+        <input placeholder="Insira sua data de nascimento:" type="date" id="input_dtNasc" required>
+
+        <label>Cep:</label>
+        <input maxlength="9" placeholder="Insira seu cep:" type="text" id="input_cep" required>
+
+        <label>Estado</label>
+
+        <select id="select_estado">
+          <option>Acre</option>
+          <option>Alagoas</option>
+          <option>Amapá</option>
+          <option>Amazonas</option>
+          <option>Bahia</option>
+          <option>Ceará</option>
+          <option>Distrito Federal</option>
+          <option>Espírito Santo</option>
+          <option>Goiás</option>
+          <option>Maranhão</option>
+          <option>Mato Grosso</option>
+          <option>Mato Grosso do Sul</option>
+          <option>Minas Gerais</option>
+          <option>Pará</option>
+          <option>Paraíba</option>
+          <option>Paraná</option>
+          <option>Pernambuco</option>
+          <option>Piauí</option>
+          <option>Rio de Janeiro</option>
+          <option>Rio Grande do Norte</option>
+          <option>Rio Grande do Sul</option>
+          <option>Rondônia</option>
+          <option>Roraima</option>
+          <option>Santa Catarina</option>
+          <option>São Paulo</option>
+          <option>Sergipe</option>
+          <option>Tocantins</option>
+        </select>
+
+        <p>
+          Ao me cadastrar aceito os seguintes <a href="termos.html">termos</a>
+        </p>
+
+        <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button"
+          onclick="verificar()">Avançar</button>
+
+        <a class="se-cadastre" href="login.html">
+          <span>Ja tenho login</span>
+        </a>
+
+      </form>
+    </div>
+
+
+    <div style="display: none;" id="tela_final" class="login-container">
+      <h2 style="margin-bottom: 10%;">Perfil</h2>
+      <form class="login-form">
+
+        <label>Team:</label>
+        <input placeholder="Insira o nome da sua academia:" type="text" id="input_team" required>
+
+        <label>Peso:</label>
+        <select id="select_categoria">
+          <option value="galo">Galo</option>
+          <option value="pluma">Pluma</option>
+          <option value="pena">Pena</option>
+          <option value="leve">Leve</option>
+          <option value="medio">Médio</option>
+          <option value="meio-pesado">Meio-pesado</option>
+          <option value="pesado">Pesado</option>
+          <option value="super-pesado">Super-pesado</option>
+          <option value="pesadissimo">Pesadíssimo</option>
+          <option value="absoluto">Absoluto</option>
+        </select>
+
+        <label>Faixa:</label>
+        <select id="select_faixa">
+
+          <option value="branca">Faixa Branca</option>
+          <option value="azul">Faixa Azul</option>
+          <option value="roxa">Faixa Roxa</option>
+          <option value="marrom">Faixa Marrom</option>
+          <option value="preta">Faixa Preta</option>
+        </select>
+
+        </select>
+
+        <label>Grau da sua faixa:</label>
+        <select id="select_grau">
+
+          <option value="0°">0°</option>
+          <option value="1°">1°</option>
+          <option value="2°">2°</option>
+          <option value="3°">3°</option>
+          <option value="4°">4°</option>
+          <option value="5°">5°</option>
+          <option value="6°">6°</option>
+          <option value="7°">7°</option>
+          <option value="8°">8°</option>
+          <option value="9°">9°</option>
+
+        </select>
+
+        <button style="width: 106%; margin-top: 5%; margin-bottom: 5%;" type="button"
+          onclick="cadastrar()">cadastrar</button>
+
+
+      </form>
+    </div>
+
+  </section>
+</body>
+
+</html>
+
+<script>
+
+
+
+  $("#input_telefone").mask("(00) 00000-0000");
+  $("#input_cep").mask("00000-000");
+
+  function verificar() {
+
+    var testeFinal = true;
+    var inputEmail = input_email.value;
+    var telefone = input_telefone.value;
+    var senha1 = input_senha1.value;
+    var senha2 = input_senha2.value;
+    var indice_arroba = inputEmail.indexOf('@');
+    var indice_ponto = inputEmail.lastIndexOf('.');
+    var dataNascimento = new Date(document.getElementById('input_dtNasc').value);
+    var dataAtual = new Date();
+    var validarIdade = dataAtual.getFullYear() - dataNascimento.getFullYear();
+
+    if (validarIdade < 16 || dataNascimento == null) {
+      modal.style.display = 'block';
+      alerta_modal.innerHTML = `idade, você precisa ter no mínimo 16 anos`;
+
+      testeFinal = false;
+    }
+    if (indice_arroba < 0 || indice_ponto < 0) {
+      modal.style.display = 'block';
+      alerta_modal.innerHTML = `email`;
+
+      testeFinal = false;
+
+    }
+    if (senha1 != senha2) {
+      modal.style.display = 'block';
+      alerta_modal.innerHTML = `senha, as senhas devem ser iguais`;
+
+      testeFinal = false;
+    }
+    if (senha1.length <= 8 || senha2.length <= 8) {
+      modal.style.display = 'block';
+      alerta_modal.innerHTML = `senha, deve ter mais de 8 caracteres`;
+
+      testeFinal = false;
+    }
+
+    if (testeFinal == true) {
+      tela_inicial.style.display = 'none';
+      tela_final.style.display = 'block';
+    }
+
+    document.querySelector('.close').addEventListener('click', function () {
+      document.getElementById('modal').style.display = 'none';
+    });
+
+
+  }
+
+  function cadastrar() {
+
+    var nomeVar = input_nome.value;
+    var sobrenomeVar = input_sobrenome.value;
+    var emailVar = input_email.value;
+    var senhaVar = input_senha1.value;
+    var telefoneVar = input_telefone.value;
+    var dtNascimentoVar = input_dtNasc.value;
+    var cepVar = input_cep.value;
+    var estadoVar = select_estado.value;
+
+    var teamVar = input_team.value;
+    var faixaVar = select_faixa.value;
+    var grauVar = select_grau.value;
+    var categoriaVar = select_categoria.value;
+
+
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        sobrenomeServer: sobrenomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        telefoneServer: telefoneVar,
+        cepServer: cepVar,
+        estadoServer: estadoVar,
+        dtNascimentoServer: dtNascimentoVar,
+        teamServer: teamVar,
+        faixaServer: faixaVar,
+        grauServer: grauVar,
+        categoriaServer: categoriaVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          modalVerde.style.display = "block";
+          mensagem_sucesso.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+
+      });
+
+    return false;
+
+  }
+
+
+</script>
